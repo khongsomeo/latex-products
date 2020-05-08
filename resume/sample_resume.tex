@@ -2,6 +2,8 @@
 
 \usepackage{hyperref}
 \usepackage{titlesec}
+\usepackage{titling}
+\usepackage[margin=1in]{geometry}
 
 \titleformat{\section}
     {\huge\lowercase}
@@ -10,18 +12,42 @@
     {}
     [\titlerule]
 
+\titleformat{\subsection}
+    {\bfseries\large}
+    {\def}
+    {}
+    {}
+
+% Styles for the title
+\renewcommand{\maketitle}{
+    \begin{center}
+        % Author's name
+        {\huge\bfseries\theauthor}
+    \end{center}
+}
+
 \begin{document}
     \title{Resume}
     \author{Quan, Tran Hoang}
     \maketitle
 
-    \section{Technical Skills}
+    \section{Basic Informations}
+        {\bfseries Quan, Tran Hoang} (his name is Quan, family name Tran).
+        \begin{itemize}
+            \item Born: November 22, 2001
+            \item Hometown: Ben Tre Town (today Ben Tre City), Ben Tre Province, The Socialist Republic of Vietnam.
+            \item GitHub: \href{https://github.com/trhgquan}{@trhgquan}
+            \item \href{https://www.tranhoangquan.codes}{www.tranhoangquan.codes}
+        \end{itemize}
 
+    \section{Technical Skills}
         \subsection{Language}
             \subsubsection{Programming}
-                Programmming languages that I use: C, C++
+                C, C++
             \subsubsection{Scripting}
-                Scripting languages that I use: Python, PHP, JavaScript, AutoIt.
+                Python, PHP, JavaScript, AutoIt.
+            \subsubsection{Markup}
+                \LaTeX, HTML, CSS.
 
         \subsection{Image Editing}
             Image editing with Adobe Photoshop CS3.
