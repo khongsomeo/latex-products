@@ -5,6 +5,7 @@
 \usepackage[colorlinks = true,
             linkcolor  = blue,
             urlcolor   = blue]{hyperref}
+\usepackage{lastpage}
 \usepackage{titlesec}
 \usepackage{titling}
 \usepackage[margin=1in]{geometry}
@@ -12,9 +13,8 @@
 \pagestyle{fancy}
 \lhead{\LaTeX\space by Quan, Tran Hoang}
 \rhead{Quan, Tran Hoang's R\'esum\'e, updated \today}
+\cfoot{Page \thepage\ of \pageref{LastPage}}
 
-% Format for section
-\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}[{\titlerule[0.8pt]}]
 % Styles for the title
 \renewcommand{\maketitle}{
     \begin{center}
@@ -135,6 +135,7 @@
                 \item \href{https://github.com/trhgquan/CPP}{Competitive Programming Practice.}
             \end{enumerate}
 
+    % Contact section
     \section{Contacts}
         Send Quan an email:
         \begin{quote}
