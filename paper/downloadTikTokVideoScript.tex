@@ -1,0 +1,120 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\graphicspath{{./image/}}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\usepackage{lastpage}
+
+\pagestyle{fancy}
+\lhead{Small script to download TikTok video}
+\rhead{\LaTeX\space by Quan, Tran Hoang}
+
+\begin{document}
+\author{Quan, Tran Hoang}
+\title{Small script to download TikTok video}
+\maketitle{}
+
+\tableofcontents{}\newpage
+
+\part{Introduction}
+\section{About TikTok}
+TikTok is a video sharing social networking service. It is used to create short dance, lip-sync, comedy and talent video\cite{WikipediaTikTok}.
+\section{About Quan, Tran Hoang}
+At the time this document is being wrote, Quan is a Computer Science freshman at the VNUHCM - University of Science\cite{aboutquan}\cite{aboutquanblog}.
+\section{Why I wrote this script}
+However, since TikTok's policies does not allow users to download videos, downloading a video is a hard, time-wasting process. Sometimes you see a nice (rarely) video on TikTok, wanna post it on your Instagram or your Facebook story but cannot download them. Sharing it, then your friends just see a thumbnail instead of the original video.
+\\\\
+Knowing this, I created a small script to download TikTok videos, which can easily done by a mouse click. This script will match the video link from the website and output it, so you can do whatever you want with it.
+\section{Is this illegal?}
+de jure\footnote{by law} illegal, de facto\footnote{in reality} legal.
+
+\part{The Script}
+\section{Source code}\label{codeexplain}
+The script is originally written in JavaScript, correctly VanillaJS\cite{vanillajs}. Here's the source code:
+
+\begin{verbatim}
+/**
+ * Create a bookmark and add these codes to it.
+ * Open the video, then click the bookmark to get the download link.
+ * Or just simply paste these code to web console to get download link, too.
+ * Remember to delete these comments before adding code to bookmark!
+ *
+ * Code by @trhgquan - https://github.com/trhgquan
+ */
+
+javascript:var video_url = document.getElementsByTagName('video');
+prompt('video_url', video_url[0].src);
+\end{verbatim}
+\textbf{Explanation:} This script will get all \verb|<videos>| tags and return the first \verb|<video>| \verb|src| aka \verb|video_url[0].src|. This is the active video link.
+
+\section{Download}
+\subsection{Link}
+You can fork the file, download it or embed it here:
+\\
+\href{https://gist.github.com/trhgquan/35e2758208fe79c62f997519551e27a3}{https://gist.github.com/trhgquan/35e2758208fe79c62f997519551e27a3}
+
+\subsection{Copy raw}\label{copyraw}
+Follow these steps to get the raw version without downloading it.
+\begin{enumerate}
+\item Go to  \href{https://gist.github.com/trhgquan/35e2758208fe79c62f997519551e27a3}{https://gist.github.com/trhgquan/35e2758208fe79c62f997519551e27a3}\cite{scriptlink}
+\item Choose \textbf{Raw} button (as shown below).
+\\
+\includegraphics[scale=0.25]{rawbtn}
+\item The raw code appears, copy it.
+\end{enumerate}
+
+\part{Using Script}
+Before we get start, I have to mention that this script works on \textbf{every} browsers on \textbf{every} operating systems.
+\\\\
+There are two ways to use this script, if you are a newbie and not familiar with the Developer Tools then I suggest using the bookmarklet way.
+
+\section{Using Script with bookmarklet.}\label{bookmarklet}
+\begin{enumerate}
+\item Copy the code (recommend take \ref{copyraw} first).
+\item Create a new bookmark. This step is different depends on your browser.
+\item Paste the code to the URL field. This step is important, because if you paste the code wrong way e.g missing the "javascript:" prefix, the code will not work.
+\item To use: open TikTok video on browser, click on the newly-created bookmark. The video's link will be on a prompt box and you can copy it.
+\end{enumerate}
+
+\section{Using Script with the Developer Tools}
+The same as \ref{bookmarklet}, with some modify:
+\begin{enumerate}
+\item Copy the code (recommend take \ref{copyraw} first).
+\item Open TikTok video on browser.
+\item Open Developer Tool, choose \textbf{Console}.
+\item Paste the code to the console.
+\item The video's link will now appears in the console, the same time a prompt box appears just like \ref{bookmarklet}. You can choose link in both box since it's the same link.
+\end{enumerate}
+
+\part{Further}
+\section{Notice}
+This code can get at least and at most 1 (one) video at a time. To download multiple videos, you must open each video at one time, then trigger the code to get the link.
+\section{Practice}
+Uncomfortable with downloading 1 video each time, and you got hundreds of them? Actually this is a practice for you: write your own TikTok video downloader, using my script as an example.
+\\\\
+\underline{\textbf{The idea:}} since there are many \verb|<video>| tags in the whole document (\ref{codeexplain}), a loop through the selector variable may help. At that time, look for the download link and have suitable actions \textit{e.g} create cookie, create CSRF token,..etc.
+\\\\
+Be creative and make it your own way. Cheers!
+
+\medskip
+\begin{thebibliography}{9}
+\bibitem{WikipediaTikTok}
+\textit{Wikipedia.org: TikTok}
+\\\texttt{\href{https://en.wikipedia.org/wiki/TikTok}{https://en.wikipedia.org/wiki/TikTok}}
+\bibitem{aboutquan}
+\textit{Quan, Tran Hoang's Resume}
+\\\texttt{\href{https://www.chumeochuixoong.blogspot.com/p/my-resume.html}{https://www.chumeochuixoong.blogspot.com/p/my-resume.html}}
+\bibitem{aboutquanblog}
+\textit{Quan, Tran Hoang's blog: About Me}
+\\\texttt{\href{https://www.chumeochuixoong.blogspot.com/p/about-me.html}{https://www.chumeochuixoong.blogspot.com/p/about-me.html}}
+\bibitem{vanillajs}
+\textit{VanillaJS is a fast, lightweight, cross-platform framework
+ for building incredible, powerful JavaScript applications.}
+\\\texttt{\href{http://vanilla-js.com}{http://vanilla-js.com}}
+\bibitem{scriptlink}
+\textit{Quan, Tran Hoang: Simple way to download TikTok video, without using third-party apps / websites. }
+\\\texttt{\href{https://gist.github.com/trhgquan/35e2758208fe79c62f997519551e27a3}{https://gist.github.com/trhgquan/35e2758208fe79c62f997519551e27a3}}
+\end{thebibliography}
+
+\end{document}
