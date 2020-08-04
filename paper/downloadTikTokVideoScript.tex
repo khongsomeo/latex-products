@@ -1,5 +1,6 @@
 \documentclass{article}
 
+\usepackage{datetime}
 \usepackage{fancyhdr}
 \usepackage{graphicx}
 \graphicspath{{./image/}}
@@ -8,7 +9,8 @@
 
 \pagestyle{fancy}
 \lhead{Small script to download TikTok video}
-\rhead{\LaTeX\space by Quan, Tran Hoang}
+\rhead{\currenttime\ \today}
+\rfoot{\LaTeX\space by Quan, Tran Hoang}
 
 \begin{document}
 \author{Quan, Tran Hoang}
@@ -67,7 +69,12 @@ Follow these steps to get the raw version without downloading it.
 \part{Using Script}
 Before we get start, I have to mention that this script works on \textbf{every} browsers on \textbf{every} operating systems.
 \\\\
-There are two ways to use this script, if you are a newbie and not familiar with the Developer Tools then I suggest using the bookmarklet way.
+There are two ways to use this script,
+
+\begin{itemize}
+    \item \textbf{The bookmarklet way:} for newbie that didn't get use to the Developer Tools
+    \item \textbf{The console way:} for pros and Firefox user.
+\end{itemize}
 
 \section{Using Script with bookmarklet.}\label{bookmarklet}
 \begin{enumerate}
