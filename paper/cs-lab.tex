@@ -1,6 +1,7 @@
 \documentclass[]{article}
 
 \usepackage{fancyhdr}
+\usepackage{float}
 \usepackage{graphicx}
 \usepackage[colorlinks=true,linkcolor=blue]{hyperref}
 \usepackage{lastpage}
@@ -10,22 +11,24 @@
 \usepackage[utf8]{vietnam}
 \usepackage{xcolor}
 
+\graphicspath{{./image/}}
+
 \lstset{
-    language = C++,
-    frame = single,
-    basicstyle = \ttfamily,
-    breaklines = true,
-    basicstyle=\footnotesize\ttfamily,
-    keywordstyle=\bfseries\color{green!40!black},
-    commentstyle=\itshape\color{purple!40!black},
-    identifierstyle=\color{blue},
-    stringstyle=\color{orange},
+  language = C++,
+  frame = single,
+  basicstyle = \ttfamily,
+  breaklines = true,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
 }
 
 \pagestyle{fancy}
 \lhead{Báo cáo giữa kỳ Cấu trúc Dữ liệu và Giải thuật}
 \rhead{Trường Đại học Khoa học Tự nhiên - ĐHQG HCM}
-\lfoot{\LaTeX\ by Quan, Tran Hoang.}
+\lfoot{\LaTeX\ by \href{https://github.com/trhgquan}{Quan, Tran Hoang}.}
 
 % Title Page
 \title{Báo cáo giữa kỳ Cấu trúc Dữ liệu và Giải thuật}
@@ -36,12 +39,11 @@
 \tableofcontents
 \pagebreak
 
-\section{Phân tích một số thuật toán sắp xếp thông dụng.}
+\section{Trình bày các thuật toán sắp xếp đã cài đặt.}
 Dữ kiện cho các thuật toán:
 \begin{itemize}
 \item \textbf{Sắp xếp} được hiểu là \textbf{sắp xếp tăng dần}.
 \item Mảng $a$ cần được sắp xếp gồm $n$ số nguyên, mảng bắt đầu từ vị trí 0 \textit{(i.e mảng sẽ bao gồm các phần tử $a[0], a[1], .., a[n - 1]$)}.
-
 \end{itemize}
 \subsection{Sắp xếp chọn - Selection Sort}
 Tư tưởng của Selection Sort khá đơn giản: chọn phần tử nhỏ nhất trong mảng, sau đó đẩy phần tử đó lên đầu. Khi đó phần tử này đã đứng đúng vị trí của nó, ta tiếp tục thực hiện sort các phần tử đứng sau nó.
@@ -52,36 +54,44 @@ void selectionSort(int* a, int n) {
   int jMin;
 
   for (int i = 0; i < n - 1; ++i) {
+    // Gia su a[jMin] dung vi tri.
     jMin = i;
 
+    // Tim vi tri phan tu nho hon a[jMin] trong doan [i + 1, n].
     for (int j = i + 1; j < n; ++j)
       if (a[j] < a[jMin]) jMin = j;
 
-    if (jMin != i) swap(a[jMin], a[j])
+    // Hoan vi neu a[jMin] thuc su dung sai vi tri.
+    if (jMin ! = i) swap(a[jMin], a[i])
   }
 }
 \end{lstlisting}
 Độ phức tạp trung bình: $\mathcal{O}(n^2)$
 \\
-Độ phức tạp xấu nhất: $\mathcal{O}(n^2)$
+Độ phức tạp trong trường hợp xấu nhất: $\mathcal{O}(n^2)$
 \\
-Độ phức tạp không gian: $\mathcal{O}(n)$, không sử dụng thêm vùng nhớ.
+Độ phức tạp không gian: $\mathcal{O}(1)$, không sử dụng thêm vùng nhớ.
 \subsection{Sắp xếp nổi bọt - Bubble Sort}
 Sắp xếp nổi bọt sẽ ưu tiên làm \textit{nổi} các phần tử lớn hơn về phía sau bằng cách đổi chỗ mỗi phần tử với phần tử xếp sau nó đến khi nào không còn phần tử nào xếp sau lớn hơn nó. Chính vì vậy, tốc độ của Bubble Sort đặc biệt chậm đối với những bộ dữ liệu lớn, phải thực hiện rất nhiều phép so sánh.
 \\\\
 Cài đặt (C++):
 \begin{lstlisting}
 void bubbleSort(int* a, int n) {
-  for (int i = 0; i < n - 1; ++i)
+  // Lap qua tung phan tu, tru phan tu cuoi cung.
+  for (int i = 0; i < n - 1; ++i) {
+
+    // Lap tu phan tu do ve sau,
+    // thuc hien hoan vi neu co phan tu nao nho hon phan tu hien tai.
     for (int j = i + 1; j < n; ++j)
       if (a[i] > a[j]) swap(a[i], a[j]);
+  }
 }
 \end{lstlisting}
 Độ phức tạp trung bình: $\mathcal{O}(n^2)$
 \\
-Độ phức tạp xấu nhất: $\mathcal{O}(n^2)$
+Độ phức tạp trong trường hợp xấu nhất: $\mathcal{O}(n^2)$
 \\
-Độ phức tạp không gian: $\mathcal{O}(n)$, không sử dụng thêm vùng nhớ.
+Độ phức tạp không gian: $\mathcal{O}(1)$, không sử dụng thêm vùng nhớ.
 \subsection{Sắp xếp chèn - Insertion Sort}
 Tư tưởng của sắp xếp chèn đúng như tên gọi: giả sử miền bên trái của mảng đã được sắp xếp, ta chỉ cần tìm một vị trí thích hợp để chèn một phần tử vào miền đó mà không làm mất đi tính thứ tự của miền.
 \\\\
@@ -89,39 +99,69 @@ Cài đặt (C++):
 \begin{lstlisting}
 void insertionSort(int* a, int n) {
   for (int i = 1; i < n; ++i) {
+    // Xet tu phan tu i - 1 ve 0.
     int j = i - 1;
 
     int key = a[i];
 
+    // Neu phan tu khong the chen vao vi tri j,
+    // dich phan tu a[j] sang phai.
     while (j > 0 && a[j] > key) {
       a[j + 1] = a[j];
       --j;
     }
 
+    // Cuoi cung, ta chen key vao vi tri j.
     a[j] = key;
   }
 }
 \end{lstlisting}
-Nhận xét: ta có thể cải tiến thuật toán, làm giảm bớt các phép so sánh để tìm vị trí phù hợp. Tham khảo thuật toán Sắp xếp chèn nhị phân (Binary Insertion Sort) bên dưới.
+\textbf{Nhận xét:} ta có thể cải tiến thuật toán bằng cách làm giảm bớt các phép so sánh trong thao tác tìm vị trí phù hợp. Tham khảo thuật toán \ref{subsec:bininsertsort} bên dưới.
 \\\\
 Độ phức tạp trung bình: $\mathcal{O}(n^2)$
 \\
-Độ phức tạp xấu nhất: $\mathcal{O}(n^2)$
+Độ phức tạp trong trường hợp xấu nhất: $\mathcal{O}(n^2)$
 \\
-Độ phức tạp không gian: $\mathcal{O}(n)$, không sử dụng thêm vùng nhớ.
+Độ phức tạp không gian: $\mathcal{O}(1)$, không sử dụng thêm vùng nhớ.
 \subsection{Sắp xếp chèn nhị phân - Binary Insertion Sort}
-Sắp xếp chèn nhị phân là một cải tiến của sắp xếp chèn: miền bên trái của mảng đã có thứ tự, vì vậy ta có thể sử dụng tư tưởng của thuật toán tìm kiếm nhị phân để tìm vị trí chèn thích hợp.
-\\\\
-Binary Insertion Sort giảm số lượng phép so sánh của Insertion Sort từ $\mathcal{O}(n)$ còn $\mathcal{O}(\log n)$, tuy nhiên do thao tác chèn vẫn giống Insertion Sort nên độ phức tạp xấu nhất là $\mathcal{O}(n^2)$.
+\label{subsec:bininsertsort}
+\subsubsection{Tìm vị trí bằng Tìm kiếm nhị phân (Binary Search)}
+Tư tưởng của Tìm kiếm nhị phân: trên một miền $a$ có $a[left]$ là phần tử đầu tiên và $a[right]$ là phần tử cuối cùng; miền đã được sắp xếp theo thứ tự tăng dần. Ta chọn phần tử $\displaystyle mid = \frac{left + right}{2}$ làm gốc. Khi đó,
+\begin{itemize}
+\item nếu khóa $key == a[mid]$ thì $mid$ là vị trí cần tìm.
+\item nếu khóa $key < a[mid]$ thì $key$ nằm trong miền từ $a[left]$ đến $a[mid - 1]$. Lặp lại thuật toán với miền $[left, mid - 1]$.
+\item nếu khóa $key > a[mid]$ thì $key$ nằm trong miền từ $a[mid + 1]$ đến $a[right]$. Lặp lại thuật toán với miền $[mid + 1, right]$.
+\end{itemize}
+Dễ thấy: nếu áp dụng thuật toán Tìm kiếm nhị phân để chèn $key$ vào miền $[left, right]$ thì đối tượng ta cần tìm không phải \textbf{vị trí $key$ xuất hiện lần đầu}, mà là \textbf{vị trí đầu tiên mà giá trị nhỏ hơn hoặc bằng $key$}. Nói cách khác:
+\begin{itemize}
+\item Nếu tồn tại một vị trí $i$ sao cho $a[i] \leq key$ thì vị trí chèn $key$ sẽ là $i + 1$.
+\item Ngược lại, $key$ sẽ là phần tử nhỏ nhất trong miền $[left, right]$. Khi đó, $key$ sẽ được chèn vào vị trí $left$.
+\end{itemize}
+
+\subsubsection{Thuật toán Sắp xếp chèn nhị phân}
+Sắp xếp chèn nhị phân là một cải tiến của sắp xếp chèn: miền bên trái của mảng đã có thứ tự, vì vậy ta có thể sử dụng tư tưởng của thuật toán tìm kiếm nhị phân để tìm vị trí chèn thích hợp thay cho tìm kiếm tuần tự.
 \\\\
 Cài đặt (C++):
 \begin{lstlisting}
+/**
+ * Ham tim kiem khoa key tren mien [left, right],
+ * dung ky thuat tim kiem nhi phan.
+ */
 int findPosition(int* a, int key, int left, int right) {
-  if (left >= right) return (a[left] < key ? left + 1 : left);
+  // Mang chi con 1 phan tu, ta xet 2 truong hop:
+  //
+  // - neu a[left] <= key, nghia la key se dung sau a[left], nen duoc chen vao vi tri left + 1.
+  //
+  // - nguoc lai, key se la phan tu nho nhat mien [left, right] nen duoc chen vao vi tri left.
+  if (left >= right) return (a[left] <= key ? left + 1 : left);
 
+  // Tinh toan phan tu mid.
   int mid = (left + right) / 2;
 
+  // Neu a[mid] = key, key se duoc chen vao phia sau mid.
   if (a[mid] == key) return mid + 1;
+
+  // Tien hanh goi de quy tim kiem tren cac mien phu hop.
   if (a[mid] > key) return findPosition(a, key, left, mid - 1);
   return findPosition(a, key, mid + 1, right);
 }
@@ -132,41 +172,56 @@ void binaryInsertionSort(int* a, int n) {
 
     int key = a[i];
 
+    // Tim kiem vi tri thich hop de chen key vao mien [0, i] bang Binary Search.
     int position = findPosition(a, key, 0, i);
 
+    // Dich chuyen cac vi tri.
     while (j >= position) {
       a[j + 1] = a[j];
       --j;
     }
 
+    // Chen key vao vi tri j.
     a[j] = key;
   }
 }
-\end{lstlisting}
+\end{lstlisting}Binary Insertion Sort giảm số lượng phép so sánh của Insertion Sort từ $\mathcal{O}(n^2)$ còn $\mathcal{O}(n \log n)$, tuy nhiên do thao tác chèn vẫn giống Insertion Sort nên độ phức tạp xấu nhất là $\mathcal{O}(n^2)$.
+\\\\
 Độ phức tạp trung bình: $\mathcal{O}(n^2)$
 \\
-Độ phức tạp xấu nhất: $\mathcal{O}(n^2)$
+Độ phức tạp trong trường hợp xấu nhất: $\mathcal{O}(n^2)$
 \\
-Độ phức tạp không gian: $\mathcal{O}(n)$, không sử dụng thêm vùng nhớ.
+Độ phức tạp không gian: $\mathcal{O}(1)$, không sử dụng thêm vùng nhớ.
 \subsection{Sắp xếp trộn - Merge Sort}
 Sắp xếp trộn mang tư tưởng Chia để trị (Divide and Conquer): chia nhỏ mảng giá trị ra làm 2 mảng con, gọi đệ quy sắp xếp 2 mảng đó rồi trộn 2 mảng con lại với nhau.
 \\\\
 Cài đặt (C++)
 \begin{lstlisting}
 void split(int* a, int* b, int left, int right) {
-  if (left - right < 2) return;
+  // Neu mang co 1 phan tu, ta khong chia nua.
+  if (right - left < 2) return;
 
+  // Tinh toan phan tu giua mang.
   int middle = (left + right) / 2;
 
+  // Goi de quy chia mang bat dau tu a[left] toi a[middle].
   split(b, a, left, middle);
+
+  // Goi de quy chia mang bat dau tu a[middle] toi a[right].
   split(b, a, middle, right);
 
+  // Tron 2 mang lai voi nhau.
   merge(a, b, left, middle, right);
 }
 
 void merge(int* a, int* b, int left, int middle, int right) {
+  // nua dau mang a va nua sau mang a da duoc sap xep rieng biet.
+  //
+  // nua dau bat dau tu left, ket thuc o middle -1.
+  // nua sau bat dau tu middle, ket thuc o right.
   int i = left, j = middle;
 
+  // Tron cac phan tu tu 2 nua cua a vao b
   for (int k = left; k < right; ++k) {
     if (i < middle && (j >= right || a[i] <= a[j]))
       b[k] = a[i++];
@@ -176,6 +231,8 @@ void merge(int* a, int* b, int left, int middle, int right) {
 }
 
 void mergeSort(int* a, int* b, int left, int right) {
+  // Tao mot mang phu b, khi do ta thuc hien cac phep split va merge tren b,
+  // sau do copy lai vao a.
   for (int i = left; i < right; ++i) b[i] = a[i];
 
   split(a, b, 0, r);
@@ -183,24 +240,159 @@ void mergeSort(int* a, int* b, int left, int right) {
 \end{lstlisting}
 Độ phức tạp trung bình: $\mathcal{O}(n \log n)$
 \\
-Độ phức tạp xấu nhất: $\mathcal{O}(n \log n)$
+Độ phức tạp trong trường hợp xấu nhất: $\mathcal{O}(n \log n)$
 \\
-Độ phức tạp không gian: $\mathcal{O}(n)$ - sử dụng thêm mảng phụ.
+Độ phức tạp không gian: $\mathcal{O}(n)$ - sử dụng thêm mảng phụ hỗ trợ các thao tác \texttt{split} và \texttt{merge}.
 \subsection{Sắp xếp nhanh - Quick Sort}
-Sắp xếp nhanh có cùng tư tưởng như Sắp xếp trộn, tuy nhiên cách chia và vị trí chia các mảng
+Sắp xếp nhanh có cùng tư tưởng Chia để trị (Divide and Conquer) như Sắp xếp trộn, tuy nhiên cách chia và vị trí chia các mảng không phải là ở vị trí giữa mà ở các vị trí \textbf{chốt (Pivot)}.
 \\\\
+Cụ thể, thuật toán Sắp xếp nhanh chọn một phần tử làm \textbf{chốt}, sau đó chia mảng ra thành 2 phần:
+\begin{itemize}
+\item Nửa đầu mảng gồm các phần tử nhỏ hơn hoặc bằng phần tử \textbf{chốt}.
+\item Nửa sau mảng gồm các phần tử lớn hơn hoặc bằng phần tử \textbf{chốt}.
+\end{itemize}
+Sau đó, thuật toán lại chọn 2 phần tử \textbf{chốt} trên 2 nửa đã phân chia của mảng, rồi quay lại thực hiện các bước trên.
+\\\\
+Dễ dàng nhận thấy, mấu chốt của thuật toán nằm ở quá trình chọn phần tử \textbf{chốt}. Nếu chọn phần tử \textbf{chốt} không phù hợp, thuật toán đạt được độ phức tạp xấu nhất $\mathcal{O}(n^2)$.
+\\\\
+Cài đặt (C++):
+\begin{lstlisting}
+/**
+ * Ham tim chot (Pivot).
+ *
+ */
+int partition(int* a, int left, int right) {
+  // Chon gia tri pivot = a[right]
+  int pivot = a[right];
+
+  // Chon i = left - 1 de dam bao pivot nam trong mien [left, right].
+  int i = left - 1;
+
+  // Tien hanh doi cho cac phan tu,
+  // nua dau mang <= pivot,
+  // nua sau mang >= pivot.
+  //
+  // i se tang dan, den cuoi cung vi tri i + 1 se la vi tri pivot.
+  for (int j = left; j < right; ++j) {
+    if (a[j] < pivot) {
+      ++i;
+      swap(a[i], a[j]);
+    }
+  }
+
+  // Cuoi cung, pivot se nam o vi tri i + 1.
+  swap(a[i + 1], a[right]);
+
+  return i + 1;
+}
+
+void quickSort(int* a, int left, int right) {
+  // Neu mang chi co 1 phan tu, ta khong can sort.
+  if (left >= right) return;
+
+  // Chon vi tri pivot.
+  int part = partition(a, left, right);
+
+  // Tien hanh goi de quy Quick Sort tren mien [left, part - 1]
+  quickSort(a, left, part - 1);
+
+  // Tien hanh goi de quy Quick Sort tren mien [part + 1, right]
+  quickSort(a, part + 1, right);
+}
+\end{lstlisting}
+\textbf{Nhận xét:} Nếu chọn \textbf{chốt} ở đầu , ngay giữa hay cuối của một bộ dữ liệu có kích thước $n$ lớn thì Quick Sort sẽ trở thành Slow Sort.
+\\\\
+Để tránh trường hợp chọn phải phần tử \textbf{chốt} không phù hợp , ta có thể cải tiến Quick Sort bằng cách \textbf{chọn ngẫu nhiên phần tử chốt (randomized pivot)}. Khi đó, \textbf{chốt} bạn chọn sẽ \textit{khó} có khả năng rơi vào những phần tử không phù hợp, \textit{khó} có khả năng rơi vào tình huống xấu nhất. \cite{LMHoang}
+\\\\
+Cài đặt (C++):
+\begin{lstlisting}
+int partition(int* a, int left, int right) {
+  // Khoi tao mot phan tu random.
+  // Ham srand can \#include<time.h>
+  srand(time(NULL));
+
+  // Tao mot so random trong doan [left, right]
+  int random = left + rand() % (right - left);
+
+  // Pivot bay gio se la phan tu a[random].
+  int pivot = a[random];
+
+  // Thuc hien partition nhu ben tren.
+  int i = left - 1;
+
+  for (int j = left; j < right; ++j) {
+    if (a[j] < pivot) {
+      ++i;
+      swap(a[i], a[j]);
+    }
+  }
+
+  swap(a[i + 1], a[right]);
+
+  return i + 1;
+}
+
+// Cau truc ham quickSort van giu nguyen nhu cach cai dat ben tren.
+...
+\end{lstlisting}
 Độ phức tạp trung bình: $\mathcal{O}(n \log n)$
 \\
-Độ phức tạp xấu nhất: $\mathcal{O}(n^2)$
+Độ phức tạp trong trường hợp xấu nhất: $\mathcal{O}(n^2)$
 \\
 Độ phức tạp không gian: $\mathcal{O}(n)$ - trường hợp xấu nhất sử dụng thêm $\mathcal{O}(n)$
+
 \subsection{Sắp xếp vun đống - Heap Sort}
+\subsubsection{Cấu trúc Đống (Heap)}
+\textbf{Đống (Heap)} là một dạng cây nhị phân hoàn chỉnh mà giá trị tại mỗi nút có độ ưu tiên cao hơn hay bằng giá trị của hai nút con của nó. Trong thuật toán Sắp xếp vun đống, ta coi mối quan hệ \textbf{ưu tiên cao hơn hay bằng} là quan hệ \textbf{lớn hơn hay bằng}.\cite{LMHoang} Nói cách khác, mỗi nút con trong Heap luôn lớn hơn hoặc bằng hai nút con của nó.
+\\\\
+Để biểu diễn cấu trúc Heap dưới dạng mảng:
+\begin{itemize}
+\item Phần tử $a[i]$ lưu giá trị của nút thứ $i$
+\item Con của nút $i$ là các nút ở vị trí $2i$ và $2i + 1$.
+\item Cha của nút $j$ là nút ở vị trí $\displaystyle \left\lfloor\frac{j}{2}\right\rfloor$.
+\end{itemize}
+
+\subsubsection{Vun đống}
+Sử dụng tư tưởng Chia để trị (Divide and Conquer)\cite{LMHoang}
+
+\subsubsection{Thuật toán Sắp xếp vun đống}
+
+Cài đặt (C++):
+\begin{lstlisting}
+void adjust(int* a, int root, int endNode) {
+  int c, key;
+
+  key = a[root];
+
+  while (root * 2 <= endNode) {
+    c = root * 2;
+
+    if (c < endNode && a[c] < a[c + 1]) ++c;
+
+    if (a[c] <= key) break;
+
+    a[root] = a[c]; root = c;
+  }
+
+  a[root] = key;
+}
+
+void heapSort(int* a, int n) {
+  for (int r = n / 2 - 1; r >= 0; --r) adjust(a, r, n);
+  for (int i = n - 1; i > 0; --i) {
+    swap(a[0], a[i]);
+    adjust(a, 0, i);
+  }
+}
+\end{lstlisting}
 Độ phức tạp trung bình: $\mathcal{O}(n \log n)$
 \\
-Độ phức tạp xấu nhất: $\mathcal{O}(n \log n)$
+Độ phức tạp trong trường hợp xấu nhất: $\mathcal{O}(n \log n)$
 \\
-Độ phức tạp không gian: $\mathcal{O}(n)$, không sử dụng thêm vùng nhớ.
+Độ phức tạp không gian: $\mathcal{O}(1)$, không sử dụng thêm vùng nhớ.
+
 \section{Báo cáo kết quả thực nghiệm và nhận xét}
+\subsection{Mô tả thực nghiệm}
 Các thuật toán được chạy thử trên các bộ dữ liệu lần lượt là \texttt{3000, 10000, 30000, 100000, 300000} phần tử; các tập dữ liệu có cấu trúc lần lượt là:
 \begin{itemize}
 \item Dữ liệu ngẫu nhiên (Random array).
@@ -208,21 +400,110 @@ Các thuật toán được chạy thử trên các bộ dữ liệu lần lư�
 \item Dữ liệu sắp xếp ngược (Descending-sorted array).
 \item Dữ liệu gần như đã được sắp xếp (Nearly-sorted array).
 \end{itemize}
+Thời gian chạy của mỗi thụât toán được biểu diễn dưới dạng biểu đồ đường, do vậy một số thuật toán có thời gian chạy sát nhau dễ bị trùng làm một. Vì vậy, mỗi thử nghiệm trên một tập dữ liệu sẽ có hai biểu đồ riêng: biểu đồ so sánh thời gian của các thuật toán \textbf{chậm nhất} và biểu đổ so sánh thời gian các thuật toán \textbf{nhanh nhất}.
+\\\\
+\textbf{Quan trọng}: Quick Sort cài đặt phương pháp chọn chốt truyền thống sẽ gây stack overflow nếu bộ dữ liệu đủ \textit{xấu}. Do đó trong các thực nghiệm, Quick Sort được cài đặt sử dụng phương pháp chọn chốt ngẫu nhiên (randomized pivot).
 
 \subsection{Thử nghiệm các thuật toán sắp xếp trên tập dữ liệu ngẫu nhiên.}
-\includegraphics{image/random.png}
-\\\\
-Lorem ipsum dolor sit amet
+So sánh các thuật toán sắp xếp trên tập dữ liệu ngẫu nhiên, ta thu được kết quả, biểu diễn bằng đồ thị bên dưới:
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{random.png}
+\caption{Các thuật toán sắp xếp chạy chậm trên tập dữ liệu ngẫu nhiên.}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{random-2.png}
+\caption{Các thuật toán sắp xếp chạy nhanh trên tập dữ liệu ngẫu nhiên.}
+\end{figure}
+Qua đồ thị trên, ta có thể đưa ra nhận xét:
+\begin{itemize}
+\item Selection Sort chạy chậm hơn hẳn so với các thuật toán khác, vì Selection Sort phải thực hiện rất nhiều phép so sánh để tìm được phần tử nhỏ nhất, sau đó mới tiến hành hoán đổi.
+\item Merge Sort, Quick Sort và Heap Sort có tốc độ chạy gần bằng nhau nhưng Merge Sort nhanh hơn hai thuật kia.
+\item Ta có thể so sánh được tốc độ chạy của Insertion Sort và Binary Insertion Sort: Binary Insertion Sort hiệu quả hơn với chiến thuật tìm kiếm nhị phân giảm số phép so sánh.
+\end{itemize}
+
 \subsection{Thử nghiệm các thuật toán sắp xếp trên tập dữ liệu đã sắp xếp.}
-\includegraphics{image/ascending.png}
+So sánh các thuật toán sắp xếp trên tập dữ liệu đã sắp xếp, ta thu được kết quả, biểu diễn bằng đồ thị bên dưới:
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{ascending.png}
+\caption{Các thuật toán sắp xếp chạy chậm trên tập dữ liệu đã sắp xếp.}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{ascending-2.png}
+\caption{Các thuật toán sắp xếp chạy nhanh trên tập dữ liệu đã sắp xếp.}
+\end{figure}
+Qua đồ thị trên, ta có thể đưa ra một số nhận xét:
+\begin{itemize}
+\item Selection Sort là thuật chạy chậm nhất. Nếu nhìn kỹ hơn, thời gian chạy trên tập dữ liệu \textbf{đã sắp xếp} xấp xỉ thời gian chạy trên tập dữ liệu \textbf{ngẫu nhiên}.
+\item Insertion Sort là thuật chạy nhanh nhất. Nếu dãy đã sắp xếp thì thao tác tìm vị trí chèn được thực hiện trong $\mathcal{O}(n)$. Đây cũng là độ phức tạp tốt nhất mà Insertion Sort có thể đạt được.
+\end{itemize}
+
 \subsection{Thử nghiệm các thuật toán sắp xếp trên tập dữ liệu sắp xếp ngược.}
-\includegraphics{image/descending.png}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{descending.png}
+\caption{Các thuật toán sắp xếp chạy chậm trên tập dữ liệu sắp xếp ngược.}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{descending-2.png}
+\caption{Các thuật toán sắp xếp chạy nhanh trên tập dữ liệu sắp xếp ngược.}
+\end{figure}
+Tập dữ liệu sắp xếp ngược là trường hợp bộ dữ liệu đầu vào tệ nhất mà một thuật toán gặp phải, đòi hỏi thuật toán phải đổi chỗ gần như tất cả các phần tử. Do đó, hầu hết các thuật toán sẽ có thời gian chạy tệ nhất ở bộ dữ liệu này.
+\begin{itemize}
+\item Selection Sort là thuật chạy chậm nhất, thời gian chạy trên tập \textbf{sắp xếp ngược} vẫn xấp xỉ thời gian chạy trên tập \textbf{ngẫu nhiên} và tập \textbf{đã sắp xếp}.
+\item Merge Sort là thuật chạy nhanh nhất. Thuật toán có độ phức tạp trong trường hợp tệ nhất là $\mathcal{O}(n \log n)$ và cũng là tốt nhất trong nhóm các thuật toán đang xét.
+\end{itemize}
+
 \subsection{Thử nghiệm các thuật toán sắp xếp trên tập dữ liệu gần như đã được sắp xếp.}
-\includegraphics{image/near.png}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{near.png}
+\caption{Các thuật toán sắp xếp chạy chậm trên tập dữ liệu gần như đã được sắp xếp.}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{near-2.png}
+\caption{Các thuật toán sắp xếp chạy nhanh trên tập dữ liệu gần như đã được sắp xếp.}
+\end{figure}
+Trên tập dữ liệu gần như đã được sắp xếp,
+\begin{itemize}
+\item aaa
+\end{itemize}
+
+\section{Đánh giá}
+\subsection{Hiệu suất}
+Về mặt tổng thể,
+
+\subsection{Tính ổn định}
+Một thuật toán được gọi là \textbf{ổn định} nếu các phần tử có giá trị bằng nhau sau khi sắp xếp có thứ tự xuất hiện giữ nguyên như ban đầu. Theo định nghĩa này, các thuật toán trên được xếp vào các nhóm:
+
+\subsubsection{Nhóm thuật toán ổn định}
+Là các thuật toán sau khi sắp xếp không làm thay đổi thứ tự xuất hiện của các phần tử. Các thuật toán được xếp vào nhóm này bao gồm:
+\begin{itemize}
+\item Bubble Sort.
+\item Insertion Sort.
+\item Binary Insertion Sort.
+\item Merge Sort.
+\end{itemize}
+
+\subsubsection{Nhóm thuật toán không ổn định}
+Các phần tử của tập dữ liệu có thể thay đổi thứ tự xuất hiện. Các thuật toán trong nhóm này bao gồm:
+\begin{itemize}
+\item Selection Sort.
+\item Quick Sort.
+\item Heap Sort.
+\end{itemize}
+
 \medskip
 
 \begin{thebibliography}{10}
-
+\bibitem{LMHoang}
+Lê Minh Hoàng (2006).
+\textit{Giải thuật và Lập trình}, Đại học Sư phạm Hà Nội.
 \end{thebibliography}
 
 \end{document}
