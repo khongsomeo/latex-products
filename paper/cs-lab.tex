@@ -62,7 +62,7 @@ void selectionSort(int* a, int n) {
       if (a[j] < a[jMin]) jMin = j;
 
     // Hoan vi neu a[jMin] thuc su dung sai vi tri.
-    if (jMin ! = i) swap(a[jMin], a[i])
+    if (jMin != i) swap(a[jMin], a[i]);
   }
 }
 \end{lstlisting}
@@ -106,13 +106,14 @@ void insertionSort(int* a, int n) {
 
     // Neu phan tu khong the chen vao vi tri j,
     // dich phan tu a[j] sang phai.
-    while (j > 0 && a[j] > key) {
+    while (j >= 0 && a[j] > key) {
       a[j + 1] = a[j];
       --j;
     }
 
-    // Cuoi cung, ta chen key vao vi tri j.
-    a[j] = key;
+    // Vong lap thoat o vi tri j - vi tri dau tien key >= a[j].
+    // Cuoi cung, ta chen key vao vi tri j + 1.
+    a[j + 1] = key;
   }
 }
 \end{lstlisting}
@@ -193,7 +194,7 @@ void binaryInsertionSort(int* a, int n) {
 \\
 Độ phức tạp không gian: $\mathcal{O}(1)$, không sử dụng thêm vùng nhớ.
 \subsection{Sắp xếp trộn - Merge Sort}
-Sắp xếp trộn mang tư tưởng Chia để trị (Divide and Conquer): chia nhỏ mảng giá trị ra làm 2 mảng con, gọi đệ quy sắp xếp 2 mảng đó rồi trộn 2 mảng con lại với nhau.
+Sắp xếp trộn mang tư tưởng Chia để trị (Divide and Conquer): chia nhỏ mảng giá trị ra làm hai mảng con, gọi đệ quy sắp xếp hai mảng đó rồi trộn các mảng con lại với nhau.
 \\\\
 Cài đặt (C++)
 \begin{lstlisting}
@@ -235,7 +236,8 @@ void mergeSort(int* a, int* b, int left, int right) {
   // sau do copy lai vao a.
   for (int i = left; i < right; ++i) b[i] = a[i];
 
-  split(a, b, 0, r);
+  // Bat dau chia mang.
+  split(b, a, left, right);
 }
 \end{lstlisting}
 Độ phức tạp trung bình: $\mathcal{O}(n \log n)$
@@ -246,12 +248,12 @@ void mergeSort(int* a, int* b, int left, int right) {
 \subsection{Sắp xếp nhanh - Quick Sort}
 Sắp xếp nhanh có cùng tư tưởng Chia để trị (Divide and Conquer) như Sắp xếp trộn, tuy nhiên cách chia và vị trí chia các mảng không phải là ở vị trí giữa mà ở các vị trí \textbf{chốt (Pivot)}.
 \\\\
-Cụ thể, thuật toán Sắp xếp nhanh chọn một phần tử làm \textbf{chốt}, sau đó chia mảng ra thành 2 phần:
+Cụ thể, thuật toán Sắp xếp nhanh chọn một phần tử làm \textbf{chốt}, sau đó chia mảng ra thành hai phần:
 \begin{itemize}
 \item Nửa đầu mảng gồm các phần tử nhỏ hơn hoặc bằng phần tử \textbf{chốt}.
 \item Nửa sau mảng gồm các phần tử lớn hơn hoặc bằng phần tử \textbf{chốt}.
 \end{itemize}
-Sau đó, thuật toán lại chọn 2 phần tử \textbf{chốt} trên 2 nửa đã phân chia của mảng, rồi quay lại thực hiện các bước trên.
+Sau đó, thuật toán lại chọn hai phần tử \textbf{chốt} trên hai nửa đã phân chia của mảng, rồi quay lại thực hiện các bước trên.
 \\\\
 Dễ dàng nhận thấy, mấu chốt của thuật toán nằm ở quá trình chọn phần tử \textbf{chốt}. Nếu chọn phần tử \textbf{chốt} không phù hợp, thuật toán đạt được độ phức tạp xấu nhất $\mathcal{O}(n^2)$.
 \\\\
@@ -290,7 +292,7 @@ void quickSort(int* a, int left, int right) {
   // Neu mang chi co 1 phan tu, ta khong can sort.
   if (left >= right) return;
 
-  // Chon vi tri pivot.
+  // Chon vi tri chia mang.
   int part = partition(a, left, right);
 
   // Tien hanh goi de quy Quick Sort tren mien [left, part - 1]
@@ -303,10 +305,15 @@ void quickSort(int* a, int left, int right) {
 \textbf{Nhận xét:} Nếu chọn \textbf{chốt} ở đầu , ngay giữa hay cuối của một bộ dữ liệu có kích thước $n$ lớn thì Quick Sort sẽ trở thành Slow Sort.
 \\\\
 Để tránh trường hợp chọn phải phần tử \textbf{chốt} không phù hợp , ta có thể cải tiến Quick Sort bằng cách \textbf{chọn ngẫu nhiên phần tử chốt (randomized pivot)}. Khi đó, \textbf{chốt} bạn chọn sẽ \textit{khó} có khả năng rơi vào những phần tử không phù hợp, \textit{khó} có khả năng rơi vào tình huống xấu nhất. \cite{LMHoang}
+\label{subsec:randompivot}
 \\\\
 Cài đặt (C++):
 \begin{lstlisting}
-int partition(int* a, int left, int right) {
+/**
+* Ham randomPartition - tao pivot ngau nhien, sau do partition.
+*
+*/
+int randomPartition(int* a, int left, int right) {
   // Khoi tao mot phan tu random.
   // Ham time() can #include<time.h>
   srand(time(NULL));
@@ -314,10 +321,20 @@ int partition(int* a, int left, int right) {
   // Tao mot so random trong doan [left, right]
   int random = left + rand() % (right - left);
 
-  // Pivot bay gio se la phan tu a[random].
-  int pivot = a[random];
+  // Doi vi tri a[right] va a[random].
+  swap(a[random], a[right]);
 
-  // Thuc hien partition nhu ben tren.
+  // Goi partition de tiep tuc voi random pivot.
+  return partition(a, left, right);
+}
+
+int partition(int* a, int left, int right) {
+  // Pivot bay gio se la phan tu a[random] da tao ben tren.
+  int pivot = a[right];
+
+
+  // Thuc hien partition.
+  // Khac biet duy nhat la ta dang co pivot random, khong phai a[right] ban dau.
   int i = left - 1;
 
   for (int j = left; j < right; ++j) {
@@ -332,8 +349,19 @@ int partition(int* a, int left, int right) {
   return i + 1;
 }
 
-// Cau truc ham quickSort van giu nguyen nhu cach cai dat ben tren.
-...
+void quickSort(int* a, int left, int right) {
+  if (left >= right) return;
+
+  // Tai day ta khong goi partition() ma phai goi randomPartition() truoc.
+  // khi do pivot ban dau se khac voi cach chon pivot truyen thong.
+  int part = randomPartition(a, left, right);
+
+  // Tien hanh goi de quy Quick Sort tren mien [left, part - 1]
+  quickSort(a, left, part - 1);
+
+  // Tien hanh goi de quy Quick Sort tren mien [part + 1, right]
+  quickSort(a, part + 1, right);
+}
 \end{lstlisting}
 Độ phức tạp trung bình: $\mathcal{O}(n \log n)$
 \\
@@ -353,35 +381,58 @@ int partition(int* a, int left, int right) {
 \end{itemize}
 
 \subsubsection{Vun đống}
-Sử dụng tư tưởng Chia để trị (Divide and Conquer)\cite{LMHoang}
-
+\textbf{Vấn đề:} Cho một mảng, hãy sắp xếp lại mảng để mảng đó biểu diễn một đống (Heap).
+\\\\
+Cây nhị phân có một nút hiển nhiên là một đống. Để vun một nhánh cây gốc $r$ thành đống, ta có thể coi hai nhánh con của nó (hai nhánh gốc $2r$ và $2r + 1$) đã là đống rồi, sau đó thực hiện thuật toán vun đống từ dưới lên (bottom-up) với cây: Gọi $h$ là chiều cao của cây, nút ở mức $h$ (nút lá) đã là gốc của một đống, ta vun lên để những nút ở mức $h - 1$ cũng là gốc của đống, .. cứ như vậy tới nút 1 (nút gốc) cũng là gốc của đống.\cite{LMHoang}
+\subsubsection{Thuật toán vun đống với cây gốc $r$ có hai nhánh con đã là đống:}
+Giả sử ở nút $r$ chứa giá trị $V$. Từ $r$ ta cứ đi tới nút con có giá trị lớn hơn trong hai nút con, đến khi gặp nút $c$ mà mọi nút con của $c$ đều chứa giá trị $\leq V$. Dọc trên đường từ $r$ tới $c$ ta đẩy giá trị ở nút con lên nút cha và đặt $V$ vào $c$.\cite{LMHoang}
 \subsubsection{Thuật toán Sắp xếp vun đống}
-
+Giả sử mảng $a$ biểu diễn một đống. Khi đó $a[0]$ tương ứng với gốc cũng mang giá trị lớn nhất. Nếu ta hoán vị $a[0]$ cho $a[n - 1]$, khi đó ta sẽ có $a[n - 1]$ đúng vị trí và không cần xét tới $a[n - 1]$ nữa. Còn lại, nếu ta thực hiện vun đống trên các phần tử từ $a[0]$ đến $a[n - 2]$ sẽ được một đống mới. Tiếp tục thực hiện đến khi đống chỉ còn một nút, khi đó mảng đã sắp xếp xong.
+\\\\
 Cài đặt (C++):
 \begin{lstlisting}
 void adjust(int* a, int root, int endNode) {
   int c, key;
 
+  // Bien key luu gia tri cua nut goc.
   key = a[root];
 
+  // Di chuyen den cac nut con, chung nao con nam trong cay.
   while (root * 2 <= endNode) {
     c = root * 2;
 
+    // Di chuyen sang nut con cua c.
     if (c < endNode && a[c] < a[c + 1]) ++c;
 
+    // Neu tim thay nut c co cac nut con <= a[root], thoat.
+    // Doi voi cau truc heap trong Heap Sort, nut con luon <= nut cha
+    // nen so sanh a[c] <= key.
     if (a[c] <= key) break;
 
-    a[root] = a[c]; root = c;
+    // Day gia tri cua nut con len nut cha.
+    a[root] = a[c];
+
+    // Chuyen nut hien tai (root) sang nut con.
+    root = c;
   }
 
+  // Dat gia tri nut root ban dau vao nut con tim duoc.
   a[root] = key;
 }
 
 void heapSort(int* a, int n) {
-  for (int r = n / 2 - 1; r >= 0; --r) adjust(a, r, n);
-  for (int i = n - 1; i > 0; --i) {
+  // Vun dong cay ban dau.
+  for (int r = n / 2 - 1; r >= 0; --r) adjust(a, r, n - 1);
+
+  // Cay co n phan tu, doi hoi ta phai vun dong n - 1 lan.
+  for (int i = n - 1; i >= 1; --i) {
+
+    // Sau moi lan vun dong, hoan vi a[0] voi a[i],
+    // khi do ta co a[i] da dung dung vi tri.
     swap(a[0], a[i]);
-    adjust(a, 0, i);
+
+    // Vun dong phan con lai cua cay, khong xet den vi tri a[i] tro ve sau.
+    adjust(a, 0, i - 1);
   }
 }
 \end{lstlisting}
@@ -402,7 +453,9 @@ Các thuật toán được chạy thử trên các bộ dữ liệu lần lư�
 \end{itemize}
 Thời gian chạy của mỗi thụât toán được biểu diễn dưới dạng biểu đồ đường, do vậy một số thuật toán có thời gian chạy sát nhau dễ bị trùng làm một. Vì vậy, mỗi thử nghiệm trên một tập dữ liệu sẽ có hai biểu đồ riêng: biểu đồ so sánh thời gian của các thuật toán \textbf{chậm nhất} và biểu đổ so sánh thời gian các thuật toán \textbf{nhanh nhất}.
 \\\\
-\textbf{Quan trọng}: Quick Sort cài đặt phương pháp chọn chốt truyền thống sẽ gây stack overflow nếu bộ dữ liệu đủ \textit{xấu}. Do đó trong các thực nghiệm, Quick Sort được cài đặt sử dụng phương pháp chọn chốt ngẫu nhiên (randomized pivot).
+Các thuật toán được chạy trên \textbf{Visual Studio 2019} chế độ \textbf{Release x64}, có thể sai khác với chế độ \textbf{Debug}.
+\\\\
+Quick Sort cài đặt bằng phương pháp chọn chốt truyền thống sẽ gây stack overflow nếu bộ dữ liệu đủ \textit{xấu}. Do đó trong các thực nghiệm, Quick Sort được cài đặt sử dụng phương pháp \textbf{chọn chốt ngẫu nhiên (randomized pivot)} (\ref{subsec:randompivot}) để hạn chế trường hợp tệ nhất đến ít nhất có thể.
 
 \subsection{Thử nghiệm các thuật toán sắp xếp trên tập dữ liệu ngẫu nhiên.}
 So sánh các thuật toán sắp xếp trên tập dữ liệu ngẫu nhiên, ta thu được kết quả, biểu diễn bằng đồ thị bên dưới:
