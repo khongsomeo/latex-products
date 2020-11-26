@@ -20,7 +20,7 @@
   breaklines = true,
   basicstyle=\footnotesize\ttfamily,
   keywordstyle=\bfseries\color{green!40!black},
-  commentstyle=\itshape\color{purple!40!black},
+  commentstyle=\color{purple!40!black},
   identifierstyle=\color{blue},
   stringstyle=\color{orange},
 }
@@ -125,10 +125,10 @@ void insertionSort(int* a, int n) {
 Độ phức tạp không gian: $\mathcal{O}(1)$, không sử dụng thêm vùng nhớ.
 \subsection{Sắp xếp chèn nhị phân - Binary Insertion Sort}
 \label{subsec:bininsertsort}
-\subsubsection{Tìm vị trí bằng Tìm kiếm nhị phân (Binary Search)}
-Tư tưởng của Tìm kiếm nhị phân: trên một miền $a$ có $a[left]$ là phần tử đầu tiên và $a[right]$ là phần tử cuối cùng; miền đã được sắp xếp theo thứ tự tăng dần. Ta chọn phần tử $\displaystyle mid = \frac{left + right}{2}$ làm gốc. Khi đó,
+\subsubsection{Tìm vị trí chèn bằng Tìm kiếm nhị phân (Binary Search)}
+Tư tưởng của Tìm kiếm nhị phân: trên một miền $a$ có $a[left]$ là phần tử đầu tiên và $a[right]$ là phần tử cuối cùng; miền đã được sắp xếp theo thứ tự tăng dần. Ta chọn phần tử $\displaystyle mid := \left\lfloor\frac{left + right}{2}\right\rfloor$ làm gốc. Khi đó,
 \begin{itemize}
-\item nếu khóa $key == a[mid]$ thì $mid$ là vị trí cần tìm.
+\item nếu khóa $key = a[mid]$ thì $mid$ là vị trí cần tìm.
 \item nếu khóa $key < a[mid]$ thì $key$ nằm trong miền từ $a[left]$ đến $a[mid - 1]$. Lặp lại thuật toán với miền $[left, mid - 1]$.
 \item nếu khóa $key > a[mid]$ thì $key$ nằm trong miền từ $a[mid + 1]$ đến $a[right]$. Lặp lại thuật toán với miền $[mid + 1, right]$.
 \end{itemize}
@@ -150,10 +150,10 @@ Cài đặt (C++):
 int findPosition(int* a, int key, int left, int right) {
   // Mang chi con 1 phan tu, ta xet 2 truong hop:
   //
-  // - neu a[left] <= key, nghia la key se dung sau a[left], nen duoc chen vao vi tri left + 1.
+  // - neu a[left] < key, nghia la key se dung sau a[left], nen duoc chen vao vi tri left + 1.
   //
   // - nguoc lai, key se la phan tu nho nhat mien [left, right] nen duoc chen vao vi tri left.
-  if (left >= right) return (a[left] <= key ? left + 1 : left);
+  if (left >= right) return (a[left] < key ? left + 1 : left);
 
   // Tinh toan phan tu mid.
   int mid = (left + right) / 2;
@@ -308,7 +308,7 @@ Cài đặt (C++):
 \begin{lstlisting}
 int partition(int* a, int left, int right) {
   // Khoi tao mot phan tu random.
-  // Ham srand can \#include<time.h>
+  // Ham time() can #include<time.h>
   srand(time(NULL));
 
   // Tao mot so random trong doan [left, right]
@@ -471,12 +471,18 @@ Tập dữ liệu sắp xếp ngược là trường hợp bộ dữ liệu đ�
 \end{figure}
 Trên tập dữ liệu gần như đã được sắp xếp,
 \begin{itemize}
-\item aaa
+\item Selection Sort vẫn chạy chậm nhất. Qua đó ta có thể nhận xét, dù tập dữ liệu có ở trạng thái đã sắp xếp, sắp xếp ngược, gần sắp xếp hay ngẫu nhiên thì Selection Sort vẫn có độ phức tạp $\mathcal{O}(n^2)$.
+\item Insertion Sort là thuật chạy nhanh nhất, từ đó ta có thể nhận thấy Insertion Sort chạy nhanh nhất với các tập dữ liệu đã sắp xếp hoặc gần sắp xếp với độ phức tạp $\mathcal{O}(n)$.
 \end{itemize}
 
 \section{Đánh giá}
-\subsection{Hiệu suất}
-Về mặt tổng thể,
+\subsection{Hiệu năng}
+\begin{itemize}
+\item Selection Sort và Bubble Sort là hai thuật toán có thời gian chạy chậm nhất. Trong đó, Selection Sort có thời gian chạy không đổi dù thực hiện trên các tập dữ liệu khác nhau.
+\item Trên các tập dữ liệu \textbf{ngẫu nhiên} và \textbf{sắp xếp ngược}, Merge Sort có thời gian chạy nhanh nhất. Tuy nhiên, một nhược điểm của Merge Sort là phải sử dụng thêm mảng phụ hỗ trợ các thao tác \texttt{split} và \texttt{merge}.
+\item Trên các tập dữ liệu \textbf{đã sắp xếp} và \textbf{gần sắp xếp}, Insertion Sort có thời gian chạy nhanh nhất. Thiết kế thuật toán Insertion Sort cho phép quá trình tìm kiếm vị trí chèn diễn ra nhanh hơn đối với hai tập dữ liệu kể trên, qua đó thuật toán đạt được thời gian chạy tốt nhất.
+\item Một cải tiến của Insertion Sort là Binary Insertion Sort có thời gian chạy nhanh hơn Insertion Sort truyền thống ở các tập dữ liệu \textbf{ngẫu nhiên} và \textbf{sắp xếp ngược}. Tuy nhiên, sang các tập dữ liệu khác thì Insertion Sort truyền thống chạy nhanh hơn.
+\end{itemize}
 
 \subsection{Tính ổn định}
 Một thuật toán được gọi là \textbf{ổn định} nếu các phần tử có giá trị bằng nhau sau khi sắp xếp có thứ tự xuất hiện giữ nguyên như ban đầu. Theo định nghĩa này, các thuật toán trên được xếp vào các nhóm:
