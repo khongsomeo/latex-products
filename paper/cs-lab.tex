@@ -302,9 +302,9 @@ void quickSort(int* a, int left, int right) {
   quickSort(a, part + 1, right);
 }
 \end{lstlisting}
-\textbf{Nhận xét:} Nếu chọn \textbf{chốt} ở đầu , ngay giữa hay cuối của một bộ dữ liệu có kích thước $n$ lớn thì Quick Sort sẽ trở thành Slow Sort.
+\textbf{Nhận xét:} Thuật toán đạt trường hợp tốt nhất nếu chọn \textbf{chốt} tại \textbf{trung vị} \textit{(median)} của mảng, độ phức tạp khi đó là $\mathcal{O}(n \log n)$. Nếu chọn \textbf{chốt} cố định ở phần đầu hay cuối của một bộ dữ liệu có kích thước $n$ lớn thì xác suất cao Quick Sort sẽ trở thành Slow Sort, đặc biết trên bộ dữ liệu sắp xếp ngược với độ phức tạp $\mathcal{O}(n^2)$.
 \\\\
-Để tránh trường hợp chọn phải phần tử \textbf{chốt} không phù hợp , ta có thể cải tiến Quick Sort bằng cách \textbf{chọn ngẫu nhiên phần tử chốt (randomized pivot)}. Khi đó, \textbf{chốt} bạn chọn sẽ \textit{khó} có khả năng rơi vào những phần tử không phù hợp, \textit{khó} có khả năng rơi vào tình huống xấu nhất. \cite{LMHoang}
+Để tránh trường hợp chọn phải phần tử \textbf{chốt} không phù hợp , ta có thể cải tiến Quick Sort bằng cách \textbf{chọn ngẫu nhiên phần tử chốt (randomized pivot)}. Khi đó, \textbf{chốt} bạn chọn sẽ \textit{khó} có khả năng rơi vào tình huống xấu nhất, tăng xác suất chọn đúng phần tử trung vị của mảng. \cite{LMHoang}
 \label{subsec:randompivot}
 \\\\
 Cài đặt (C++):
@@ -367,7 +367,7 @@ void quickSort(int* a, int left, int right) {
 \\
 Độ phức tạp trong trường hợp xấu nhất: $\mathcal{O}(n^2)$
 \\
-Độ phức tạp không gian: $\mathcal{O}(n)$ - trường hợp xấu nhất sử dụng thêm $\mathcal{O}(n)$
+Độ phức tạp không gian: $\mathcal{O}(n)$ - trường hợp xấu nhất Quick Sort chọn phải \textbf{chốt} ở cuối hoặc đầu mảng và phải tiến hành gọi đệ quy trên phần còn lại của mảng.
 
 \subsection{Sắp xếp vun đống - Heap Sort}
 \subsubsection{Cấu trúc Đống (Heap)}
