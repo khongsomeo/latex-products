@@ -9,6 +9,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage[nottoc,notlot,notlof]{tocbibind}
 \usepackage[utf8]{vietnam}
+\usepackage{url}
 \usepackage{xcolor}
 
 \graphicspath{{./image/}}
@@ -80,10 +81,10 @@ void bubbleSort(int* a, int n) {
   // Lap qua tung phan tu, tru phan tu cuoi cung.
   for (int i = 0; i < n - 1; ++i) {
 
-    // Lap tu phan tu do ve sau,
+    // Lap tu cuoi mang ve truoc phan tu do,
     // thuc hien hoan vi neu co phan tu nao nho hon phan tu hien tai.
-    for (int j = i + 1; j < n; ++j)
-      if (a[i] > a[j]) swap(a[i], a[j]);
+    for (int j = n - 1; j > i; --j)
+      if (a[j] < a[j - 1]) swap(a[j], a[j - 1]);
   }
 }
 \end{lstlisting}
@@ -173,17 +174,17 @@ void binaryInsertionSort(int* a, int n) {
 
     int key = a[i];
 
-    // Tim kiem vi tri thich hop de chen key vao mien [0, i] bang Binary Search.
-    int position = findPosition(a, key, 0, i);
+    // Tim kiem vi tri thich hop de chen key vao mien [0, i - 1] bang Binary Search.
+    int position = findPosition(a, key, 0, j);
 
-    // Dich chuyen cac vi tri.
+    // Dich chuyen cac vi tri sang phai.
     while (j >= position) {
       a[j + 1] = a[j];
       --j;
     }
 
-    // Chen key vao vi tri j.
-    a[j] = key;
+    // Chen key vao vi tri j + 1.
+    a[j + 1] = key;
   }
 }
 \end{lstlisting}Binary Insertion Sort giảm số lượng phép so sánh của Insertion Sort từ $\mathcal{O}(n^2)$ còn $\mathcal{O}(n \log n)$, tuy nhiên do thao tác chèn vẫn giống Insertion Sort nên độ phức tạp xấu nhất là $\mathcal{O}(n^2)$.
@@ -198,6 +199,31 @@ Sắp xếp trộn mang tư tưởng Chia để trị (Divide and Conquer): chia
 \\\\
 Cài đặt (C++)
 \begin{lstlisting}
+/**
+ * Ham tron 2 mang a va b lai voi nhau.
+ *
+ */
+void merge(int* a, int* b, int left, int middle, int right) {
+  // nua dau mang a va nua sau mang a da duoc sap xep rieng biet.
+  //
+  // nua dau bat dau tu left, ket thuc o middle -1.
+  // nua sau bat dau tu middle, ket thuc o right.
+  int i = left, j = middle;
+
+  // Tron cac phan tu tu 2 nua cua a vao b
+  for (int k = left; k < right; ++k) {
+    if (i < middle && (j >= right || a[i] <= a[j]))
+      b[k] = a[i++];
+    else
+      b[k] = a[j++];
+  }
+}
+
+/**
+ * Ham chia mang a ra lam 2 phan
+ * - phan 1 bat dau tu left den mid - 1.
+ * - phan 2 bat dau tu mid den right.
+ */
 void split(int* a, int* b, int left, int right) {
   // Neu mang co 1 phan tu, ta khong chia nua.
   if (right - left < 2) return;
@@ -213,22 +239,6 @@ void split(int* a, int* b, int left, int right) {
 
   // Tron 2 mang lai voi nhau.
   merge(a, b, left, middle, right);
-}
-
-void merge(int* a, int* b, int left, int middle, int right) {
-  // nua dau mang a va nua sau mang a da duoc sap xep rieng biet.
-  //
-  // nua dau bat dau tu left, ket thuc o middle -1.
-  // nua sau bat dau tu middle, ket thuc o right.
-  int i = left, j = middle;
-
-  // Tron cac phan tu tu 2 nua cua a vao b
-  for (int k = left; k < right; ++k) {
-    if (i < middle && (j >= right || a[i] <= a[j]))
-      b[k] = a[i++];
-    else
-      b[k] = a[j++];
-  }
 }
 
 void mergeSort(int* a, int* b, int left, int right) {
@@ -302,9 +312,9 @@ void quickSort(int* a, int left, int right) {
   quickSort(a, part + 1, right);
 }
 \end{lstlisting}
-\textbf{Nhận xét:} Thuật toán đạt trường hợp tốt nhất nếu chọn \textbf{chốt} tại \textbf{trung vị} \textit{(median)} của mảng, độ phức tạp khi đó là $\mathcal{O}(n \log n)$. Nếu chọn \textbf{chốt} cố định ở phần đầu hay cuối của một bộ dữ liệu có kích thước $n$ lớn thì xác suất cao Quick Sort sẽ trở thành Slow Sort, đặc biết trên bộ dữ liệu sắp xếp ngược với độ phức tạp $\mathcal{O}(n^2)$.
+\textbf{Nhận xét:} Thuật toán đạt trường hợp tốt nhất nếu chọn \textbf{chốt} tại \textbf{trung vị} \textit{(median)} của mảng, độ phức tạp khi đó là $\mathcal{O}(n \log n)$. Nếu chọn \textbf{chốt} cố định ở phần đầu hay cuối của một bộ dữ liệu có kích thước $n$ lớn, trong trường hợp dãy đã có thứ tự (i.e \textit{sắp xếp tăng hoặc giảm dần}) Quick Sort sẽ trở thành Slow Sort với độ phức tạp $\mathcal{O}(n^2)$.
 \\\\
-Để tránh trường hợp chọn phải phần tử \textbf{chốt} không phù hợp , ta có thể cải tiến Quick Sort bằng cách \textbf{chọn ngẫu nhiên phần tử chốt (randomized pivot)}. Khi đó, \textbf{chốt} bạn chọn sẽ \textit{khó} có khả năng rơi vào tình huống xấu nhất, tăng xác suất chọn đúng phần tử trung vị của mảng. \cite{LMHoang}
+Để tránh trường hợp chọn phải phần tử \textbf{chốt} không phù hợp, ta có thể cải tiến Quick Sort bằng phương pháp \textbf{chọn ngẫu nhiên phần tử chốt (randomized pivot)}. Khi đó, \textbf{chốt} bạn chọn sẽ \textit{khó} có khả năng rơi vào tình huống xấu nhất, tăng xác suất chọn đúng phần tử trung vị của mảng. \cite{LMHoang}
 \label{subsec:randompivot}
 \\\\
 Cài đặt (C++):
@@ -391,6 +401,10 @@ Giả sử mảng $a$ biểu diễn một đống. Khi đó $a[0]$ tương ứng
 \\\\
 Cài đặt (C++):
 \begin{lstlisting}
+/**
+ * Ham vun dong mot mang, nut goc la root va nut cuoi cung la endNode.
+ *
+ */
 void adjust(int* a, int root, int endNode) {
   int c, key;
 
@@ -406,7 +420,7 @@ void adjust(int* a, int root, int endNode) {
 
     // Neu tim thay nut c co cac nut con <= a[root], thoat.
     // Doi voi cau truc heap trong Heap Sort, nut con luon <= nut cha
-    // nen so sanh a[c] <= key.
+    // nen so sanh gia tri a[c] <= key.
     if (a[c] <= key) break;
 
     // Day gia tri cua nut con len nut cha.
@@ -424,7 +438,7 @@ void heapSort(int* a, int n) {
   // Vun dong cay ban dau.
   for (int r = n / 2 - 1; r >= 0; --r) adjust(a, r, n - 1);
 
-  // Cay co n phan tu, doi hoi ta phai vun dong n - 1 lan.
+  // Cay co n nut, doi hoi ta phai vun dong n - 1 lan.
   for (int i = n - 1; i >= 1; --i) {
 
     // Sau moi lan vun dong, hoan vi a[0] voi a[i],
@@ -451,9 +465,9 @@ Các thuật toán được chạy thử trên các bộ dữ liệu lần lư�
 \item Dữ liệu sắp xếp ngược (Descending-sorted array).
 \item Dữ liệu gần như đã được sắp xếp (Nearly-sorted array).
 \end{itemize}
-Thời gian chạy của mỗi thụât toán được biểu diễn dưới dạng biểu đồ đường, do vậy một số thuật toán có thời gian chạy sát nhau dễ bị trùng làm một. Vì vậy, mỗi thử nghiệm trên một tập dữ liệu sẽ có hai biểu đồ riêng: biểu đồ so sánh thời gian của các thuật toán \textbf{chậm nhất} và biểu đổ so sánh thời gian các thuật toán \textbf{nhanh nhất}.
+Thời gian chạy của mỗi thụât toán được biểu diễn dưới dạng biểu đồ đường, do vậy biểu đồ của một số thuật toán có thời gian chạy sát nhau dễ bị trùng làm một. Vì vậy, mỗi thử nghiệm trên một tập dữ liệu sẽ có hai biểu đồ riêng: biểu đồ so sánh thời gian của các thuật toán \textbf{chậm nhất} và biểu đổ so sánh thời gian các thuật toán \textbf{nhanh nhất}.
 \\\\
-Các thuật toán được chạy trên \textbf{Visual Studio 2019} chế độ \textbf{Release x64}, có thể sai khác với chế độ \textbf{Debug}.
+Các thuật toán được chạy trên máy tính \texttt{CPU Intel Core i7 8th gen, IDE \textbf{Visual Studio 2019} chế độ \textbf{Release x64}}. Số liệu tính toán có thể chênh lệch với các loại CPU hoặc Compiler khác.
 \\\\
 Quick Sort cài đặt bằng phương pháp chọn chốt truyền thống sẽ gây stack overflow nếu bộ dữ liệu đủ \textit{xấu}. Do đó trong các thực nghiệm, Quick Sort được cài đặt sử dụng phương pháp \textbf{chọn chốt ngẫu nhiên (randomized pivot)} (\ref{subsec:randompivot}) để hạn chế trường hợp tệ nhất đến ít nhất có thể.
 
@@ -471,7 +485,7 @@ So sánh các thuật toán sắp xếp trên tập dữ liệu ngẫu nhiên, t
 \end{figure}
 Qua đồ thị trên, ta có thể đưa ra nhận xét:
 \begin{itemize}
-\item Selection Sort chạy chậm hơn hẳn so với các thuật toán khác, vì Selection Sort phải thực hiện rất nhiều phép so sánh để tìm được phần tử nhỏ nhất, sau đó mới tiến hành hoán đổi.
+\item Bubble Sort chạy chậm nhất trong nhóm các thuật toán đang xét. Xét trên tập ngẫu nhiên, trung bình Bubble Sort cần $n^2$ phép so sánh mới có thể hoàn tất, qua đó độ phức tạp là $\mathcal{O}(n^2)$.
 \item Merge Sort, Quick Sort và Heap Sort có tốc độ chạy gần bằng nhau nhưng Merge Sort nhanh hơn hai thuật kia.
 \item Ta có thể so sánh được tốc độ chạy của Insertion Sort và Binary Insertion Sort: Binary Insertion Sort hiệu quả hơn với chiến thuật tìm kiếm nhị phân giảm số phép so sánh.
 \end{itemize}
@@ -490,11 +504,13 @@ So sánh các thuật toán sắp xếp trên tập dữ liệu đã sắp xếp
 \end{figure}
 Qua đồ thị trên, ta có thể đưa ra một số nhận xét:
 \begin{itemize}
-\item Selection Sort là thuật chạy chậm nhất. Nếu nhìn kỹ hơn, thời gian chạy trên tập dữ liệu \textbf{đã sắp xếp} xấp xỉ thời gian chạy trên tập dữ liệu \textbf{ngẫu nhiên}.
-\item Insertion Sort là thuật chạy nhanh nhất. Nếu dãy đã sắp xếp thì thao tác tìm vị trí chèn được thực hiện trong $\mathcal{O}(n)$. Đây cũng là độ phức tạp tốt nhất mà Insertion Sort có thể đạt được.
+\item Selection Sort là thuật chạy chậm nhất. Trên tập dữ liệu đã sắp xếp, Selection Sort vẫn phải thực hiện $n^2$ thao tác so sánh để hoàn tất, độ phức tạp là $\mathcal{O}(n^2)$.
+\item Insertion Sort là thuật chạy nhanh nhất. Nếu dãy đã sắp xếp thì thao tác tìm vị trí chèn được thực hiện với độ phức tạp $\mathcal{O}(n)$. Đây cũng là độ phức tạp tốt nhất mà Insertion Sort có thể đạt được.
+\item Cải tiến Binary Insertion Sort chậm hơn so với Insertion Sort truyền thống. Đối với tập dữ liệu đã sắp xếp, Insertion Sort truyền thống chỉ mất $\mathcal{O}(1)$ cho một thao tác chèn, trong khi Binary Insertion Sort cần tới độ phức tạp $\mathcal{O}(\log n)$ cho cùng một thao tác.
 \end{itemize}
 
 \subsection{Thử nghiệm các thuật toán sắp xếp trên tập dữ liệu sắp xếp ngược.}
+So sánh các thuật toán sắp xếp trên tập dữ liệu sắp xếp ngược, ta thu được kết quả, biểu diễn bằng đồ thị bên dưới:
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.7]{descending.png}
@@ -507,11 +523,12 @@ Qua đồ thị trên, ta có thể đưa ra một số nhận xét:
 \end{figure}
 Tập dữ liệu sắp xếp ngược là trường hợp bộ dữ liệu đầu vào tệ nhất mà một thuật toán gặp phải, đòi hỏi thuật toán phải đổi chỗ gần như tất cả các phần tử. Do đó, hầu hết các thuật toán sẽ có thời gian chạy tệ nhất ở bộ dữ liệu này.
 \begin{itemize}
-\item Selection Sort là thuật chạy chậm nhất, thời gian chạy trên tập \textbf{sắp xếp ngược} vẫn xấp xỉ thời gian chạy trên tập \textbf{ngẫu nhiên} và tập \textbf{đã sắp xếp}.
+\item Bubble Sort là thuật toán chạy chậm nhất. Với bộ dữ liệu \textbf{sắp xếp ngược}, thuật toán thể hiện sự chậm chạp rõ rệt với độ phức tạp của là $\mathcal{O}(n^2)$
 \item Merge Sort là thuật chạy nhanh nhất. Thuật toán có độ phức tạp trong trường hợp tệ nhất là $\mathcal{O}(n \log n)$ và cũng là tốt nhất trong nhóm các thuật toán đang xét.
 \end{itemize}
 
 \subsection{Thử nghiệm các thuật toán sắp xếp trên tập dữ liệu gần như đã được sắp xếp.}
+So sánh các thuật toán sắp xếp trên tập dữ liệu gần như đã được sắp xếp, ta thu được kết quả, biểu diễn bằng đồ thị bên dưới:
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.7]{near.png}
@@ -524,21 +541,23 @@ Tập dữ liệu sắp xếp ngược là trường hợp bộ dữ liệu đ�
 \end{figure}
 Trên tập dữ liệu gần như đã được sắp xếp,
 \begin{itemize}
-\item Selection Sort vẫn chạy chậm nhất. Qua đó ta có thể nhận xét, dù tập dữ liệu có ở trạng thái đã sắp xếp, sắp xếp ngược, gần sắp xếp hay ngẫu nhiên thì Selection Sort vẫn có độ phức tạp $\mathcal{O}(n^2)$.
+\item Selection Sort chạy chậm nhất. Qua đó ta có thể nhận xét, khi tập dữ liệu ở trạng thái đã sắp xếp, hoặc gần sắp xếp thì Selection Sort chạy chậm nhất với độ phức tạp $\mathcal{O}(n^2)$.
+\item Cải tiến Binary Insertion Sort chậm hơn so với Insertion Sort truyền thống, nguyên nhân tương tự với tập dữ liệu đã sắp xếp.
 \item Insertion Sort là thuật chạy nhanh nhất, từ đó ta có thể nhận thấy Insertion Sort chạy nhanh nhất với các tập dữ liệu đã sắp xếp hoặc gần sắp xếp với độ phức tạp $\mathcal{O}(n)$.
 \end{itemize}
 
 \section{Đánh giá}
 \subsection{Hiệu năng}
 \begin{itemize}
-\item Selection Sort và Bubble Sort là hai thuật toán có thời gian chạy chậm nhất. Trong đó, Selection Sort có thời gian chạy không đổi dù thực hiện trên các tập dữ liệu khác nhau.
-\item Trên các tập dữ liệu \textbf{ngẫu nhiên} và \textbf{sắp xếp ngược}, Merge Sort có thời gian chạy nhanh nhất. Tuy nhiên, một nhược điểm của Merge Sort là phải sử dụng thêm mảng phụ hỗ trợ các thao tác \texttt{split} và \texttt{merge}.
-\item Trên các tập dữ liệu \textbf{đã sắp xếp} và \textbf{gần sắp xếp}, Insertion Sort có thời gian chạy nhanh nhất. Thiết kế thuật toán Insertion Sort cho phép quá trình tìm kiếm vị trí chèn diễn ra nhanh hơn đối với hai tập dữ liệu kể trên, qua đó thuật toán đạt được thời gian chạy tốt nhất.
-\item Một cải tiến của Insertion Sort là Binary Insertion Sort có thời gian chạy nhanh hơn Insertion Sort truyền thống ở các tập dữ liệu \textbf{ngẫu nhiên} và \textbf{sắp xếp ngược}. Tuy nhiên, sang các tập dữ liệu khác thì Insertion Sort truyền thống chạy nhanh hơn.
+\item Selection Sort và Bubble Sort là hai thuật toán có thời gian chạy chậm nhất. Cần cân nhắc sử dụng hai thuật toán này trong các bài toán có số lượng phần tử lớn.
+\item Trên các tập dữ liệu \textbf{ngẫu nhiên}, \textbf{sắp xếp ngược} và các tập dữ liệu có \textbf{số lượng phần tử tương đôi lớn}, Merge Sort có thời gian chạy nhanh nhất với độ phức tạp không đổi $\mathcal{O}(n \log n)$. Tuy nhiên, một nhược điểm của Merge Sort là phải sử dụng thêm mảng phụ hỗ trợ các thao tác \texttt{split} và \texttt{merge}.
+\item Trên các tập dữ liệu \textbf{đã sắp xếp} và \textbf{gần sắp xếp}, Insertion Sort có thời gian chạy nhanh nhất. Thiết kế thuật toán Insertion Sort cho phép quá trình tìm kiếm vị trí chèn diễn ra nhanh hơn đối với hai tập dữ liệu kể trên, qua đó thuật toán đạt được thời gian chạy tốt nhất với độ phức tạp $\mathcal{O}(n)$.
+\item Một cải tiến của Insertion Sort là Binary Insertion Sort có thời gian chạy nhanh hơn Insertion Sort truyền thống ở các tập dữ liệu \textbf{ngẫu nhiên} và \textbf{sắp xếp ngược}. Tuy nhiên, sang các tập dữ liệu \textbf{đã sắp xếp} hoặc \textbf{gần sắp xếp} thì Insertion Sort truyền thống chạy nhanh hơn, nguyên nhân là đối với các thao tác tìm vị trí, Insertion Sort truyền thống tìm được vị trí chèn trong $\mathcal{O}(1)$ trong khi Binary Insertion Sort tìm được vị trí trong $\mathcal{O}(\log n)$.
+\item Về lý thuyết, thuật toán có thời gian chạy tốt nhất trong tất cả các trường hợp là Quick Sort, sau đó đến các thuật toán khác như Merge Sort, Heap Sort, ..etc. Tuy nhiên trên thực tế, tùy thuộc vào \textbf{phiên bản Compiler}; \textbf{kiến trúc, phiên bản CPU} hoặc \textbf{cách cài đặt thuật toán} mà thời gian thực hiện các thuật toán trên có thể thay đổi.\cite{liweitang}
 \end{itemize}
 
 \subsection{Tính ổn định}
-Một thuật toán được gọi là \textbf{ổn định} nếu các phần tử có giá trị bằng nhau sau khi sắp xếp có thứ tự xuất hiện giữ nguyên như ban đầu. Theo định nghĩa này, các thuật toán trên được xếp vào các nhóm:
+Một thuật toán được gọi là \textbf{ổn định} nếu các phần tử có giá trị bằng nhau trong tập dữ liệu, sau khi sắp xếp có thứ tự xuất hiện giữ nguyên như ban đầu. Theo định nghĩa này, các thuật toán trên được xếp vào các nhóm:
 
 \subsubsection{Nhóm thuật toán ổn định}
 Là các thuật toán sau khi sắp xếp không làm thay đổi thứ tự xuất hiện của các phần tử. Các thuật toán được xếp vào nhóm này bao gồm:
@@ -563,6 +582,12 @@ Các phần tử của tập dữ liệu có thể thay đổi thứ tự xuất
 \bibitem{LMHoang}
 Lê Minh Hoàng (2006).
 \textit{Giải thuật và Lập trình}, Đại học Sư phạm Hà Nội.
+
+\bibitem{liweitang}
+Weitang, Li (2018).
+\textit{Mergesort is faster than Quicksort},
+\url{https://liwt31.github.io/2018/11/20/fast_merge},
+truy cập \today.
 \end{thebibliography}
 
 \end{document}
