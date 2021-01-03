@@ -1,17 +1,16 @@
 \documentclass[12pt]{beamer}
-\usepackage{fourier}
 \usepackage[utf8]{vietnam}
 \usepackage{lmodern}
 \usepackage{graphicx}
 \usetheme{AnnArbor}
 
 \begin{document}
-    %\author{Lui-Xuong, Tran}
+    \author{Trần Lùi Xuống}
     \title{Thuật toán Floyd-Warshall}
     \subtitle{Tìm đường đi ngắn nhất giữa mọi cặp đỉnh}
     %\logo{}
     \institute{fit@hcmus}
-    \date{\today}
+    \date{mùa Xuân 2021}
     %\subject{}
     %\setbeamercovered{transparent}
     %\setbeamertemplate{navigation symbols}{}
@@ -25,6 +24,24 @@
     \end{frame}
 
     \begin{frame}[t]
+        \frametitle{Bài toán đường đi ngắn nhất}
+        \begin{itemize}
+            \item Trong một đồ thị không trọng số, đường đi ngắn nhất giữa 2 đỉnh = min(số lượng cạnh phải đi qua).
+            \item Trong đồ thị có trọng số, đường đi ngắn nhất là đường đi có tổng trọng số đạt min.
+            \item Thuật toán Dijkstra là một thuật toán hiệu quả để giải quyết bài toán đường đi ngắn nhất trên đồ thị có trọng số.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}[t]
+        \frametitle{Chu trình âm}
+        \begin{itemize}
+            \item Một chu trình trong đồ thị có độ dài âm được gọi là \textit{chu trình âm}.
+            \item Một nhược điểm của thuật toán Dijkstra: lỗi khi đồ thị có chu trình âm!
+            \item Để khắc phục, ta phải sử dụng một thuật toán khác: Bellman-Ford hoặc Floyd-Warshall.
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}[t]
         \frametitle{Giới thiệu thuật toán Floyd-Warshall}
         \section{Giới thiệu}
 
@@ -32,18 +49,27 @@
             \item Được phát biểu bởi Robert W. Floyd và Stephen Warshall năm 1962.
             \item Là một thuật toán Quy hoạch động tiêu biểu.
         \end{itemize}
-
-        \begin{figure}[h]
-            \includegraphics[width=.5\textwidth, height=.5\textheight,
-            keepaspectratio]{algo/Floyd.jpg}
-
-        \end{figure}
     \end{frame}
 
     \begin{frame}[t]
         \frametitle{Ý tưởng}
+        \framesubtitle{Công thức truy hồi \& thuật toán}
         \section{Ý tưởng}
+        \begin{itemize}
+            \item Từ một đỉnh A, tìm đường đi đến tất cả các đỉnh còn lại.
+            \item Từ một đỉnh B kề A, tìm đường đi đến tất cả các đỉnh còn lại.
+        \end{itemize}
 
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Ý tưởng (cont.)}
+        \framesubtitle{Nhận xét}
+        \textbf{Nhận xét}: Gọi F là mảng sau khi đã tính toán bằng thuật toán Floyd-Warshall.\pause
+        \begin{itemize}
+            \item Thuật toán Floyd-Warshall tính toán đường đi giữa tất cả các cặp đỉnh. Khi cần sử dụng, ta chỉ cần gọi F[<đỉnh đi>][<đỉnh đến>].\pause
+            \item Thuật toán Floyd-Warshall còn có thể sử dụng để nhận biết chu trình âm: $F[A][B] < 0 \iff $ giữa A và B tồn tại một chu trình âm.
+        \end{itemize}
     \end{frame}
 
     \begin{frame}[t]
@@ -78,9 +104,14 @@
     \begin{frame}
         \frametitle{Tổng kết}
         \begin{itemize}
-            \item Stupid Sort's poorly performance made it become an impractical sorting algorithm.
-            \item May be used in some source code, but for \textbf{comparison} (w. other sorting algorithms) or \textbf{educational purpose} (e.g example for a poor-performance algorithm) only.
+            \item Với độ phức tạp trung bình và tệ nhất đều là $\mathcal{O}(n^3)$, thuật toán Floyd nên được cân nhắc khi sử dụng trong các bài toán đồ thị.
+            \item Có một cải tiến của thuật toán Floyd khiến độ phức tạp trung bình giảm từ $\mathcal{O}(n^3)$ xuống còn $\mathcal{O}(n^{3 - \epsilon})$
         \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Cải tiến thuật toán Floyd-Warshall}
+        Một cải tiến được H.Grag và P.Rawat đưa ra năm 2012\cite{improve:article}, theo đó
     \end{frame}
 
     \begin{frame}
@@ -92,9 +123,7 @@
         \frametitle{Tài liệu tham khảo}
         \section{Tài liệu tham khảo}
         \bibliographystyle{apalike}
-        \begin{thebibliography}{10}
-            \bibitem{names} Hello, world
-        \end{thebibliography}
+        \bibliography{bib/algo}
     \end{frame}
 
 
