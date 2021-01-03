@@ -1,0 +1,181 @@
+\documentclass[]{article}
+
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\usepackage{lastpage}
+\usepackage{listings}
+\usepackage[margin=1in]{geometry}
+\usepackage[nottoc,notlot,notlof]{tocbibind}
+\usepackage[utf8]{vietnam}
+\usepackage{url}
+\usepackage{xcolor}
+
+\graphicspath{{./image/}}
+
+\lstset{
+  language = Python,
+  frame = single,
+  basicstyle = \ttfamily,
+  breaklines = true,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+\pagestyle{fancy}
+\lhead{\textit{Báo cáo Đồ án Lập trình Socket}}
+\rhead{Trường Đại học Khoa học Tự nhiên - ĐHQG HCM}
+\lfoot{\LaTeX\ by \href{https://github.com/trhgquan}{Quan, Tran Hoang}.}
+
+% Title Page
+\title{Báo cáo Đồ án Lập trình Socket}
+\author{Sinh viên thực hiện: Trần Hoàng Quân - MSSV: 19120338}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\pagebreak
+
+\section{Ý tưởng}
+\subsection{Frontend}
+Em sử dụng \href{https://getbootstrap.com}{Bootstrap 4} cho phần Frontend, bao gồm login form và các button. Lý do em chọn Bootstrap vì dễ sử dụng, giao diện nhìn đẹp nhưng đơn giản.
+
+\subsection{Cài đặt HTTP Socket server}
+Để thực hiện cài đặt HTTP Socket server, em đã tham khảo Tài liệu Socket chính thức của Python\cite{socket}, Tài liệu về HTTP Headers của Mozilla Developers Network (MDN)\cite{headers}
+
+\subsection{Xử lý POST request}
+Request sử dụng phương thức \texttt{POST} có thể được phân biệt với request sử dụng phương thức \texttt{GET} ở dòng đầu mỗi request header:
+\texttt{<tên phương thức> <đường dẫn gửi request tới>}
+\\\\
+Ví dụ:
+\\
+\texttt{GET /index.html} (sử dụng phương thức \texttt{GET} để request đến đường dẫn \texttt{/index.html}).
+\\
+\texttt{POST /login.html} (sử dụng phương thức \texttt{POST} để request đến đường dẫn \texttt{/login.html})
+\\\\
+Để phân biệt \texttt{GET} với \texttt{POST} request, em tách riêng dòng đầu ra và phân tích: Nếu xâu đứng trước dấu cách là \texttt{GET} thì đây là một \texttt{GET} request; \texttt{POST} thì đây là một \texttt{POST} request.
+
+\subsection{Xử lý GET request}
+Với \texttt{GET} request em chia làm hai trường hợp:
+\begin{enumerate}
+\item Nếu request đến một địa chỉ tồn tại, nghĩa là file được request phải tồn tại trong hệ thống, em sẽ đọc và trả về nội dung file đó.
+\item Nếu request đến một địa chỉ không tồn tại, em đọc và trả về nội dung file \texttt{404.html}.
+\end{enumerate}
+
+\subsection{Chunked data}
+Lý thuyết về \texttt{Transfer-Encoding: chunked}, em tìm hiểu qua MDN\cite{chunked}.
+\\\\
+Khi gửi chunked data, một vấn đề ta hay gặp phải là \textbf{chia data thành bao nhiêu chunk là đủ}. Vì không tự tin vào khả năng tính toán của mình và muốn đảm bảo không gửi thiếu data, em gửi mỗi lần 1 byte đến khi hết data thì thôi.
+\\\\
+Một vấn đề khác phát sinh là một số file được gửi dưới dạng chunks, một số lại không. Do đó, em chia các file ra làm hai loại:
+\begin{enumerate}
+\item Các file web \texttt{(.html; .js; .css)}. Các file này sẽ được gửi đi dưới dạng một block.
+\item Các file còn lại, được gửi dưới dạng chunks.
+\end{enumerate}
+
+\subsection{Download file, skip chế độ xem trước}
+Một vấn đề khác phát sinh: một số trình duyệt có chức năng hiển thị nội dung file (xem trước) thay vì để người dùng download. Đối với file .mp3, chế độ xem trước sẽ stream file với một tốc độ rất chậm.
+\\\\
+Do vậy, em thêm \texttt{content-disposition: attachment} để báo cho browser biết đây là một file \textbf{đính kèm}, phải download về thay vì mở ra xem trước.
+
+\section{Thử nghiệm}
+Sau đây là các bước để thử nghiệm:
+
+\subsection{Cài đặt môi trường}
+Server được viết bằng ngôn ngữ \texttt{Python 3.7.5}. \href{https://www.python.org/downloads/release/python-375/}{Download \texttt{Python 3.7.5} tại đây}.
+
+\subsection{Khởi chạy server}
+Chạy file \texttt{server.py} để tiến hành khởi chạy server.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{khoichayserver.png}
+\caption{Khởi động server thành công.}
+\end{figure}
+Mặc định, địa chỉ truy cập mặc định của server là \texttt{http://localhost:9000}. Khi truy cập, trang 404 sẽ hiện lên, khi đó server đã khởi chạy thành công.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{404.png}
+\caption{Trang landing 404.}
+\end{figure}
+
+\subsection{Đăng nhập}
+\subsubsection{Truy cập trang đăng nhập}
+Tại trang landing 404, click vào link \texttt{Back to login page}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.325]{linkdangnhap.png}
+\caption{Đường link đến trang đăng nhập ở 404 landing}
+\end{figure}
+hoặc truy cập vào \texttt{http://localhost:9000/index.html} để đến trang đăng nhập.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{dangnhap.png}
+\caption{Trang đăng nhập.}
+\end{figure}
+\subsubsection{Đăng nhập bằng tài khoản và mật khẩu}
+\label{login}
+Mặc định, tên đăng nhập vào hệ thống là \texttt{admin} và mật khẩu đăng nhập là \texttt{admin}. Nếu nhập sai tên đăng nhập hoặc mật khẩu, hệ thống sẽ trả về trạng thái 404 và trang 404 landing.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{dangnhapthatbai.png}
+\caption{Trạng thái 404 trả về khi đăng nhập thất bại.}
+\end{figure}
+Đăng nhập thành công, hệ thống sẽ redirect đến trang \texttt{infos.html}. Trang \texttt{infos.html} có thông tin của người phát triển, link đến các trang cá nhân, các đường link đến trang Download và trang đăng nhập.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{quaninfo.png}
+\caption{Trang thông tin của người phát triển.}
+\end{figure}
+\subsection{Download file}
+Nếu đã đăng nhập thành công ở mục \ref{login}, tại trang \texttt{infos.html} chọn đường link \texttt{download page}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.34]{linkdownload.png}
+\caption{Đường link đến trang download}
+\end{figure}
+hoặc truy cập trang \texttt{http://localhost:9000/files.html} để chuyển đến trang download. Giao diện trang download sẽ hiện ra như sau:
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{download.png}
+\caption{Giao diện trang download}
+\end{figure}
+Tại đây có bốn loại file mà người dùng có thể download: ảnh (.png)\footnote{file ảnh trong ví dụ: SGO48 Ánh Sáng (\href{https://instagram.com/anhsang.sgo48official}{@anhsang.sgo48official})}, video (.mp4)\footnote{file video trong ví dụ: SGO48 Janie (\href{https://instagram.com/janie.sgo48.official}{@janie.sgo48.official})} , tài liệu (.pdf)\footnote{file pdf trong ví dụ: The Hitchhiker's guide to Programming Contest} và âm thanh (.mp3)\footnote{file mp3 trong ví dụ: Câu Chuyện Gã Điên -Zephyr}. Để download, nhấn vào tên file.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.325]{clicklinkdownload.png}
+\caption{Chọn link file để download}
+\end{figure}
+Mở Developer Tools lên, ta có thể thấy file được server gửi đi bằng \texttt{transfer-encoding: chunked}.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{chunked.png}
+\caption{File được truyền với thuộc tính \texttt{transfer-encoding: chunked}}
+\end{figure}
+Download thành công, người dùng mở file lên để kiểm tra.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{proofdownload.png}
+\caption{File đã được download thành công}
+\end{figure}
+
+\begin{thebibliography}{10}
+\bibitem{socket}
+Python 3.7.9 Documentation.
+\textit{socket — Low-level networking interface},
+\url{https://docs.python.org/3.7/library/socket.html}, truy cập \today.
+
+\bibitem{headers}
+Mozilla Developer Network.
+\textit{HTTP headers},
+\url{https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers}, truy cập \today
+
+\bibitem{chunked}
+Mozilla Developer Network.
+\textit{Transfer-Encoding},
+\url{https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Transfer-Encoding}, truy cập \today.
+\end{thebibliography}
+\end{document}

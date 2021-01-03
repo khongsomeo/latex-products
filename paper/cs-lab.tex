@@ -48,8 +48,16 @@ Dữ kiện cho các thuật toán:
 \end{itemize}
 \subsection{Sắp xếp chọn - Selection Sort}
 Tư tưởng của Selection Sort khá đơn giản: chọn phần tử nhỏ nhất trong mảng, sau đó đẩy phần tử đó lên đầu. Khi đó phần tử này đã đứng đúng vị trí của nó, ta tiếp tục thực hiện sort các phần tử đứng sau nó.
-\\\\
-Cài đặt (C++):
+\subsubsection{Thuật toán}
+\begin{enumerate}
+\item $i := 0$.
+\item Đặt $min := a[i]$.
+\item Nếu trong đoạn từ $j = i + 1$ đến $n - 1$ có phần tử nào đó nhỏ hơn $min$, cập nhật $min := a[j]$
+\item Nếu $a[j] \neq min$ thì hoán vị $min$ và $a[i]$.
+\item $i := i + 1$. Nếu $i < n - 1$ thì quay lại bước 2. Ngược lại thì kết thúc thuật toán.
+\end{enumerate}
+
+\subsubsection{Cài đặt (C++)}
 \begin{lstlisting}
 void selectionSort(int* a, int n) {
   int jMin;
@@ -67,15 +75,25 @@ void selectionSort(int* a, int n) {
   }
 }
 \end{lstlisting}
+
+\subsubsection{Đánh giá độ phức tạp}
 Độ phức tạp trung bình: $\mathcal{O}(n^2)$
 \\
 Độ phức tạp trong trường hợp xấu nhất: $\mathcal{O}(n^2)$
 \\
 Độ phức tạp không gian: $\mathcal{O}(1)$, không sử dụng thêm vùng nhớ.
+
 \subsection{Sắp xếp nổi bọt - Bubble Sort}
 Sắp xếp nổi bọt sẽ ưu tiên làm \textit{nổi} các phần tử lớn hơn về phía sau bằng cách đổi chỗ mỗi phần tử với phần tử xếp sau nó đến khi nào không còn phần tử nào xếp sau lớn hơn nó. Chính vì vậy, tốc độ của Bubble Sort đặc biệt chậm đối với những bộ dữ liệu lớn, phải thực hiện rất nhiều phép so sánh.
-\\\\
-Cài đặt (C++):
+
+\subsubsection{Thuật toán}
+\begin{enumerate}
+\item $i := 0$
+\item Trong khoảng $j := n - 1$ tới $i + 1$, nếu tồn tại một $a[j]$ sao cho $a[j] < a[j - 1]$ thì tiến hành hoán vị $a[j]$ và $a[j - 1]$.
+\item $i := i + 1$, nếu $i < n - 1$ thì quay lại bước 2, ngược lại kết thúc thuật toán.
+\end{enumerate}
+
+\subsubsection{Cài đặt (C++)}
 \begin{lstlisting}
 void bubbleSort(int* a, int n) {
   // Lap qua tung phan tu, tru phan tu cuoi cung.
@@ -88,6 +106,8 @@ void bubbleSort(int* a, int n) {
   }
 }
 \end{lstlisting}
+
+\subsubsection{Đánh giá độ phức tạp}
 Độ phức tạp trung bình: $\mathcal{O}(n^2)$
 \\
 Độ phức tạp trong trường hợp xấu nhất: $\mathcal{O}(n^2)$
@@ -95,8 +115,18 @@ void bubbleSort(int* a, int n) {
 Độ phức tạp không gian: $\mathcal{O}(1)$, không sử dụng thêm vùng nhớ.
 \subsection{Sắp xếp chèn - Insertion Sort}
 Tư tưởng của sắp xếp chèn đúng như tên gọi: giả sử miền bên trái của mảng đã được sắp xếp, ta chỉ cần tìm một vị trí thích hợp để chèn một phần tử vào miền đó mà không làm mất đi tính thứ tự của miền.
-\\\\
-Cài đặt (C++):
+
+\subsubsection{Thuật toán}
+\begin{enumerate}
+\item $i := 1$.
+\item Nếu $a[i] < a[0]$, $pos := 0$, chuyển đến bước 4.
+\item Nếu $a[i - 1] \leq a[i]$, chuyển đến bước 6.
+\item Dịch mỗi phần tử trong đoạn $[pos, n - 1]$ sang bên phải 1 vị trí.
+\item Chèn $a[i]$ vào vị trí $pos$.
+\item $i := i + 1$. Nếu $i < n - 1$ thì quay lại bước 2, ngược lại kết thúc thuật toán.
+\end{enumerate}
+
+\subsubsection{Cài đặt (C++)}
 \begin{lstlisting}
 void insertionSort(int* a, int n) {
   for (int i = 1; i < n; ++i) {
@@ -119,7 +149,8 @@ void insertionSort(int* a, int n) {
 }
 \end{lstlisting}
 \textbf{Nhận xét:} ta có thể cải tiến thuật toán bằng cách làm giảm bớt các phép so sánh trong thao tác tìm vị trí phù hợp. Tham khảo thuật toán \ref{subsec:bininsertsort} bên dưới.
-\\\\
+
+\subsubsection{Đánh giá độ phức tạp}
 Độ phức tạp trung bình: $\mathcal{O}(n^2)$
 \\
 Độ phức tạp trong trường hợp xấu nhất: $\mathcal{O}(n^2)$
@@ -142,8 +173,15 @@ Dễ thấy: nếu áp dụng thuật toán Tìm kiếm nhị phân để chèn 
 
 \subsubsection{Thuật toán Sắp xếp chèn nhị phân}
 Sắp xếp chèn nhị phân là một cải tiến của sắp xếp chèn: miền bên trái của mảng đã có thứ tự, vì vậy ta có thể sử dụng tư tưởng của thuật toán tìm kiếm nhị phân để tìm vị trí chèn thích hợp thay cho tìm kiếm tuần tự.
-\\\\
-Cài đặt (C++):
+\begin{enumerate}
+\item $i := 1$
+\item Tìm kiếm nhị phân trong miền $[0, i - 1]$ với khóa $key = a[i]$ để tìm vị trí chèn thích hợp. Gọi $pos$ là vị trí chèn thích hợp đó.
+\item Dịch chuyển các phần tử trong miền $[pos, n - 1]$ sang phải 1 vị trí.
+\item Chèn $a[i]$ vào vị trí $pos$.
+\item $i := i + 1$. Nếu $i < n - 1$ thì quay lại bước 2, ngược lại kết thúc thuật toán.
+\end{enumerate}
+
+\subsubsection{Cài đặt (C++)}
 \begin{lstlisting}
 /**
  * Ham tim kiem khoa key tren mien [left, right],
@@ -188,16 +226,28 @@ void binaryInsertionSort(int* a, int n) {
   }
 }
 \end{lstlisting}Binary Insertion Sort giảm số lượng phép so sánh của Insertion Sort từ $\mathcal{O}(n^2)$ còn $\mathcal{O}(n \log n)$, tuy nhiên do thao tác chèn vẫn giống Insertion Sort nên độ phức tạp xấu nhất là $\mathcal{O}(n^2)$.
-\\\\
+
+\subsubsection{Đánh giá độ phức tạp}
 Độ phức tạp trung bình: $\mathcal{O}(n^2)$
 \\
 Độ phức tạp trong trường hợp xấu nhất: $\mathcal{O}(n^2)$
 \\
 Độ phức tạp không gian: $\mathcal{O}(1)$, không sử dụng thêm vùng nhớ.
+
 \subsection{Sắp xếp trộn - Merge Sort}
 Sắp xếp trộn mang tư tưởng Chia để trị (Divide and Conquer): chia nhỏ mảng giá trị ra làm hai mảng con, gọi đệ quy sắp xếp hai mảng đó rồi trộn các mảng con lại với nhau.
-\\\\
-Cài đặt (C++)
+\subsubsection{Thuật toán}
+\begin{enumerate}
+\item $\displaystyle mid := \left\lfloor\frac{left + right}{2}\right\rfloor$
+\item Chia mảng $a$ ra làm hai mảng con:
+\subitem Mảng con $A := a[left, mid - 1]$
+\subitem Mảng con $B := a[mid, right]$
+\item Nếu độ dài mảng $A > 1$, gọi đệ quy sắp xếp mảng con $A$ bằng cách thực hiện lại từ bước 1 với mảng $A$.
+\item Nếu độ dài mảng $B > 1$, gọi đệ quy sắp xếp mảng con $B$ bằng cách thực hiện lại từ bước 1 với mảng $B$.
+\item Trộn hai mảng $A$ và $B$ lại với nhau.
+\end{enumerate}
+
+\subsubsection{Cài đặt (C++)}
 \begin{lstlisting}
 /**
  * Ham tron 2 mang a va b lai voi nhau.
@@ -250,6 +300,7 @@ void mergeSort(int* a, int* b, int left, int right) {
   split(b, a, left, right);
 }
 \end{lstlisting}
+\subsubsection{Đánh giá độ phức tạp}
 Độ phức tạp trung bình: $\mathcal{O}(n \log n)$
 \\
 Độ phức tạp trong trường hợp xấu nhất: $\mathcal{O}(n \log n)$
@@ -257,7 +308,7 @@ void mergeSort(int* a, int* b, int left, int right) {
 Độ phức tạp không gian: $\mathcal{O}(n)$ - sử dụng thêm mảng phụ hỗ trợ các thao tác \texttt{split} và \texttt{merge}.
 \subsection{Sắp xếp nhanh - Quick Sort}
 Sắp xếp nhanh có cùng tư tưởng Chia để trị (Divide and Conquer) như Sắp xếp trộn, tuy nhiên cách chia và vị trí chia các mảng không phải là ở vị trí giữa mà ở các vị trí \textbf{chốt (Pivot)}.
-\\\\
+\subsubsection{Thuật toán}
 Cụ thể, thuật toán Sắp xếp nhanh chọn một phần tử làm \textbf{chốt}, sau đó chia mảng ra thành hai phần:
 \begin{itemize}
 \item Nửa đầu mảng gồm các phần tử nhỏ hơn hoặc bằng phần tử \textbf{chốt}.
@@ -266,8 +317,7 @@ Cụ thể, thuật toán Sắp xếp nhanh chọn một phần tử làm \textb
 Sau đó, thuật toán lại chọn hai phần tử \textbf{chốt} trên hai nửa đã phân chia của mảng, rồi quay lại thực hiện các bước trên.
 \\\\
 Dễ dàng nhận thấy, mấu chốt của thuật toán nằm ở quá trình chọn phần tử \textbf{chốt}. Nếu chọn phần tử \textbf{chốt} không phù hợp, thuật toán đạt được độ phức tạp xấu nhất $\mathcal{O}(n^2)$.
-\\\\
-Cài đặt (C++):
+\subsubsection{Cài đặt (C++)}
 \begin{lstlisting}
 /**
  * Ham tim chot (Pivot).
@@ -317,7 +367,7 @@ void quickSort(int* a, int left, int right) {
 Để tránh trường hợp chọn phải phần tử \textbf{chốt} không phù hợp, ta có thể cải tiến Quick Sort bằng phương pháp \textbf{chọn ngẫu nhiên phần tử chốt (randomized pivot)}. Khi đó, \textbf{chốt} bạn chọn sẽ \textit{khó} có khả năng rơi vào tình huống xấu nhất, tăng xác suất chọn đúng phần tử trung vị của mảng. \cite{LMHoang}
 \label{subsec:randompivot}
 \\\\
-Cài đặt (C++):
+Phương pháp chọn \textbf{chốt} ngẫu nhiên (C++):
 \begin{lstlisting}
 /**
 * Ham randomPartition - tao pivot ngau nhien, sau do partition.
@@ -373,6 +423,7 @@ void quickSort(int* a, int left, int right) {
   quickSort(a, part + 1, right);
 }
 \end{lstlisting}
+\subsubsection{Đánh giá độ phức tạp}
 Độ phức tạp trung bình: $\mathcal{O}(n \log n)$
 \\
 Độ phức tạp trong trường hợp xấu nhất: $\mathcal{O}(n^2)$
@@ -450,6 +501,7 @@ void heapSort(int* a, int n) {
   }
 }
 \end{lstlisting}
+\subsubsection{Đánh giá độ phức tạp}
 Độ phức tạp trung bình: $\mathcal{O}(n \log n)$
 \\
 Độ phức tạp trong trường hợp xấu nhất: $\mathcal{O}(n \log n)$

@@ -1,0 +1,203 @@
+\documentclass[]{article}
+
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\usepackage{lastpage}
+\usepackage{listings}
+\usepackage[margin=1in]{geometry}
+\usepackage[nottoc,notlot,notlof]{tocbibind}
+\usepackage[utf8]{vietnam}
+\usepackage{url}
+\usepackage{xcolor}
+\usepackage{booktabs}
+
+\lstset{
+    frame = single,
+    basicstyle = \ttfamily,
+    breaklines = true,
+    basicstyle=\footnotesize\ttfamily,
+}
+
+\graphicspath{{./image/packetTracer/}}
+
+\pagestyle{fancy}
+\lhead{Báo cáo Đồ án 3 - Packet Tracer}
+\rhead{Trường Đại học Khoa học Tự nhiên - ĐHQG HCM}
+\lfoot{\LaTeX\ by \href{https://github.com/trhgquan}{Quan, Tran Hoang}.}
+
+% Title Page
+\title{Báo cáo Đồ án 3 - Packet Tracer}
+\author{Nhóm sinh viên lớp 19CTT2}
+\date{Mùa Xuân năm 2021}
+
+\renewcommand\arraystretch{1.5}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\listoftables
+\pagebreak
+
+\section{Thông tin}
+\subsection{Nhóm sinh viên thực hiện}
+\begin{table}[ht]
+    \centering
+    \caption{Các sinh viên thực hiện Đồ án 3 - Packet Tracer.}
+    \begin{tabular}[t]{lcl}
+        \toprule
+        Họ \& tên&MSSV&Vai trò\\
+        \midrule
+        Trần Hoàng Quân&19120338&Cài đặt Lab 1;\\
+        &&Cài đặt Lab 3;\\
+        &&Viết báo cáo;\\
+        Lâm Hải Triều&19120407&Cài đặt Lab 2;\\
+        &&Quay video demo;\\
+        &&Screenshot cho báo cáo;\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Phần mềm sử dụng}
+Nhóm sử dụng \href{https://www.netacad.com/courses/packet-tracer}{phần mềm Cisco Packet Tracer} \texttt{phiên bản 7.3.1}. Giao diện phần mềm có thể khác với các phiên bản cũ hơn.
+
+\section{Lab 1}
+\subsection{Cách cài đặt}
+Để cài đặt Lab 1, nhóm đã thực hiện theo các bước sau:
+\begin{enumerate}
+\item Chọn Router, Switch và PC, sau đó nối dây theo đề bài.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{Lab01-hinh1.png}
+    \caption{Thực hiện cài đặt các thành phần của mạng và đi dây}
+\end{figure}
+\item Thực hiện cấu hình Router bằng các lệnh đã cung cấp.
+\begin{itemize}
+\item Chọn \texttt{Router > Config}
+\item Load nội dung config như đề bài đã cho:
+\begin{lstlisting}
+Router(config)# int fa0/0
+Router (config-if)#ip address 192.168.10.1 255.255.255.0
+Router (config-if)#exit
+Router (config-if)#ip dhcp pool dhclab
+Router(dhcp-config)# network 192.168.10.0 255.255.255.0
+//network network-number [mask | /prefix-length]
+Router(dhcp-config)#default-router 192.168.10.1
+Router(dhcp-config)#dns-server 192.168.10.2
+Router(dhcp-config)# exit
+Router(config)# ip dhcp excluded-address 192.168.10.1 192.168.10.10
+//not in the dhcp pool
+Router(config)#ip dhcp excluded-address 192.168.10.248 192.168.10.254
+//not in the dhcp pool
+Router(config)#exit
+Router(config)#wr //set the all PC network configuration to DHCP
+\end{lstlisting}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{Lab01-hinh2.png}
+    \caption{Load config của Router.}
+\end{figure}
+\end{itemize}
+\item \texttt{Truy cập từng PC > Desktop > IP Configuration}. Tick phần \texttt{DHCP} để chỉnh IP sang IP cấp phát động.\label{checkDHCP}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{Lab01-hinh3.png}
+    \caption{Chỉnh IP mỗi máy từ Static sang DHCP}
+\end{figure}
+\end{enumerate}
+
+\subsection{Kiểm thử}
+\subsubsection{Kiểm tra xem IP các máy có được cấp phát DHCP hay không}
+Từ thao tác \ref{checkDHCP}, nếu phần IP có câu \texttt{DHCP request successful} thì ta có thể xác nhận IP của máy được cấp phát DHCP. IP được cấp phát trong bài sẽ nằm trong khoảng \texttt{192.168.10.1} đến \texttt{192.168.10.10} và trong khoảng \texttt{192.168.10.248} đến \texttt{192.168.10.254}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{Lab01-hinh4.png}
+    \caption{Xác nhận trạng thái cấp phát IP của mỗi máy}
+\end{figure}
+\subsubsection{Kiểm thử xem các PC có thể tương tác với nhau hay không}
+Ta có thể dùng thao tác \texttt{ping} để kiểm tra kết nối giữa các máy. Tại mỗi PC, vào \texttt{Desktop > Command Prompt}. Từ đây, ta nhập lệnh \texttt{ping <ip máy nhận>}. Nếu các gói tin ICMP được gửi thành công, ta có thể xác nhận hai máy đã kết nối.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{Lab01-hinh3.png}
+    \caption{Kết quả ping giữa các máy.}
+\end{figure}
+
+\subsection{Báo cáo}
+Đề bài nêu 3 câu hỏi:
+\begin{enumerate}
+    \item \textbf{Địa chỉ IP sau khi được cấp phát DHCP} của PC0, PC1 và PC2?
+    \item \textbf{Địa chỉ Gateway} của PC0, PC1 và PC2?
+    \item Server nào là \textbf{DNS Server} của PC0, PC1 và PC2?
+\end{enumerate}
+Sau khi cài đặt hệ thống mạng, nhóm đã thu được các kết quả sau đây:
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{Lab01-hinh4.png}
+    \caption{Thông tin IP PC0 - Lab1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{Lab01-hinh5.png}
+    \caption{Thông tin IP PC1 - Lab1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{Lab01-hinh6.png}
+    \caption{Thông tin IP PC2 - Lab1}
+\end{figure}
+Các kết quả có thể được tổng hợp lại trong bảng sau:
+\begin{table}[H]
+    \centering
+    \caption{Kết quả các thử nghiệm ở Lab1.}
+    \begin{tabular}[t]{lccc}
+        \toprule
+        PC&Địa chỉ IP&Gateway&DNS Server\\
+        \midrule
+        PC0&192.168.10.13&192.168.10.1&192.168.10.2\\
+        PC1&192.168.10.13&192.168.10.1&192.168.10.2\\
+        PC2&192.168.10.13&192.168.10.1&192.168.10.2\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\section{Lab 2}
+\subsection{Cách cài đặt}
+Để cài đặt Lab2, nhóm đã thực hiện theo các bước sau:
+\begin{enumerate}
+\item Chọn Router, Switch và PC theo mô hình đề bài, sau đó tiến hành nối dây.
+\item Cấu hình IP Static cho các PC.
+\item Cấu hình Router 1 chuyển hướng gói tin đến Router 2.
+\item Cấu hình Router 2 chuyển hướng gói tin đến Router 1.
+\end{enumerate}
+\subsection{Kiểm thử}
+\subsubsection{Kiểm thử các PC có thể tương tác với nhau hay không}
+\begin{enumerate}
+    \item Chọn 2 PC bất kỳ cùng mạng và ping đến PC còn lại.
+    \item Chọn 2 PC bất kỳ khác mạng và ping đến PC còn lại.
+\end{enumerate}
+\subsection{Báo cáo}
+
+\section{Lab 3}
+\subsection{Cách cài đặt}
+Để cài đặt Lab3, nhóm đã thực hiện theo các bước sau:
+\begin{enumerate}
+    \item Chọn Router, Switch và PC theo mô hình đề bài.
+    \item Nối dây theo đề bài.
+    \item Cấu hình Server HTTP và Server DHCP.
+    \item Cấu hình Router 2 chuyển hướng gói tin DHCP và HTTP đến Router 1.
+    \item Cấu hình Router 3 chuyển hướng gói tin DHCP và HTTP đến Router 1.
+    \item Cấu hình cho 2 Router 2 và 3 giao tiếp với nhau.
+\end{enumerate}
+\subsection{Kiểm thử}
+\subsubsection{Kiểm thử các PC đã được cấp phát DHCP hay chưa}
+\subsubsection{Kiểm thử các PC có thể truy cập trang web hay chưa}
+\subsubsection{Kiểm thử các mạng 172.16.1.0 và 172.16.2.0 có thể giao tiếp với nhau hay chưa}
+\subsection{Báo cáo}
+s
+
+\begin{thebibliography}{10}
+\bibitem{tranluixuong}
+Trần Lùi Xuống
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,80 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{systeme}
+
+\pagestyle{fancy}
+\lhead{\LaTeX\ by Quan, Tran Hoang}
+\rhead{Updated \today}
+
+\begin{document}
+    \title{Some integrals to solve}
+    \author{Quan, Tran Hoang}
+
+    \maketitle
+
+    \paragraph
+    What is the integration of $\displaystyle f(x) = (3x + 1)\ln(x),\ (x > 0)$?\\\\
+    $\displaystyle \int f(x) dx = \int (3x + 1)\ln(x) dx$.\\\\
+    Let $\displaystyle \systeme{u = \ln(x), dv = (3x + 1) dx} \Rightarrow \systeme{du = \frac{1}{x} dx, v = \int (3x + 1) dx = \frac{3}{2}x^2 + x}$\\\\
+    $\displaystyle \int u dv = u \times v - \int v du = \left(\frac{3}{2}x^2 + x\right)\ln(x) - \int \left(\frac{3}{2}x^2 + x\right)\frac{1}{x} dx$\\\\
+    $\displaystyle = \left(\frac{3}{2}x^2 + x\right)\ln(x) - \int \left(\frac{3}{2}x + 1\right) dx = \left(\frac{3}{2}x^2 + x\right)\ln(x) - \frac{3}{4} x^2 - x + C$\\\\
+    In conclusion, $\displaystyle \int f(x) dx = \left(\frac{3}{2}x^2 + x\right)\ln(x) - \frac{3}{4} x^2 - x + C$
+
+    \paragraph
+    Given $\displaystyle f(x) = (x^2 + x + 1)e^x, F(x) = \int f(x) dx$. Find $F(x)$, knowing $F(0) = 0$.\\\\
+    $\displaystyle F(x) = \int f(x) dx = \int (x^2 + x + 1)e^x dx$.\\\\
+    Let $\displaystyle \systeme{u = x^2 + x + 1, dv = e^x dx} \Rightarrow \systeme{du = (2x + 1) dx, v = \int e^x dx = e^x}$.\\\\
+    $\displaystyle \int u dv = u \times v - \int v du = e^x (x^2 + x + 1) - \int (2x + 1)e^x dx$.\\\\
+    Let $\displaystyle \systeme{u' = 2x + 1, d(v') = e^x dx} \Rightarrow \systeme{d(u') = 2dx, v' = \int e^x dx = e^x}$\\\\
+    $\displaystyle \int (u') d(v') = (u') \times (v') - \int (v') d(u') = (2x + 1)e^x - \int 2e^x dx = (2x + 1)e^x - 2e^x = e^x(2x - 1)$.\\\\
+    Hence, $\displaystyle F(x) = e^x(x^2 + x + 1) - e^x(2x - 1) + C = e^x(x^2 - x + 2) + C$.\\\\
+    We got $\displaystyle F(0) = 0 \iff 2 + C = 0 \iff C = -2$.\\\\
+    In conclusion, $F(x) = e^x(x^2 - x + 2) - 2$.
+
+    \paragraph
+    Find $\displaystyle y = f(x)$ such that $y' - y = 0, \forall\  x \in \mathbb{R}$ and $\displaystyle y(0) = 1$. ($y' = f'(x)$ is a derivative of $y$).\\\\
+    Imagine $\displaystyle y'- y$ is the derivation of a product: $(uv)' = u'v + uv'$.\\\\
+    Multiplies both sides with $\displaystyle e^{-x}$: $\displaystyle e^{-x}y' - e^{-x}y = 0 \iff (e^{-x}y)' = 0$.\\\\
+    Integrate two sides, we get: $\displaystyle e^{-x}y = C \iff y = \frac{C}{e^{-x}} = Ce^x,\ C \in \mathbb{R}$.\\\\
+    Since $\displaystyle y(0) = 1 \iff C = 1$.\\\\
+    In conclusion, the result function is $\displaystyle y = f(x) = e^x$.
+
+    \paragraph
+    Knowing $\displaystyle I = \int_{3}^{7} \frac{1}{x^2 - 3x + 2} dx = \ln\left(\frac{m}{n}\right),\ m, n \in \mathbb{N^*}, (m, n) = 1$. Calculate $m^2 + n^2$.\\\\
+    We have $\displaystyle x^2 - 3x + 2 = (x - 1)(x - 2)$. Hence, $\displaystyle \int_{3}^{7} \frac{1}{x^2 - 3x + 2} dx = \int_{3}^{7}\frac{1}{(x-1)(x - 2)}$.\\\\
+    Imagine $\displaystyle \frac{1}{(x - 1)(x - 2)} = \frac{a}{x - 1} + \frac{b}{x - 2},\ (a, b) \in \mathbb{R}$.\\\\
+    Hence, $\displaystyle a(x - 2) + b(x - 1) = 1$. We can now forming a linear equations:\\\\
+    $\displaystyle \systeme{ax + bx = 0x,-2a - b = 1} \iff \systeme{a = -1,b = 1}$\\\\
+    Then, $\displaystyle I = \int_{3}^{7} \frac{1}{x^2 - 3x + 2} dx = \int_{3}^{7} \left(\frac{1}{x - 2} - \frac{1}{x - 1}\right) dx$\\\\
+    $\displaystyle = \int_{3}^{7} \frac{1}{x - 2} dx - \int_{3}^{7} \frac{1}{x - 1} dx$\\\\
+    Using the integration: $\displaystyle \int \frac{1}{x - a} dx = \ln|x - a|$ and $\displaystyle \ln(a) - ln(b) = \ln\left(\frac{a}{b}\right)$.
+    \begin{itemize}
+        \item Let $\displaystyle A = \int_{3}^{7} \frac{1}{x - 1} = \ln(|x - 1|)\big|_{3}^{7} = \ln\left(\frac{6}{2}\right) = \ln(3)$.
+        \item Let $\displaystyle B = \int_{3}^{7} \frac{1}{x - 2} = \ln(|x - 2|)\big|_{3}^{7} = \ln(5)$.
+    \end{itemize}
+    $\displaystyle I = B - A = \ln(5) - \ln(3) = \ln\left(\frac{5}{3}\right) = \ln\left(\frac{m}{n}\right) \Rightarrow m = 5, n = 3$.\\\\
+    Hence, the answer we need is $m^2 + n^2 = 5^2 + 3^2 = 34$.
+
+    \paragraph
+    Find $m,\ (m > 0)$ so that $\displaystyle \int_{0}^{m} \frac{2x + 3}{(x + 1)(x + 2)} = \ln(2)$.\\\\
+    Just like the above problem, imagine $\displaystyle \frac{2x + 3}{(x + 1)(x + 2)} = \frac{a}{x + 1} + \frac{b}{x + 2},\ (a, b) \in \mathbb{R}$.\\\\
+    Hence, $\displaystyle a(x + 2) + b(x + 1) = 2x + 3$. Then we can form a linear equation:\\\\
+    $\displaystyle \systeme{ax + bx = 2x, 2a + b = 3} \iff \systeme{a + b = 2, 2a + b = 3} \iff \systeme{a = 1, b = 1}$.\\\\
+    Then, $\displaystyle \int_{0}^{m} \frac{2x + 3}{(x + 1)(x + 2)} dx = \int_{0}^{m} \frac{1}{x + 1} dx + \int_{0}^{m} \frac{1}{x + 2} dx$.
+    \begin{itemize}
+        \item Let $\displaystyle A = \int_{0}^{m} \frac{1}{x + 1} dx = \ln|m + 1|$.
+        \item Let $\displaystyle B = \int_{0}^{m} \frac{1}{x + 2} dx = \ln\left|\frac{m + 2}{2}\right|$.
+    \end{itemize}
+    And we already know $\displaystyle A + B = \ln(2) \iff \ln|m + 1| + \ln\left|\frac{m + 2}{2}\right| = \ln(2)$\\\\
+    $\displaystyle \iff |m + 1|\left|\frac{m + 2}{2}\right| = 2 \iff |m^2 + 3m + 2| = 4$.
+    \begin{enumerate}
+        \item $\displaystyle m^2 + 3m + 2 = 4 \iff \systeme{m = \frac{-3 + \sqrt{17}}{2}, m = \frac{-3 - \sqrt{17}}{2}}$. Choose $\displaystyle m = \frac{-3 + \sqrt{17}}{2}$ because $m > 0$.
+        \item $m^2 + 3m + 2 = -4 \iff $ no solutions.
+    \end{enumerate}
+    Hence, there is only $\displaystyle m = \frac{-3 + \sqrt{17}}{2}$ is the result's problem.
+
+\end{document}

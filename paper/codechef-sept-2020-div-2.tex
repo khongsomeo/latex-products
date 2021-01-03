@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{fancyhdr}
+\usepackage[colorlinks = true, urlcolor = blue]{hyperref}
+
+\pagestyle{fancy}
+\lhead{\LaTeX\space by Quan, Tran Hoang}
+\rhead{\href{https://tranhoangquan.xyz}{https://tranhoangquan.xyz}}
+
+\begin{document}
+    Giai thich cho Codechef September Lunchtime 2020 - division 2, problem WATERMELON va GCD OPERATORS, viet bang \LaTeX \ de the hien ro cac cong thuc toan.
+
+    \paragraph{WATERMELON}
+    $A$ la mang so nguyen co $N$ phan tu. Goi $S$ la tong ban dau (luc chua bien doi) cua mang $A$; $\displaystyle S = \sum_{i = 1}^{N} A_i$. Ta dang can tim xem co the bien doi sao cho $S = 0$ trong mot huu han cac buoc hay khong. Xet cac truong hop sau:
+
+    \begin{itemize}
+        \item Truong hop $S > 0$, khi do ta co the giam 1 tu $A_1$ trong mot so lan bien doi nhat dinh sao cho $\displaystyle A_1 + \sum_{i = 2}^{N} A_i = 0$. Ke ca trong truong hop $S - A_1 > 0$ hay $S - A_1 < 0$ ta deu co the bien doi nhu tren.
+        \item Truong hop $S = 0$, ta khong phai bien doi.
+        \item Truong hop $S < 0$, moi lan bien doi ta chi lam giam gia tri cua $S$ ma khong the lam gia tri cua $S$ tang them, do do truong hop nay la truong hop duy nhat khong the bien doi.
+    \end{itemize}
+
+    \paragraph{GCD OPERATORS}
+    Ta luu y dieu kien ban dau $A_i = i$. Xet cac truong hop sau:
+
+    \begin{itemize}
+        \item Truong hop $B_i$ la uoc cua $A_i$. Khi do ton tai mot chi so $j\ (1 \leq j \leq i)$ sao cho $A_j$ la uoc cua $A_i$. Noi cach khac, $B_i$ la mot phan tu $A_j$ nao do duoc lap lai va $GCD(A_i, A_j) = B_i$.
+        \item Truong hop con lai, khi do ta khong tim duoc chi so $j$ va qua do, su xuat hien cua $B_i$ la vo ly.
+    \end{itemize}
+\end{document}

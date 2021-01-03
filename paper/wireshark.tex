@@ -1,0 +1,312 @@
+\documentclass[]{article}
+
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\usepackage{lastpage}
+\usepackage{listings}
+\usepackage[margin=1in]{geometry}
+\usepackage[nottoc,notlot,notlof]{tocbibind}
+\usepackage[utf8]{vietnam}
+\usepackage{url}
+\usepackage{xcolor}
+
+\graphicspath{{./image/wireshark/}}
+
+\lstset{
+  language = Python,
+  frame = single,
+  basicstyle = \ttfamily,
+  breaklines = true,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+\pagestyle{fancy}
+\lhead{Báo cáo Đồ án Wireshark: Bắt và phân tích gói tin}
+\rhead{Trường Đại học Khoa học Tự nhiên - ĐHQG HCM}
+\lfoot{\LaTeX\ by \href{https://github.com/trhgquan}{Quan, Tran Hoang}.}
+
+% Title Page
+\title{Báo cáo Đồ án Wireshark: Bắt và phân tích gói tin}
+\author{Sinh viên thực hiện: Trần Hoàng Quân - MSSV: 19120338}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\pagebreak
+
+\section{ICMP}
+\subsection{Mục đích của việc ping?}
+Lệnh \texttt{ping} giúp ta kiểm tra xem \textbf{có kết nối được với host hay không}, \textbf{khi gửi các gói tin có mất gói nào không} và \textbf{thời gian gửi/nhận các gói tin}.
+
+\subsection{Có bao nhiêu gói tin trong quá trình ping?}
+Có tổng cộng 8 gói tin, bao gồm 4 gói request (gửi đi) và 4 gói response (nhận về).
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{ICMP/ip.jpg}
+\caption{Các gói tin ICMP bắt được, sử dụng Wireshark}
+\end{figure}
+
+\subsection{Địa chỉ MAC nguồn và địa chỉ MAC đích?}
+\begin{itemize}
+\item Địa chỉ MAC nguồn: \texttt{0a:00:27:00:00:10}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{ICMP/MAC-host.jpg}
+\caption{Lấy địa chỉ MAC và địa chỉ IP máy host bằng lệnh \texttt{ipconfig /all}}
+\label{fig:macandiphost}
+\end{figure}
+
+\item Địa chỉ MAC đích: \texttt{08:00:27:e8:1e:0c}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{ICMP/MAC-guest.jpg}
+\caption{Lấy địa chỉ MAC và địa chỉ IP máy guest bằng lệnh \texttt{ipconfig /all}}
+\label{fig:macandipguest}
+\end{figure}
+
+\item Địa chỉ MAC nguồn và đích capture được bằng Wireshark
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{ICMP/MAC.jpg}
+\caption{Địa chỉ MAC nguồn và đích capture được bằng Wireshark}
+\end{figure}
+\end{itemize}
+
+\subsection{IP nguồn và IP đích?}
+Do ta đang \texttt{ping} từ máy host đến guest nên IP nguồn là của máy host, IP đích là của guest.
+\begin{itemize}
+\item IP nguồn: \texttt{192.168.38.2} (Xem hình \ref{fig:macandiphost} ở trang \pageref{fig:macandiphost})
+\item IP đích: \texttt{192.168.38.1} (Xem hình \ref{fig:macandipguest} ở trang \pageref{fig:macandipguest})
+\end{itemize}
+Các IP capture được bằng Wireshark:
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{ICMP/IP.jpg}
+\caption{Các IP capture được, sử dụng Wireshark}
+\end{figure}
+
+\subsection{Nội dung phần Data?}
+Nội dung phần Data capture được là
+\\
+\texttt{Data: 6162636465666768696a6b6c6d6e6f7071727374757677616263646566676869 }
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{ICMP/data.jpg}
+\caption{Data capture được, sử dụng Wireshark}
+\end{figure}
+
+\section{HTTP}
+
+\subsection{Phiên bản HTTP của trình duyệt và của Server?}
+\begin{itemize}
+\item Trình duyệt: Phiên bản HTTP được gửi trong request header. Trình duyệt ở máy em dùng phiên bản HTTP/1.1
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{HTTP/browser-http.jpg}
+\caption{Phiên bản HTTP được gửi trong request header}
+\end{figure}
+\item Server: Phiên bản HTTP được gửi trong response header. Server sử dụng phiên bản HTTP/1.1
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{HTTP/server-http.jpg}
+\caption{Phiên bản HTTP được gửi trong response header}
+\end{figure}
+\end{itemize}
+
+\subsection{Ngôn ngữ trình duyệt có thể chấp nhận Server?}
+Ta tìm phần \texttt{Accept-Language}\cite{MSDN-Language} và thấy:
+\\
+\texttt{Accept-Language: vi,fr-FR;q=0.9,fr;q=0.8,en-US;q=0.7,en;q=0.6,ru;q=0.5\textbackslash r\textbackslash n }.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{HTTP/browser-language-accept.jpg}
+\caption{Ngôn ngữ trình duyệt có thể chấp nhận server, gửi trong request header}
+\end{figure}
+
+\subsection{IP máy của bạn và của server gaia.cs.umass.edu?}
+Dùng Wireshark ta bắt được:
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{HTTP/http-ip.jpg}
+\caption{Xác định các IP trong request bằng Wireshark}
+\end{figure}
+
+Theo đó:
+\begin{itemize}
+\item IP máy em: \texttt{10.0.137.80}
+\item IP server: \texttt{128.119.245.12}
+\end{itemize}
+
+\subsection{Mã trả về từ server và ý nghĩa?}
+Server trả về mã \texttt{200 OK}, nghĩa là request đã thành công.\cite{MSDN-200}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{HTTP/error-code.jpg}
+\caption{Mã \texttt{200 OK} cho biết request đã thành công.}
+\end{figure}
+
+\subsection{Thời điểm file HTML được chỉnh sửa lần cuối ở server?}
+Thuộc tính \texttt{Last-Modified}\cite{MSDN-lastmod} nằm trong response header, ở đây là:
+\\
+\texttt{Last-Modified: Sat, 05 Dec 2020 06:59:02 GMT\textbackslash r\textbackslash n}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{HTTP/last-modified.jpg}
+\caption{Thời điểm sửa đổi lần cuối.}
+\end{figure}
+
+\subsection{Có bao nhiêu byte được trả về trong nội dung trình duyệt?}
+Trong response 1306 có tổng cộng 126 bytes được trả về.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{HTTP/byte-data.jpg}
+\caption{Xem số lượng byte trả về.}
+\end{figure}
+
+\subsection{Kiểm tra request GET đầu tiên, em có tìm thấy dòng IF-MODIFIED-SINCE?}
+Sử dụng Wireshark mở gói tin request GET đầu tiên. Ta nhận thấy, trong request GET đầu tiên không có dòng \texttt{IF-MODIFIED-SINCE}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{HTTP/khongcoifmodified.jpg}
+\caption{Không tìm thấy dòng \texttt{IF-MODIFIED-SINCE} trong GET request đầu tiên.}
+\label{fig:khongmodified}
+\end{figure}
+
+\subsection{Kiểm tra nội dung của file, server có trả về nội dung rõ ràng không?}
+Dựa theo hình \ref{fig:khongmodified} ở trang \pageref{fig:khongmodified}, nội dung server trả về rõ ràng, đầy đủ các phần đúng như browser request.
+
+\subsection{Kiểm tra nội dung request GET thứ 2, em có tìm thấy dòng IF-MODIFIED-SINCE?}
+Trong GET request thứ 2, file có dòng \texttt{IF-MODIFIED-SINCE}.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{HTTP/coifmodifiedsince.jpg}
+\caption{Tìm thấy dòng \texttt{IF-MODIFIED-SINCE} trong GET request thứ 2.}
+\end{figure}
+Phía sau dòng \texttt{IF-MODIFIDED-SINCE} là một ngày nhất định, ý nghĩa là truy vấn xem trang được request có thay đổi từ ngày đó hay không.
+
+\subsection{Mã trả về từ server? Server có trả về file hay không?}
+Server khi đó trả về mã \texttt{304 Not Modified}\cite{MSDN-304}, trong response chỉ có response header mà không có response body.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{HTTP/noidung304.jpg}
+\caption{Nội dung repsonse sau khi request có dòng \texttt{IF-MODIFIED-SINCE}.}
+\end{figure}
+
+Khi có thuộc tính \texttt{IF-MODIFIED-SINCE}, nếu trang không được chỉnh sửa sau ngày tháng được quy định trong \texttt{IF-MODIFIED-SINCE} thì server trả về trạng thái 304, báo rằng trang không có thay đổi. Khi nhận được trạng thái 304, trình duyệt sẽ load trang từ trong bộ nhớ cache.\cite{MSDN-modified}
+
+\section{FTP}
+\subsection{Có bao nhiêu loại gói tin FTP? Giải thích ý nghĩa từng gói?}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{FTP/loaigoitin.jpg}
+\caption{Các loại gói tin FTP}
+\end{figure}
+Ý nghĩa từng gói tin:\cite{packetinfo}
+\begin{enumerate}
+\item \texttt{AUTH}: Cơ chế xác thức / bảo vệ.
+\item \texttt{CWD}: Đổi thư mục làm việc.
+\item \texttt{DELE}: Xóa file.
+\item \texttt{FEAT}: Xác định các chức năng mà server hỗ trợ.
+\item \texttt{MLSD}: Liệt kê nội dung của một thư mục.
+\item \texttt{PASS}: Xác thực mật khẩu (password).
+\item \texttt{PASV}: Mở chế độ Passive.
+\item \texttt{PWD}: Trả về thư mục đang hoạt động của host.
+\item \texttt{RETR}: Nhận một bản copy của file.
+\item \texttt{STOR}: Chấp nhận và lưu trữ dữ liệu dưới dạng file ở phía server.
+\item \texttt{SYST}: Trả về kiểu hệ thống.
+\item \texttt{TYPE}: Đặt kiểu truyền dữ liệu (Binary / ASCII).
+\item \texttt{USER}: Xác thực tên người dùng (username).
+\end{enumerate}
+\subsection{IP nguồn, đích các gói tin FTP?}
+Trong các request, IP nguồn là IP client, IP đích là IP server.
+\begin{itemize}
+\item IP nguồn: \texttt{192.168.38.2}
+\item IP đích: \texttt{192.168.38.1}
+\end{itemize}
+Với các response thì ngược lại.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{FTP/ipnguondich.jpg}
+\caption{IP nguồn, đích của các gói tin}
+\end{figure}
+
+\subsection{MAC nguồn, đích các gói tin FTP?}
+\begin{itemize}
+\item Địa chỉ MAC nguồn: \texttt{0a:00:27:00:00:10}
+\item Địa chỉ MAC đích: \texttt{08:00:27:e8:1e:0c}
+\end{itemize}
+Với các response thì ngược lại.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{FTP/macnguondich.jpg}
+\caption{MAC nguồn, đích của các gói tin}
+\end{figure}
+
+\subsection{FTP sử dụng port ở server và client là bao nhiêu?}
+Để xem port mà server và client sử dụng, ta chọn mục \texttt{Transmission Control Protocol}.
+\\\\
+Trong mục này, \texttt{Source port} là port mà client đang dùng; \texttt{Destination port} là port mà server đang dùng.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{FTP/portnguondich.jpg}
+\caption{Port FTP của server và port FTP của client}
+\end{figure}
+Ở đây, server đang sử dụng port \texttt{21} và client đang sử dụng port \texttt{49937}.
+
+\subsection{FTP sử dụng mode passive hay active?}
+Xem các repsonse packet, ta có thể nhận thấy FTP đang sử dụng mode \texttt{passive}:
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{FTP/passive.jpg}
+\caption{FTP sử dụng mode passive}
+\end{figure}
+
+\subsection{Chúng ta có lấy được username và password từ các gói tin FTP không?}
+Nếu username hợp lệ, server mới yêu cầu password; trạng thái đăng nhập thành công được trả về trong một packet riêng, không bao gồm username và password.
+\\\\
+Nhìn chung, ta có thể lấy được username và password từ các gói tin rời rạc nhau.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{FTP/thongtinuser.jpg}
+\caption{Username và password được gửi qua các gói tin.}
+\end{figure}
+
+\begin{thebibliography}{10}
+\bibitem{MSDN-Language}
+Mozilla Developer Network.
+\textit{Accept-Language},
+\url{https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language}, truy cập \today
+
+\bibitem{MSDN-200}
+Mozilla Developer Network.
+\textit{200 OK},
+\url{https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200}, truy cập \today
+
+\bibitem{MSDN-304}
+Mozilla Developer Network.
+\textit{304 Not Modified},
+\url{https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/304}, truy cập \today
+
+\bibitem{MSDN-lastmod}
+Mozilla Developer Network.
+\textit{Last-Modified}
+\url{https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Last-Modified}
+
+\bibitem{MSDN-modified}
+Mozilla Developer Network.
+\textit{If-Modified-Since},
+\url{https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Modified-Since}, truy cập \today
+
+\bibitem{packetinfo}
+SS64.com.
+\textit{List of raw FTP commands},
+\url{https://ss64.com/rawftp.html}, truy cập \today
+
+\end{thebibliography}
+\end{document}

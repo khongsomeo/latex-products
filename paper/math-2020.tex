@@ -1,0 +1,226 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{systeme}
+
+\pagestyle{fancy}
+\lhead{\LaTeX\ by Quan, Tran Hoang}
+\rhead{Updated \today}
+
+\begin{document}
+    \title{Some Integral Problems in the Vietnam NHSGE Math test, 2020}
+    \author{Quan, Tran Hoang}
+    \maketitle
+
+    \section{Basics}
+
+    \subsection{The Fundamental Theorem of Calculus:}
+    \subsubsection{First part:}
+    If $\displaystyle F(x) = \int_{a}^{b} f(x) dx$ then $\displaystyle F'(x) = f(x)$.
+
+    \subsubsection{Second part:}
+    $\displaystyle \int_{a}^{b} f(x) dx = F(b) - F(a)$
+
+    \subsection{The Basic Concepts of Integration:}
+
+    \begin{itemize}
+        \item $\displaystyle \int_{a}^{b} f(x) \pm g(x) dx = \int_{a}^{b} f(x) dx \pm \int_{a}^{b} g(x) dx$
+        \item $\displaystyle \int_{a}^{b} Cf(x) dx = C\times\int_{a}^{b} f(x) dx$ which $C$ is a constant.
+    \end{itemize}
+
+    \subsection{Integration by Substitution}
+    Given $f(x)$ and $g(x)$ integrable and differentable on their domains $\mathbb{D}$.\\\\
+    The integral $\displaystyle \int f(g(x))g'(x)dx$ can be integrate with \textbf{the substitution method:}\\\\
+    Let $\displaystyle \systeme{u = g(x), du = g'(x) dx}$. Hence, $\displaystyle \int f(g(x))g'(x)dx = \int f(u) du$.
+
+    \subsection{Integration by Parts:}
+    Given $u(x)$ and $v(x)$ are functions by $x$.\\\\
+    Let $\displaystyle \systeme{u = u(x), dv = v(x) dx} \Rightarrow \systeme{du = u'(x)dx, v = \int v(x) dx}$\\\\
+    Hence, $\displaystyle I = \int u(x)v(x) dx = [u(x)\times\int v(x) dx] - \int[\int v(x) dx \times u'(x)]dx$.\\\\
+    In another words: $\displaystyle \int uv dx = (u\times v) - \int vdu$.
+
+    \section{Problems and Solutions}
+    Some basic problems (e.g \textit{calculate $\displaystyle \int x^3 dx$}) skipped.
+
+    \paragraph{\cite{9@116}} Knowing $\displaystyle \int_{3}^{5} f(x) dx = 4$, calculate $\displaystyle \int_{3}^{5} 3f(x) dx$? \textbf{Answer: 12}\\
+
+    By the Basic Concepts of Integration:\\
+
+    $\displaystyle\int_{a}^{b} Cf(x) dx = C\times\int_{a}^{b} f(x) dx$\\
+
+    Hence, $\displaystyle\int_{3}^{5} 3f(x) dx = 3\times\int_{3}^{5} f(x) dx = 3 \times 4 = 12$
+
+    \paragraph{\cite{8@109}} Knowing $\displaystyle \int_{1}^{3} f(x) dx = 3$, calculate $\displaystyle \int_{1}^{3} 2f(x) dx$? \textbf{Answer: 6}\\
+
+    By the Basic Concepts of Integration:\\
+
+    $\displaystyle \int_{a}^{b} Cf(x) dx = C\int_{a}^{b} f(x) dx$\\\\
+
+    Hence, $\displaystyle \int_{1}^{3} 2f(x) dx = 2\times\int_{1}^{3} f(x) dx = 2 \times 3 = 6$
+
+    \paragraph{\cite{26@116}} Knowing $\displaystyle F(x) = x^3$ is an antiderivative of function $\displaystyle f(x)$ on domain $\displaystyle \mathbb{R}$. What is the value of $\displaystyle \int_{1}^{2} [2 + f(x)] dx$? \textbf{Answer: 9}
+
+    Let $\displaystyle I = \int_{1}^{2} [2 + f(x)] dx$\\
+
+    Since $f(x)$ is continuous on it's domain $(\mathbb{R})$, then\\
+
+    $\displaystyle I = \int_{1}^{2} 2 dx + \int_{1}^{2} f(x) dx$\\\\
+
+    Let $\displaystyle I_1 = \int_{1}^{2} 2 dx = 2x\big|_1^2 = 4 - 2 = 2$\\\\
+
+    Let $\displaystyle I_2 = \int_{1}^{2} f(x) dx$. Because $F(x)$ is an antiderivative of function $f(x)$,\\\\
+
+    $\displaystyle \int f(x) dx = F(x) \Rightarrow \int_{1}^{2} f(x) dx = F(x)\big|_1^2 = x^3\big|_1^2 = 8 - 1 = 7$\\\\
+
+    Hence, $\displaystyle I = I_1 + I_2 = 2 + 7 = 9$
+
+    \paragraph{\cite{32@109}} Knowing $\displaystyle F(x) = x^2$ is an antiderivative of function $\displaystyle f(x)$ on domain $\displaystyle \mathbb{R}$. What is the value of $\displaystyle \int_{1}^{2} [2 + f(x)] dx$? \textbf{Answer: 5}
+
+    Let $\displaystyle I = \int_{1}^{2} [2 + f(x)] dx$\\
+
+    Since $f(x)$ is continuous on it's domain $(\mathbb{R})$, then\\
+
+    $\displaystyle I = \int_{1}^{2} 2 dx + \int_{1}^{2} f(x) dx$\\\\
+
+    Let $\displaystyle I_1 = \int_{1}^{2} 2 dx = 2x\big|_1^2 = 4 - 2 = 2$\\\\
+
+    Let $\displaystyle I_2 = \int_{1}^{2} f(x) dx$.\\\\
+
+    Because $F(x)$ is an antiderivative of function $f(x)$ and the Fundamental Theorem of Calculus,\\
+
+    $\displaystyle \int f(x) dx = F(x) \Rightarrow \int_{1}^{2} f(x) dx = F(x)\big|_1^2 = x^2\big|_1^2 = 4 - 1 = 3$\\
+
+    Hence, $\displaystyle I = I_1 + I_2 = 2 + 3 = 5$
+
+    \paragraph{\cite{33@116}} Find the area between two curves $y = x^2 - 1$ and $y = x - 1$? \textbf{Answer: $\displaystyle \frac{1}{6}$}
+
+    Let $f(x) = x^2 - 1, g(x) = x - 1$.\\
+
+    The intersection of two curves is the solutions of the intersection function:\\
+
+    $\displaystyle f(x) = g(x) \iff x^2 - 1 = x - 1 \iff x^2 - x = 0$\\
+
+    $\iff x(x - 1) = 0 \iff \systeme{x = 0, x = 1}$.
+
+    The area $S$ is calculated by the formula: $\displaystyle S = \int_{a}^{b} u(x) - v(x) dx$ \textit{(which the graph of $u(x)$ is on top of $v(x)$, from $x = a$ to $x = b$)}.\\
+
+    Then, $\displaystyle S = \int_{0}^{1} g(x) - f(x) dx = \int_{0}^{1} x - x^2 dx = \frac{x^2}{2}\big|_{0}^{1} - \frac{x^3}{3}\big|_{0}^{1} = \frac{1}{2} - \frac{1}{3} = \frac{1}{6}$.
+
+    \paragraph{\cite{35@109}} Find the area between two curves $y = x^2 - 4$ and $y = 2x - 4$? \textbf{Answer: $\displaystyle \frac{4}{3}$}
+
+    Let $f(x) = x^2 - 4,\ g(x) = 2x - 4$.\\
+
+    The intersection of two curves is the solutions of the intersection function:\\
+
+    $\displaystyle f(x) = g(x) \iff x^2 - 4 = 2x - 4 \iff x^2 - 2x = 0$\\
+
+    $\iff x(x - 2) = 0 \iff \systeme{x = 0, x = 2}$.
+
+    The area $S$ is calculated by the formula: $\displaystyle S = \int_{a}^{b} u(x) - v(x) dx$ \textit{(which the graph of $u(x)$ is on top of $v(x)$, from $x = a$ to $x = b$)}.\\
+
+    Then, $\displaystyle S = \int_{0}^{2} g(x) - f(x) dx = \int_{0}^{2} 2x - x^2 dx = x^2\big|_{0}^{2} - \frac{x^3}{3}\big|_{0}^{2} = 4 - \frac{8}{3} = \frac{4}{3}$.
+
+    \paragraph{\cite{42@109}} Let $\displaystyle f(x) = \frac{x}{\sqrt{x^2 + 2}}$. What is the antiderivative of function $\displaystyle g(x) = (x + 1)f'(x)$? \textbf{Answer: $\displaystyle \frac{x - 2}{\sqrt{x^2 + 2}} + C$}\\
+
+    Since $\displaystyle \sqrt{x^2 + 2} > 0 \forall x \in \mathbb{R}$, the domain of $f(x)$ is $\mathbb{R}$.\\
+
+    Hence, $\displaystyle \int g(x) dx = \int (x + 1)f'(x) dx = \int xf'(x) dx + \int f'(x) dx$.\\
+
+    \begin{itemize}
+        \item Base on the Fundamental Theorem of Calculus,\\
+
+        $\displaystyle \int f'(x) dx = f(x) = \frac{x}{\sqrt{x^2 + 2}}$ (1)
+
+        \item
+        Integration by parts the integral $\displaystyle \int xf'(x) dx$:\\
+
+        Let $\systeme{u = x \iff du = dx, dv = f'(x) dx \iff v = f(x)}$
+
+        By the definition of integral by parts:
+        $\displaystyle \int u dv = uv - \int v du$,
+
+        the integral becomes $\displaystyle xf(x) - \int f(x) dx = \frac{x^2}{\sqrt{x^2 + 2}} - \int \frac{x}{\sqrt{x^2 + 2}} dx$
+
+        \subitem
+        Integrate the integral $\displaystyle\int \frac{x}{\sqrt{x^2 + 2}}$:\\
+
+        Using substitution method, let $\displaystyle u = \sqrt{x^2 + 2} \Rightarrow u^2 = x^2 + 2 \Rightarrow 2udu = 2xdx \iff udu = xdx$\\
+
+        Hence, $\displaystyle \int \frac{x}{\sqrt{x^2 + 2}} dx = \int du = u = \sqrt{x^2 + 2}$
+
+        So the whole integral $\displaystyle \int xf'(x) dx$ becomes $\displaystyle xf(x) - \int f(x) dx = \frac{x^2}{\sqrt{x^2 + 2}} - \sqrt{x^2 + 2} = \frac{-2}{\sqrt{x^2 + 3}}$ (2).\\
+    \end{itemize}
+
+    From (1) and (2):\\
+
+    $\displaystyle \int g(x) dx = \int xf'(x) dx + \int f'(x) dx = \frac{-2}{\sqrt{x^2 + 2}} + \frac{x}{\sqrt{x^2 + 2}} = \frac{x - 2}{\sqrt{x^2 + 2}}$.\\
+
+    In conclusion: $\displaystyle \int (x - 1)f'(x) dx = \frac{x - 2}{\sqrt{x^2 + 2}} + C$.
+
+    \paragraph{\cite{42@116}} Let $\displaystyle f(x) = \frac{x}{\sqrt{x^2 + 3}}$. What is the antiderivative of function $\displaystyle g(x) = (x + 1)f'(x)$? \textbf{Answer: $\displaystyle \frac{x - 3}{\sqrt{x^2 + 3}} + C$}\\
+
+    Since $\displaystyle \sqrt{x^2 + 3} > 0, \forall x \in \mathbb{R}$, the domain of $f(x)$ is $\mathbb{R}$.\\
+
+    Hence, $\displaystyle \int g(x) dx = \int (x + 1)f'(x) dx = \int xf'(x) dx + \int f'(x) dx$.\\
+
+    \begin{itemize}
+        \item Base on the Fundamental Theorem of Calculus,\\
+
+        $\displaystyle \int f'(x) dx = f(x) = \frac{x}{\sqrt{x^2 + 3}}$ (1)\label{problem3-1}
+
+        \item
+        Integration by parts the integral $\displaystyle \int xf'(x) dx$:\\
+
+        Let $\systeme{u = x \iff du = dx, dv = f'(x) dx \iff v = f(x)}$
+
+        By the definition of integral by parts:
+        $\displaystyle \int u dv = uv - \int v du$,
+
+        the integral becomes $\displaystyle xf(x) - \int f(x) dx = \frac{x^2}{\sqrt{x^2 + 3}} - \int \frac{x}{\sqrt{x^2 + 3}} dx$
+
+        \subitem
+        Integrate the integral $\displaystyle\int \frac{x}{\sqrt{x^2 + 3}}$:\\
+
+        Using substitution method, let $\displaystyle u = \sqrt{x^2 + 3} \Rightarrow u^2 = x^2 + 3 \Rightarrow 2udu = 2xdx \iff udu = xdx$\\
+
+        Hence, $\displaystyle \int \frac{x}{\sqrt{x^2 + 3}} dx = \int du = u = \sqrt{x^2 + 3}$
+
+        So the whole integral $\displaystyle \int xf'(x) dx$ becomes $\displaystyle xf(x) - \int f(x) dx = \frac{x^2}{\sqrt{x^2 + 3}} - \sqrt{x^2 + 3} = \frac{-3}{\sqrt{x^2 + 3}}$ (2)\label{problem3-2}.\\
+    \end{itemize}
+
+    From (1) and (2):\\
+
+    $\displaystyle \int g(x) dx = \int xf'(x) dx + \int f'(x) dx = \frac{-3}{\sqrt{x^2 + 3}} + \frac{x}{\sqrt{x^2 + 3}} = \frac{x - 3}{\sqrt{x^2 + 3}}$.\\
+
+    In conclusion: $\displaystyle \int (x - 1)f'(x) dx = \frac{x - 3}{\sqrt{x^2 + 3}} + C$
+
+    \begin{thebibliography}{10}
+        \bibitem{9@116} Ministry of Education and Training Vietnam.\\
+        \textit{Problem 9, code 116, Math test of The National High School Graduation Examination (NHSGE) 2020}
+
+        \bibitem{8@109} Ministry of Education and Training Vietnam.\\
+        \textit{Problem 8, code 109, Math test of The National High School Graduation Examination (NHSGE) 2020}
+
+        \bibitem{26@116} Ministry of Education and Training Vietnam.\\
+        \textit{Problem 26, code 116, Math test of The National High School Graduation Examination (NHSGE) 2020}
+
+        \bibitem{32@109} Ministry of Education and Training Vietnam.\\
+        \textit{Problem 32, code 109, Math test of The National High School Graduation Examination (NHSGE) 2020}
+
+        \bibitem{33@116} Ministry of Education and Training Vietnam.\\
+        \textit{Problem 33, code 116, Math test of The National High School Graduation Examination (NHSGE) 2020}
+
+        \bibitem{35@109} Ministry of Education and Training Vietnam.\\
+        \textit{Problem 35, code 109, Math test of The National High School Graduation Examination (NHSGE) 2020}
+
+        \bibitem{42@109} Ministry of Education and Training Vietnam.\\
+        \textit{Problem 42, code 109, Math test of The National High School Graduation Examination (NHSGE) 2020}
+
+        \bibitem{42@116} Ministry of Education and Training Vietnam.\\
+        \textit{Problem 42, code 116, Math test of The National High School Graduation Examination (NHSGE) 2020}
+    \end{thebibliography}
+
+\end{document}
