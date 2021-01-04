@@ -30,13 +30,14 @@
 % Title Page
 \title{Báo cáo Đồ án 3 - Packet Tracer}
 \author{Nhóm sinh viên lớp 19CTT2}
-\date{Mùa Xuân năm 2021}
+\date{\today}
 
 \renewcommand\arraystretch{1.5}
 
 \begin{document}
 \maketitle
 \tableofcontents
+\listoffigures
 \listoftables
 \pagebreak
 
@@ -69,7 +70,7 @@ Nhóm sử dụng \href{https://www.netacad.com/courses/packet-tracer}{phần m�
 \item Chọn Router, Switch và PC, sau đó nối dây theo đề bài.
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{Lab01-hinh1.png}
+    \includegraphics[scale=0.5]{lab1/Lab01-hinh1.png}
     \caption{Thực hiện cài đặt các thành phần của mạng và đi dây}
 \end{figure}
 \item Thực hiện cấu hình Router bằng các lệnh đã cung cấp.
@@ -95,32 +96,25 @@ Router(config)#wr //set the all PC network configuration to DHCP
 \end{lstlisting}
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{Lab01-hinh2.png}
+    \includegraphics[scale=0.5]{lab1/Lab01-hinh2.png}
     \caption{Load config của Router.}
 \end{figure}
 \end{itemize}
 \item \texttt{Truy cập từng PC > Desktop > IP Configuration}. Tick phần \texttt{DHCP} để chỉnh IP sang IP cấp phát động.\label{checkDHCP}
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{Lab01-hinh3.png}
+    \includegraphics[scale=0.5]{lab1/Lab01-hinh3.png}
     \caption{Chỉnh IP mỗi máy từ Static sang DHCP}
 \end{figure}
 \end{enumerate}
 
 \subsection{Kiểm thử}
 \subsubsection{Kiểm tra xem IP các máy có được cấp phát DHCP hay không}
-Từ thao tác \ref{checkDHCP}, nếu phần IP có câu \texttt{DHCP request successful} thì ta có thể xác nhận IP của máy được cấp phát DHCP. IP được cấp phát trong bài sẽ nằm trong khoảng \texttt{192.168.10.1} đến \texttt{192.168.10.10} và trong khoảng \texttt{192.168.10.248} đến \texttt{192.168.10.254}.
+Từ thao tác \ref{checkDHCP}, nếu phần IP có câu \texttt{DHCP request successful} thì ta có thể xác nhận IP của máy được cấp phát DHCP.
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{Lab01-hinh4.png}
+    \includegraphics[scale=0.5]{lab1/Lab01-hinh4.png}
     \caption{Xác nhận trạng thái cấp phát IP của mỗi máy}
-\end{figure}
-\subsubsection{Kiểm thử xem các PC có thể tương tác với nhau hay không}
-Ta có thể dùng thao tác \texttt{ping} để kiểm tra kết nối giữa các máy. Tại mỗi PC, vào \texttt{Desktop > Command Prompt}. Từ đây, ta nhập lệnh \texttt{ping <ip máy nhận>}. Nếu các gói tin ICMP được gửi thành công, ta có thể xác nhận hai máy đã kết nối.
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.5]{Lab01-hinh3.png}
-    \caption{Kết quả ping giữa các máy.}
 \end{figure}
 
 \subsection{Báo cáo}
@@ -133,17 +127,17 @@ Ta có thể dùng thao tác \texttt{ping} để kiểm tra kết nối giữa c
 Sau khi cài đặt hệ thống mạng, nhóm đã thu được các kết quả sau đây:
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{Lab01-hinh4.png}
+    \includegraphics[scale=0.5]{lab1/Lab01-hinh3.png}
     \caption{Thông tin IP PC0 - Lab1}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{Lab01-hinh5.png}
+    \includegraphics[scale=0.5]{lab1/Lab01-hinh5.png}
     \caption{Thông tin IP PC1 - Lab1}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{Lab01-hinh6.png}
+    \includegraphics[scale=0.5]{/lab1/Lab01-hinh6.png}
     \caption{Thông tin IP PC2 - Lab1}
 \end{figure}
 Các kết quả có thể được tổng hợp lại trong bảng sau:
@@ -152,11 +146,11 @@ Các kết quả có thể được tổng hợp lại trong bảng sau:
     \caption{Kết quả các thử nghiệm ở Lab1.}
     \begin{tabular}[t]{lccc}
         \toprule
-        PC&Địa chỉ IP&Gateway&DNS Server\\
+        PC&IPv4 Address&Default Gateway&DNS Server\\
         \midrule
-        PC0&192.168.10.13&192.168.10.1&192.168.10.2\\
+        PC0&192.168.10.11&192.168.10.1&192.168.10.2\\
         PC1&192.168.10.13&192.168.10.1&192.168.10.2\\
-        PC2&192.168.10.13&192.168.10.1&192.168.10.2\\
+        PC2&192.168.10.12&192.168.10.1&192.168.10.2\\
         \bottomrule
     \end{tabular}
 \end{table}
