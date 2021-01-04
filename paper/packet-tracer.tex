@@ -37,7 +37,6 @@
 \begin{document}
 \maketitle
 \tableofcontents
-\listoffigures
 \listoftables
 \pagebreak
 
@@ -160,9 +159,76 @@ Các kết quả có thể được tổng hợp lại trong bảng sau:
 Để cài đặt Lab2, nhóm đã thực hiện theo các bước sau:
 \begin{enumerate}
 \item Chọn Router, Switch và PC theo mô hình đề bài, sau đó tiến hành nối dây.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{lab2/Lab02-hinh1.png}
+    \caption{Mô hình mạng trong Lab2}
+    \label{fig:MohinhLab2}
+\end{figure}
 \item Cấu hình IP Static cho các PC.
-\item Cấu hình Router 1 chuyển hướng gói tin đến Router 2.
-\item Cấu hình Router 2 chuyển hướng gói tin đến Router 1.
+\begin{itemize}
+    \item Ở mỗi \texttt{PC > Desktop > IP Configuration}.
+    \item Nhập \texttt{IP Address, Subnet Mask} và \texttt{Default Gateway} theo đề bài.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.5]{lab2/Lab02-hinh2.png}
+        \caption{Cấu hình static IP cho PC}
+    \end{figure}
+\end{itemize}
+\item Cấu hình Router mặc định cho mạng.
+Ở đây ta tiến hành cấu hình cho Router0, tương tự với Router1.\label{chRouter}
+\begin{itemize}
+\item Vào chế độ \texttt{CLI} của Router và nhập:
+\begin{lstlisting}
+Router0>enable
+Router0#conf t
+\end{lstlisting}
+\item Do ta đang xét cổng \texttt{Fa0/0} là cổng nhận các gói tin từ \textbf{trong} mạng, nên ta cần mở cổng \texttt{Fa0/0} và đặt IP của Router trong mạng là \texttt{192.168.1.1/24}:
+\begin{lstlisting}
+Router0#(config) interface fa0/0
+Router0#(config-if) ip-address 192.168.1.1 255.255.255.0
+\end{lstlisting}
+\item Đặt IP mặc định cho mạng. Ở đây, cổng \texttt{fa0/0} nối với mạng \texttt{192.168.1.0/24}:
+\begin{lstlisting}
+Router0#(config-if) network 192.168.1.0 255.255.255.0
+\end{lstlisting}
+\item Sau đó, đặt Router mặc định cho mạng \texttt{192.168.1.0/24}:
+\begin{lstlisting}
+Router0#(config-if) default-router 192.168.1.1
+\end{lstlisting}
+\item Cuối cùng, đặt trạng thái cho cổng \texttt{fa0/0} luôn mở và ghi lại các thay đổi của Router.
+\begin{lstlisting}
+Router0#(config-if) no shutdown
+Router0#(config-if) end
+Router0# wr
+\end{lstlisting}
+\end{itemize}
+Kết thúc bước này, các máy tính trong mạng \texttt{192.168.1.0/24} đã có thể \texttt{ping} cho nhau.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{lab2/Lab02-hinh3.png}
+    \caption{PC0 đã ping thành công cho PC1}
+\end{figure}
+\item Cấu hình 2 Router chuyển hướng gói tin đến nhau.\label{chRouting}
+\begin{itemize}
+\item Xem Hình \ref{fig:MohinhLab2}, ta nhận thấy Router0 và Router1 nằm chung một đường mạng \texttt{192.168.3.4/30}, vì vậy ta tiến hành cấu hình cho cả Router0 và Router1 như ở bước \ref{chRouter}.
+\item Sau khi cấu hình, mở \texttt{CLI}. Ta sẽ tiến hành định hướng gói tin cho Router0, Router1 cấu hình tương tự.
+\item Router0 đang \textbf{nhận các gói tin} từ mạng \texttt{192.168.1.0/24\footnote{Mask: 255.255.255.0}}; Router1 \textbf{nhận các gói tin gửi đến} ở cổng \texttt{fa0/1} có IP là \texttt{192.168.3.6}.
+\begin{lstlisting}
+Router0#conf t
+Router0#(config) ip route 192.168.1.0 255.255.255.0 192.168.3.6
+Router0#(config) end
+Router0# wr
+\end{lstlisting}
+\item Tương tự với Router1:
+\begin{lstlisting}
+Router1#conf t
+Router1#(config) ip route 192.168.2.0 255.255.255.0 192.168.3.5
+Router1#(config) end
+Router1# wr
+\end{lstlisting}
+\item \texttt{ping} thử từ PC0 sang PC3 và ngược lại, nếu \texttt{ping} được thì ta đã config thành công.\footnote{Xem kết quả ở \ref{Lab02-task1}}
+\end{itemize}
 \end{enumerate}
 \subsection{Kiểm thử}
 \subsubsection{Kiểm thử các PC có thể tương tác với nhau hay không}
@@ -172,10 +238,9 @@ Các kết quả có thể được tổng hợp lại trong bảng sau:
 \end{enumerate}
 
 \subsection{Báo cáo}
-\subsubsection{Thực hiện và chụp screenshot thao tác \texttt{ping} giữa PC0 và PC2, PC3 và PC1}
+\subsubsection{Thực hiện và chụp screenshot thao tác \texttt{ping} giữa PC0 và PC2, PC3 và PC1}\label{Lab02-task1}
 \subsubsection{Cho biết bảng routing của Router R0 (có thể dùng GUI hoặc command)}
 \subsubsection{Đường mạng nào được cài đặt static routing? Phân loại mức tin cậy và độ dài của đường mạng static route?}
-
 
 \section{Lab 3}
 \subsection{Cách cài đặt}
