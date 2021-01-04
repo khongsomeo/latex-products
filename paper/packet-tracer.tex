@@ -28,7 +28,7 @@
 \lfoot{\LaTeX\ by \href{https://github.com/trhgquan}{Quan, Tran Hoang}.}
 
 % Title Page
-\title{Báo cáo Đồ án 3 - Packet Tracer}
+\title{\textbf{Báo cáo Đồ án 3 - Packet Tracer}}
 \author{Nhóm sinh viên lớp 19CTT2}
 \date{\today}
 
@@ -104,17 +104,17 @@ Router(config)#wr //set the all PC network configuration to DHCP
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.5]{lab1/Lab01-hinh3.png}
-    \caption{Chỉnh IP mỗi máy từ Static sang DHCP}
+    \caption{Chỉnh IP mỗi PC từ Static sang DHCP}
 \end{figure}
 \end{enumerate}
 
 \subsection{Kiểm thử}
-\subsubsection{Kiểm tra xem IP các máy có được cấp phát DHCP hay không}
-Từ thao tác \ref{checkDHCP}, nếu phần IP có câu \texttt{DHCP request successful} thì ta có thể xác nhận IP của máy được cấp phát DHCP.
+\subsubsection{Kiểm tra xem IP các PC có được cấp phát DHCP hay không}
+Từ thao tác \ref{checkDHCP}, nếu phần IP có câu \texttt{DHCP request successful} thì ta có thể xác nhận IP của PC được cấp phát DHCP.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.5]{lab1/Lab01-hinh4.png}
-    \caption{Xác nhận trạng thái cấp phát IP của mỗi máy}
+    \caption{Xác nhận trạng thái cấp phát IP của mỗi PC}
 \end{figure}
 
 \subsection{Báo cáo}
@@ -127,7 +127,7 @@ Từ thao tác \ref{checkDHCP}, nếu phần IP có câu \texttt{DHCP request su
 Sau khi cài đặt hệ thống mạng, nhóm đã thu được các kết quả sau đây:
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{lab1/Lab01-hinh3.png}
+    \includegraphics[scale=0.5]{lab1/Lab01-hinh7.png}
     \caption{Thông tin IP PC0 - Lab1}
 \end{figure}
 \begin{figure}[H]
@@ -170,7 +170,12 @@ Các kết quả có thể được tổng hợp lại trong bảng sau:
     \item Chọn 2 PC bất kỳ cùng mạng và ping đến PC còn lại.
     \item Chọn 2 PC bất kỳ khác mạng và ping đến PC còn lại.
 \end{enumerate}
+
 \subsection{Báo cáo}
+\subsubsection{Thực hiện và chụp screenshot thao tác \texttt{ping} giữa PC0 và PC2, PC3 và PC1}
+\subsubsection{Cho biết bảng routing của Router R0 (có thể dùng GUI hoặc command)}
+\subsubsection{Đường mạng nào được cài đặt static routing? Phân loại mức tin cậy và độ dài của đường mạng static route?}
+
 
 \section{Lab 3}
 \subsection{Cách cài đặt}
@@ -188,7 +193,12 @@ Các kết quả có thể được tổng hợp lại trong bảng sau:
 \subsubsection{Kiểm thử các PC có thể truy cập trang web hay chưa}
 \subsubsection{Kiểm thử các mạng 172.16.1.0 và 172.16.2.0 có thể giao tiếp với nhau hay chưa}
 \subsection{Báo cáo}
-s
+\subsubsection{Xác định loại thiết bị của D1, D2 để hoàn thành sơ đồ mạng.}
+\subsubsection{Cấu hình DNS Server và Webserver cho địa chỉ \texttt{www.network.com} và kiểm thử truy cập bằng trình duyệt.}
+\subsubsection{Cấu hình DHCP Server để cấp phát IP cho PC1, PC2, PC3 và PC4.}
+\subsubsection{Cấu hình static routing cho các router để các mạng có thể giao tiếp với nhau.}
+\subsubsection{Thực hiện lệnh \texttt{ping} và chụp screenshot kết quả \texttt{ping} từ PC1 tới PC3, từ PC2 tới PC4.}
+\subsubsection{Truy cập \texttt{www.network.com} từ trình duyệt của PC1 và PC3.}
 
 \begin{thebibliography}{10}
 \bibitem{tranluixuong}
