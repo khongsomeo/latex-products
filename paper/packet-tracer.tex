@@ -30,13 +30,14 @@
 % Title Page
 \title{\textbf{Báo cáo Đồ án 3 - Packet Tracer}}
 \author{Nhóm sinh viên lớp 19CTT2}
-\date{\today}
+\date{mùa Xuân năm 2021}
 
 \renewcommand\arraystretch{1.5}
 
 \begin{document}
 \maketitle
 \tableofcontents
+%\listoffigures
 \listoftables
 \pagebreak
 
@@ -178,7 +179,7 @@ Các kết quả có thể được tổng hợp lại trong bảng sau:
 \item Cấu hình Router mặc định cho mạng.
 Ở đây ta tiến hành cấu hình cho Router0, tương tự với Router1.\label{chRouter}
 \begin{itemize}
-\item Vào chế độ \texttt{CLI} của Router và nhập:
+\item Vào chế độ \texttt{CLI}\footnote{IOS Command Line Interface} của Router và nhập:
 \begin{lstlisting}
 Router0>enable
 Router0#conf t
@@ -227,21 +228,85 @@ Router1#(config) ip route 192.168.2.0 255.255.255.0 192.168.3.5
 Router1#(config) end
 Router1# wr
 \end{lstlisting}
-\item \texttt{ping} thử từ PC0 sang PC3 và ngược lại, nếu \texttt{ping} được thì ta đã config thành công.\footnote{Xem kết quả ở \ref{Lab02-task1}}
 \end{itemize}
 \end{enumerate}
 \subsection{Kiểm thử}
 \subsubsection{Kiểm thử các PC có thể tương tác với nhau hay không}
 \begin{enumerate}
-    \item Chọn 2 PC bất kỳ cùng mạng và ping đến PC còn lại.
-    \item Chọn 2 PC bất kỳ khác mạng và ping đến PC còn lại.
+\item Chọn 2 PC bất kỳ cùng mạng và \texttt{ping} đến PC còn lại.
+
+Cách thực hiện thao tác \texttt{ping}, xem ở phần \ref{Lab02-task1}
+\item Chọn 2 PC bất kỳ khác mạng và \texttt{ping} đến PC còn lại.
+
+(Xem kết quả ở phần \ref{Lab02-task1})
 \end{enumerate}
 
 \subsection{Báo cáo}
 \subsubsection{Thực hiện và chụp screenshot thao tác \texttt{ping} giữa PC0 và PC2, PC3 và PC1}\label{Lab02-task1}
+\begin{enumerate}
+\item Để \texttt{ping} giữa 2 máy, ở giao diện PC ta chọn \texttt{Desktop > Command Prompt}\label{howToPing}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{lab2/Lab02-hinh4.png}
+    \caption{Chọn giao diện Command Prompt}
+\end{figure}
+\item Sau khi giao diện \texttt{Command Prompt} hiện ra, dùng lệnh \texttt{ping <IP máy đích>} để tiến hành \texttt{ping} đến địa chỉ IP máy đích
+\end{enumerate}
+Dưới đây là kết quả thao tác \texttt{ping} giữa PC0 và PC2, PC3 và PC1.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{lab2/Lab02-Hinh5.png}
+    \caption{Kết quả \texttt{ping} từ PC0 \texttt{(192.168.1.2)} đến PC2 \texttt{(192.168.2.2)}}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{lab2/Lab02-Hinh6.png}
+    \caption{Kết quả \texttt{ping} từ PC3 \texttt{(192.168.2.3)} đến PC1 \texttt{(192.168.1.2)}}
+\end{figure}
 \subsubsection{Cho biết bảng routing của Router R0 (có thể dùng GUI hoặc command)}
+Để xem bảng routing của một Router, từ cửa sổ \texttt{CLI} ta nhập các lệnh sau:
+\begin{lstlisting}
+Router0>enable
+Router0#sh ip route
+\end{lstlisting}
+Kết quả thu được như hình dưới đây:
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{lab2/Lab02-Hinh7.png}
+    \caption{Bảng routing của router R0}
+\end{figure}
 \subsubsection{Đường mạng nào được cài đặt static routing? Phân loại mức tin cậy và độ dài của đường mạng static route?}
+\begin{enumerate}
+\item Đường mạng nào được cài đặt static routing?
 
+Để biết được đường mạng nào cài đặt static routing, nhập lệnh sau vào \texttt{CLI} của cả 2 router:
+\begin{lstlisting}
+Router>enable
+Router#show ip route static
+\end{lstlisting}
+Kết quả thu được như hình sau:
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{lab2/Lab02-Hinh8.png}
+    \caption{Danh sách các đường mạng static routing của router R0}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{lab2/Lab02-Hinh9.png}
+    \caption{Danh sách các đường mạng static routing cảu router R1}
+\end{figure}
+Từ đó, ta có thể rút ra kết luận: đường mạng được cài đặt static routing là đường nối 2 router R0 và R1, được tô đỏ dưới đây:
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{lab2/Lab02-Hinh10.png}
+    \caption{Đường mạng static routing được tô đỏ.}
+\end{figure}
+\item Mức tin cậy\footnote{Administrative Distance} và độ dài \footnote{Metric} của đường mạng static route?
+\begin{itemize}
+\item Vì đường mạng này được cấu hình static routing nên mức tin cậy là \texttt{1}\cite{cisco:ad}.
+\item Độ dài đường mạng chỉ được dùng trong các giao thức routing động\footnote{dynamic routing protocols}. Một đường mạng được cấu hình static route sẽ không có metric.\cite{cisco:metric}
+\end{itemize}
+\end{enumerate}
 \section{Lab 3}
 \subsection{Cách cài đặt}
 Để cài đặt Lab3, nhóm đã thực hiện theo các bước sau:
@@ -266,7 +331,9 @@ Router1# wr
 \subsubsection{Truy cập \texttt{www.network.com} từ trình duyệt của PC1 và PC3.}
 
 \begin{thebibliography}{10}
-\bibitem{tranluixuong}
-Trần Lùi Xuống
+\bibitem{cisco:ad}
+Cisco, \textit{What Is Administrative Distance?}, \href{https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/15986-admin-distance.html}{https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/15986-admin-distance.html}, truy cập \today.
+\bibitem{cisco:metric}
+Richard Burts via Cisco Community, \textit{Default Metric value for static routes in CISCO ?}, \href{https://community.cisco.com/t5/switching/default-metric-value-for-static-routes-in-cisco/td-p/2544008}{https://community.cisco.com/t5/switching/default-metric-value-for-static-routes-in-cisco/td-p/2544008}, truy cập \today.
 \end{thebibliography}
 \end{document}
