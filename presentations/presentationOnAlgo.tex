@@ -1,6 +1,7 @@
 \documentclass[12pt]{beamer}
 \usepackage[utf8]{vietnam}
 \usepackage{lmodern}
+\usepackage{algorithm,algorithmic}
 \usepackage{graphicx}
 \usetheme{AnnArbor}
 
@@ -23,7 +24,7 @@
     \tableofcontents
     \end{frame}
 
-    \begin{frame}[t]
+    \begin{frame}
         \frametitle{Bài toán đường đi ngắn nhất}
         \begin{itemize}
             \item Trong một đồ thị không trọng số, đường đi ngắn nhất giữa 2 đỉnh = min(số lượng cạnh phải đi qua).
@@ -32,11 +33,11 @@
         \end{itemize}
     \end{frame}
 
-    \begin{frame}[t]
-        \frametitle{Chu trình âm}
+    \begin{frame}
+        \frametitle{Cung âm}
         \begin{itemize}
-            \item Một chu trình trong đồ thị có độ dài âm được gọi là \textit{chu trình âm}.
-            \item Một nhược điểm của thuật toán Dijkstra: lỗi khi đồ thị có chu trình âm!
+            \item Một cạnh trong đồ thị (có hướng hoặc vô hướng) mang trọng số âm được gọi là \textit{cung âm}.
+            \item Một nhược điểm của thuật toán Dijkstra: cho kết quả sai khi đồ thị có cung âm!
             \item Để khắc phục, ta phải sử dụng một thuật toán khác: Bellman-Ford hoặc Floyd-Warshall.
         \end{itemize}
     \end{frame}
@@ -46,20 +47,44 @@
         \section{Giới thiệu}
 
         \begin{itemize}
-            \item Được phát biểu bởi Robert W. Floyd và Stephen Warshall năm 1962.
+            \item Được phát biểu riêng lẻ bởi Stephen Warshall năm 1959 và Robert W. Floyd năm 1962.
             \item Là một thuật toán Quy hoạch động tiêu biểu.
+        \end{itemize}
+
+        \begin{minipage}{0.45\textwidth}
+        \begin{figure}
+            \includegraphics[scale=0.5]{algo/floyd.png}
+            \caption{Robert W. Floyd}
+        \end{figure}
+        \end{minipage}
+        \begin{minipage}{0.45\textwidth}
+        \begin{figure}
+            \includegraphics[scale=2]{algo/warshall.jpg}
+            \caption{Stephen Warshall}
+        \end{figure}
+        \end{minipage}
+    \end{frame}
+
+    \section{Ý tưởng}
+    \begin{frame}
+        \frametitle{Ý tưởng}
+        \framesubtitle{Công thức truy hồi}
+        Xét một đồ thị vô hướng hoặc có hướng.
+
+        Gọi F[A][B] là độ dài đường đi ngắn nhất từ đỉnh A đến đỉnh B.\pause
+        \begin{itemize}
+            \item $F[A][A] = 0$, từ một đỉnh không tốn chi phí để đi đến chính nó.\pause
+            \item $F[A][B] = k$, nếu có một cung nối trực tiếp A và B mang trọng số $k$.\pause
+            \item $F[A][B] = \infty$, nếu không có cung nối A và B.\pause
+            \item $F[A][B] = min(F[A][K] + F[K][B], F[A][B])$, với K là một đỉnh trung gian có cung nối từ A đến K và từ K đến B.
         \end{itemize}
     \end{frame}
 
-    \begin{frame}[t]
+    \begin{frame}
         \frametitle{Ý tưởng}
-        \framesubtitle{Công thức truy hồi \& thuật toán}
-        \section{Ý tưởng}
-        \begin{itemize}
-            \item Từ một đỉnh A, tìm đường đi đến tất cả các đỉnh còn lại.
-            \item Từ một đỉnh B kề A, tìm đường đi đến tất cả các đỉnh còn lại.
-        \end{itemize}
+        \framesubtitle{Minh họa}
 
+        (đồ thị ở đây lul)
     \end{frame}
 
     \begin{frame}
@@ -68,19 +93,74 @@
         \textbf{Nhận xét}: Gọi F là mảng sau khi đã tính toán bằng thuật toán Floyd-Warshall.\pause
         \begin{itemize}
             \item Thuật toán Floyd-Warshall tính toán đường đi giữa tất cả các cặp đỉnh. Khi cần sử dụng, ta chỉ cần gọi F[<đỉnh đi>][<đỉnh đến>].\pause
-            \item Thuật toán Floyd-Warshall còn có thể sử dụng để nhận biết chu trình âm: $F[A][B] < 0 \iff $ giữa A và B tồn tại một chu trình âm.
+            \item Thuật toán Floyd-Warshall còn có thể sử dụng để nhận biết chu trình âm: $F[A][B] < 0 \iff $ giữa A và B tồn tại một chu trình âm.\footnote{chu trình âm là chu trình có tổng trọng số âm}\cite{gtlt:book}
         \end{itemize}
     \end{frame}
 
+    \section{Cài đặt}
     \begin{frame}[t]
         \frametitle{Cài đặt}
-        \section{Cài đặt}
-        while (a not sorted):
-            generate a permutation from a.
+        \framesubtitle{Khởi tạo mảng $F$ lưu đường đi ngắn nhất giữa mọi cặp đỉnh}
+        \begin{algorithm}[H]
+            \begin{algorithmic}[1]
+                \FOR{$i=1$ to $N$}
+                    \STATE $F[i][i] = 0$
+                \ENDFOR
+            \end{algorithmic}
+            \caption{Khởi tạo đường đi ngắn nhất cho từng đỉnh tới chính nó}
+        \end{algorithm}
+    \end{frame}
+    \begin{frame}[t]
+        \frametitle{Cài đặt (cont.)}
+        \framesubtitle{Khởi tạo mảng $F$ lưu đường đi ngắn nhất giữa mọi cặp đỉnh}
+        \begin{algorithm}[H]
+            \begin{algorithmic}[1]
+                \FOR{$i=1$ to $N$}
+                \FOR{$j=1$ to $N$}
+                \IF {$i \neq j$}
+                \IF {có cung nối $i$ và $j$ mang trọng số $k$}
+                \STATE $F[i][j] = k$
+                \ELSE
+                \STATE $F[i][j] = \infty$
+                \ENDIF
+                \ENDIF
+                \ENDFOR
+                \ENDFOR
+            \end{algorithmic}
+            \caption{Khởi tạo đường đi ban đầu giữa các đỉnh}
+        \end{algorithm}
+    \end{frame}
+    \begin{frame}[t]
+        \frametitle{Cài đặt (cont.)}
+        \framesubtitle{Tính toán đường đi ngắn nhất giữa các cặp đỉnh}
+        \begin{algorithm}[H]
+            \begin{algorithmic}[1]
+                \FOR{$k=1$ to $N$}
+                \FOR{$i=1$ to $N$}
+                \FOR{$j=1$ to $N$}
+                \STATE $F[i][j] = min(F[i][k] + F[k][j], F[i][j])$
+                \ENDFOR
+                \ENDFOR
+                \ENDFOR
+            \end{algorithmic}
+            \caption{Tính toán đường đi ngắn nhất giữa các cặp đỉnh}
+            \label{alg:seq}
+        \end{algorithm}
+    \end{frame}
+    \begin{frame}[t]
+        \frametitle{Cài đặt (cont.)}
+        \framesubtitle{Truy vết}
+        Do thuật toán Floyd-Warshall là một thuật toán quy hoạch động nên ta có thể áp dụng phương pháp truy vết:
+    \end{frame}
+    \begin{frame}
+        \frametitle{Cài đặt (cont.)}
+        \framesubtitle{Demo code C++}
     \end{frame}
 
+
+    \section{Đánh giá}
     \begin{frame}[t]
-        \section{Đánh giá}
+
         \frametitle{Đánh giá}
         \framesubtitle{Độ phức tạp thời gian}
         \begin{itemize}
@@ -109,9 +189,9 @@
         \end{itemize}
     \end{frame}
 
-    \begin{frame}
-        \frametitle{Cải tiến thuật toán Floyd-Warshall}
-        Một cải tiến được H.Grag và P.Rawat đưa ra năm 2012\cite{improve:article}, theo đó
+    \begin{frame}[t]
+        \frametitle{Cải tiến}
+        Một cải tiến được H.Grag và P.Rawat đưa ra năm 2012\cite{improve:article}, theo đó làm giảm độ phức tạp xuống một cách \textbf{đáng kể}.
     \end{frame}
 
     \begin{frame}
@@ -119,12 +199,11 @@
         The End!
     \end{frame}
 
+    \section{Tài liệu tham khảo}
     \begin{frame}[t]
         \frametitle{Tài liệu tham khảo}
-        \section{Tài liệu tham khảo}
+
         \bibliographystyle{apalike}
         \bibliography{bib/algo}
     \end{frame}
-
-
 \end{document}

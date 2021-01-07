@@ -96,7 +96,7 @@ Router(config)#wr //set the all PC network configuration to DHCP
 \end{lstlisting}
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{lab1/Lab01-hinh2.png}
+    \includegraphics[scale=0.8]{lab1/Lab01-hinh2.png}
     \caption{Load config của Router.}
 \end{figure}
 \end{itemize}
@@ -109,7 +109,7 @@ Router(config)#wr //set the all PC network configuration to DHCP
 \end{enumerate}
 
 \subsection{Kiểm thử}
-\subsubsection{Kiểm tra xem IP các PC có được cấp phát DHCP hay không}
+\subsubsection{Kiểm tra xem IP các PC có được cấp phát DHCP hay không}\label{capPhatDHCP}
 Từ thao tác \ref{checkDHCP}, nếu phần IP có câu \texttt{DHCP request successful} thì ta có thể xác nhận IP của PC được cấp phát DHCP.
 \begin{figure}[H]
     \centering
@@ -166,7 +166,7 @@ Các kết quả có thể được tổng hợp lại trong bảng sau:
     \caption{Mô hình mạng trong Lab2}
     \label{fig:MohinhLab2}
 \end{figure}
-\item Cấu hình IP Static cho các PC.
+\item Cấu hình IP Static cho các PC.\label{cauhinhippc}
 \begin{itemize}
     \item Ở mỗi \texttt{PC > Desktop > IP Configuration}.
     \item Nhập \texttt{IP Address, Subnet Mask} và \texttt{Default Gateway} theo đề bài.
@@ -293,7 +293,7 @@ Kết quả thu được như hình sau:
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.5]{lab2/Lab02-Hinh9.png}
-    \caption{Danh sách các đường mạng static routing cảu router R1}
+    \caption{Danh sách các đường mạng static routing của router R1}
 \end{figure}
 Từ đó, ta có thể rút ra kết luận: đường mạng được cài đặt static routing là đường nối 2 router R0 và R1, được tô đỏ dưới đây:
 \begin{figure}[H]
@@ -311,29 +311,191 @@ Từ đó, ta có thể rút ra kết luận: đường mạng được cài đ�
 \subsection{Cách cài đặt}
 Để cài đặt Lab3, nhóm đã thực hiện theo các bước sau:
 \begin{enumerate}
-    \item Chọn Router, Switch và PC theo mô hình đề bài.
-    \item Nối dây theo đề bài.
-    \item Cấu hình Server HTTP và Server DHCP.
-    \item Cấu hình Router 2 chuyển hướng gói tin DHCP và HTTP đến Router 1.
-    \item Cấu hình Router 3 chuyển hướng gói tin DHCP và HTTP đến Router 1.
-    \item Cấu hình cho 2 Router 2 và 3 giao tiếp với nhau.
-\end{enumerate}
-\subsection{Kiểm thử}
-\subsubsection{Kiểm thử các PC đã được cấp phát DHCP hay chưa}
-\subsubsection{Kiểm thử các PC có thể truy cập trang web hay chưa}
-\subsubsection{Kiểm thử các mạng 172.16.1.0 và 172.16.2.0 có thể giao tiếp với nhau hay chưa}
-\subsection{Báo cáo}
-\subsubsection{Xác định loại thiết bị của D1, D2 để hoàn thành sơ đồ mạng.}
-\subsubsection{Cấu hình DNS Server và Webserver cho địa chỉ \texttt{www.network.com} và kiểm thử truy cập bằng trình duyệt.}
-\subsubsection{Cấu hình DHCP Server để cấp phát IP cho PC1, PC2, PC3 và PC4.}
-\subsubsection{Cấu hình static routing cho các router để các mạng có thể giao tiếp với nhau.}
-\subsubsection{Thực hiện lệnh \texttt{ping} và chụp screenshot kết quả \texttt{ping} từ PC1 tới PC3, từ PC2 tới PC4.}
-\subsubsection{Truy cập \texttt{www.network.com} từ trình duyệt của PC1 và PC3.}
+\item Chọn Router, Switch và PC theo mô hình, sau đó nối dây theo đề bài.\footnote{Trong sơ đồ mạng có 2 vị trí \texttt{D1} và \texttt{D2} bị khuyết, giải thích trong ý \ref{lab03:loaitb}}
 
+Chú ý là Router 2811 chỉ có 2 cổng \texttt{FastEthernet} mà theo sơ đồ thì các router cần ít nhất 3 cổng \texttt{FastEthernet} để thực hiện kết nối. Do đó, ta phải thực hiện lắp thêm cổng mạng cho router, ta làm theo các bước sau:
+\begin{enumerate}
+\item Chọn \texttt{Router > Physical}. Nhấn nút nguồn để tắt router.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{lab3/lab03-hinh1.png}
+\caption{Nút nguồn router}
+\end{figure}
+\item Trên thanh \texttt{Modules} bên trái, kéo thả module phù hợp vào vị trí bên trái. Ở đây nhóm chọn module \texttt{NM-ESW-161}\label{ganthem}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{lab3/lab03-hinh2.png}
+\caption{Kéo thả module vào vị trí thích hợp}
+\end{figure}
+\item Bật router lên trở lại.
+\end{enumerate}
+Cuối cùng, ta được sơ đồ mạng như hình sau:
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{lab3/lab03-hinh3.png}
+\caption{Sơ đồ mạng Lab03}
+\end{figure}
+\item Cấu hình Server HTTP và Server DNS-DHCP.
+\begin{enumerate}
+\item Cấu hình Server HTTP
+\begin{enumerate}
+\item Ta tiến hành cấu hình IP tĩnh cho Server HTTP như ở mục \ref{cauhinhippc} của Lab 2.
+\item Mở dịch vụ HTTP của Server HTTP lên: \texttt{Server > Services > HTTP}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{lab3/lab03-hinh4.png}
+\caption{Mở dịch vụ HTTP trên Server HTTP}
+\end{figure}
+\item Đặt DNS Server cho Server HTTP là IP của Server DNS-DHCP.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{lab3/lab03-hinh5.png}
+\caption{Đặt DNS Server cho Server HTTP}
+\end{figure}
+Đến đây, ta đã cấu hình xong HTTP Server.
+\end{enumerate}
+\item Cấu hình Server DNS-DHCP\label{lab3:cauhinhdnshttp}
+\begin{enumerate}
+\item Ta tiến hành cấu hình IP tĩnh cho Server DNS-DHCP như ở mục \ref{cauhinhippc} của Lab 2.
+\item Đặt \texttt{Default Gateway} cho Server DNS-DHCP là địa chỉ đường mạng.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{lab3/lab03-hinh6.png}
+\caption{Cấu hình Default Gateway cho DNS-DHCP Server}
+\end{figure}
+\item Cấu hình dịch vụ DHCP: \texttt{Server > Services > DHCP}. Phần \texttt{Service} chọn \texttt{On}, sau đó tạo các cấu hình như hình và lưu lại.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{lab3/lab03-hinh7.png}
+\caption{Cấu hình server DHCP}
+\end{figure}
+\item Cấu hình dịch vụ DNS: \texttt{Server > Services > DNS}. Phần \texttt{DNS Services} chọn \texttt{On}. Tạo 2 record, một \texttt{CNAME} và một \texttt{A} như hình, sau đó lưu lại.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{lab3/lab03-hinh8.png}
+\caption{Cấu hình server DNS}
+\end{figure}
+\end{enumerate}
+Đến đây, ta đã cấu hình DNS-DHCP server thành công.
+\end{enumerate}
+\item Cấu hình Router 2 chuyển hướng gói tin đến Router 1.
+
+Ta cấu hình tương tự bước \ref{chRouter} trong Lab 2
+\item Cấu hình Router 3 chuyển hướng gói tin đến Router 1.
+
+Ta cấu hình tương tự bước \ref{chRouter} trong Lab 2
+\item Cấu hình cho 2 Router 2 và 3 giao tiếp với nhau.
+
+Vì 2 router đang nối với nhau qua cổng được gắn thêm ở mục \ref{ganthem}, ta phải cấu hình qua interface \texttt{vlan1} \textit{vlan mặc định} của cổng mà 2 router này nối với nhau.\cite{cisco:vlan} Cách làm này giống với bước \ref{chRouter}, nhưng ta thay đoạn code \texttt{CLI} bằng
+\begin{lstlisting}
+Router>enable
+Router#conf t
+Router(config) interface vlan1
+... (tiep tuc config ip nhu buoc tren)
+\end{lstlisting}
+\end{enumerate}
+\begin{table}[H]
+    \centering
+    \caption{Bảng routing của các router ở Lab 3}\label{lab3:static}
+    \begin{tabular}[t]{lccc}
+        \toprule
+        Router&Network&Mask&Next Hop\\
+        \midrule
+        R1&172.16.1.0&255.255.255.0&192.168.1.2\\
+          &172.16.2.0&255.255.255.0&192.168.2.2\\
+        \midrule
+        R2&172.16.3.0&255.255.255.0&192.168.1.1\\
+          &172.16.2.0&255.255.255.0&192.168.3.2\\
+        \midrule
+        D2&172.16.3.0&255.255.255.0&192.168.2.1\\
+          &172.16.1.0&255.255.255.0&192.168.3.1\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+\subsection{Kiểm thử}
+\subsubsection{Kiểm thử các PC đã được cấp phát DHCP IP hay chưa}
+Thực hiện tương tự bước \ref{capPhatDHCP}, ta thu được kết quả ở \ref{lab03:ketQuaDHCP}
+\subsubsection{Kiểm thử các PC có thể truy cập trang web hay chưa}
+Thực hiện truy cập vào website \href{https://www.network.com}{https://www.network.com}. Kết quả xem tại \ref{lab3:truyCapWeb}
+\subsubsection{Kiểm thử các mạng \texttt{172.16.1.0} và \texttt{172.16.2.0} có thể giao tiếp với nhau hay chưa}
+Thực hiện \texttt{ping} từ bất kỳ máy tính nào trong mạng \texttt{172.16.1.0} đến mạng \texttt{172.16.2.0} và ngược lại. Kết quả xem ở \ref{lab3:resultPing}
+\subsection{Báo cáo}
+\subsubsection{Xác định loại thiết bị của D1, D2 để hoàn thành sơ đồ mạng.}\label{lab03:loaitb}
+Xét theo cấu trúc của mạng \texttt{172.16.2.0}, vị trí D1 phải là một \texttt{switch}. Tương tự, xét theo cấu trúc của mạng \texttt{172.16.1.0} thì vị trí D2 phải là một \texttt{router}.
+\subsubsection{Cấu hình DNS Server và Webserver cho địa chỉ \texttt{www.network.com} và kiểm thử truy cập bằng trình duyệt.}
+\begin{enumerate}
+\item Thực hiện các bước ở mục \ref{lab3:cauhinhdnshttp} để cấu hình DNS Server và HTTP Server (webserver).
+\item Truy cập vào trình duyệt của Server DNS:\label{browser}\footnote{Đến thao tác này ta chỉ mới cấu hình DNS Server và Webserver, chưa cấu hình DHCP Server hay định tuyến các Router. Vì vậy, đến thời điểm này chỉ có thể truy cập vào website thông qua một máy khác cùng mạng để kiểm thử.}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{lab3/lab03-hinh9.png}
+\caption{Mở trình duyệt}
+\end{figure}
+\item Truy cập vào \texttt{www.network.com}. Đây là kết quả, chứng tỏ webserver đã chạy thành công.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{lab3/lab03-hinh10.png}
+\caption{Giao diện trang www.network.com}
+\end{figure}
+\end{enumerate}
+\subsubsection{Cấu hình DHCP Server để cấp phát IP cho PC0, PC1, PC2 và PC3.}\label{lab03:ketQuaDHCP}
+\begin{enumerate}
+\item Ta tiến hành cấu hình DHCP cho server theo các bước ở mục \ref{lab3:cauhinhdnshttp}
+\item Sau khi tiến hành cấu hình, truy cập vào giao diện \texttt{IP Configuration} để yêu cầu cấp phát DHCP (xem lại mục \ref{checkDHCP}).
+\end{enumerate}
+Đây là kết quả cấp phát DHCP IP của 4 PC:
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{lab3/lab03-hinh11.png}
+\caption{IP máy PC0}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{lab3/lab03-hinh12.png}
+\caption{IP máy PC1}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{lab3/lab03-hinh13.png}
+\caption{IP máy PC2}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{lab3/lab03-hinh14.png}
+\caption{IP máy PC3}
+\end{figure}
+\subsubsection{Cấu hình static routing cho các router để các mạng có thể giao tiếp với nhau.}
+Cấu hình static routing đã được nêu trong bảng \ref{lab3:static}.
+\subsubsection{Thực hiện lệnh \texttt{ping} và chụp screenshot kết quả \texttt{ping} từ PC0 tới PC2, từ PC3 tới PC1.}\label{lab3:resultPing}
+Thao tác \texttt{ping}, xem lại mục \ref{howToPing}. Sau đây là kết quả thao tác theo đề bài:
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{lab3/lab03-hinh15.png}
+\caption{Kết quả ping từ PC0 đến PC2}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{lab3/lab03-hinh16.png}
+\caption{Kết quả ping từ PC3 đến PC1}
+\end{figure}
+\subsubsection{Truy cập \texttt{www.network.com} từ trình duyệt của PC1 và PC3.}\label{lab3:truyCapWeb}
+Cách mở trình duyệt tương tự mục \ref{browser}. Sau đây là kết quả thao tác theo đề bài:
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{lab3/lab03-hinh17.png}
+\caption{Truy cập vào \texttt{www.network.com} từ PC1}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{lab3/lab03-hinh18.png}
+\caption{Truy cập vào \texttt{www.network.com} từ PC3}
+\end{figure}
 \begin{thebibliography}{10}
 \bibitem{cisco:ad}
 Cisco, \textit{What Is Administrative Distance?}, \href{https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/15986-admin-distance.html}{https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/15986-admin-distance.html}, truy cập \today.
 \bibitem{cisco:metric}
 Richard Burts via Cisco Community, \textit{Default Metric value for static routes in CISCO ?}, \href{https://community.cisco.com/t5/switching/default-metric-value-for-static-routes-in-cisco/td-p/2544008}{https://community.cisco.com/t5/switching/default-metric-value-for-static-routes-in-cisco/td-p/2544008}, truy cập \today.
+\bibitem{cisco:vlan}
+Cisco, \textit{Chapter: Configuring VLAN Interfaces }, \href{https://www.cisco.com/c/en/us/td/docs/app\_ntwk\_services/data\_center\_app_services/ace\_appliances/vA1\_7\_/configuration/routing\_bridging/guide/rtbrgdgd/vlansif.html}{Chapter: Configuring VLAN Interfaces}, truy cập \today.
 \end{thebibliography}
 \end{document}
