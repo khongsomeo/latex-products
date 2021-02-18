@@ -3,9 +3,9 @@
 \usepackage[bottom]{footmisc}
 \usepackage{fancyhdr}
 \usepackage[colorlinks = true,
-            linkcolor  = blue,
-            urlcolor   = blue,
-            citecolor  = red,]{hyperref}
+linkcolor  = blue,
+urlcolor   = blue,
+citecolor  = red,]{hyperref}
 \usepackage{lastpage}
 \usepackage{titlesec}
 \usepackage{titling}
@@ -13,141 +13,75 @@
 
 \pagestyle{fancy}
 \lhead{\textit{Quan, Tran Hoang's R\'esum\'e}}
-\rhead{\today}
+\rhead{Updated \today}
 \cfoot{}
 \lfoot{\LaTeX\space by \href{https://github.com/trhgquan}{Quan, Tran Hoang}}
 \rfoot{Page \thepage\ of \pageref{LastPage}}
 
 % Styles for the title
 \renewcommand{\maketitle}{
-    \begin{center}
-        % Author's name
-        {\huge\bfseries\theauthor}
-        \linebreak\linebreak
-        R\'esum\'e
-        \linebreak
-        \url{https://chumeochuixoong.blogspot.com}
-    \end{center}
+\begin{center}
+% Author's name
+{\huge\bfseries\theauthor}
+\linebreak\linebreak
+R\'esum\'e
+\end{center}
 }
 
 \titleformat{\section}{\large\bfseries\uppercase}{}{0em}{}[\titlerule]
 
 \begin{document}
-    \author{Quan, Tran Hoang}
-    \maketitle
+\author{Quan, Tran Hoang}
+\maketitle
 
-    % Contact section
-    \section{personal \& contacts}
-        \begin{itemize}
-            \item Personal:
-                \subitem Languages: \texttt{Vietnamese, English}.
-            \item Contacts:
-                \subitem Email: \texttt{thquan (at) mail (dot) ru}
-                \subitem GitHub: \texttt{\href{https://github.com/trhgquan}{@trhgquan}}
-        \end{itemize}
+% Contact section
+\section{Contact}
+\begin{itemize}
+\item Email: \texttt{thquan (at) mail (dot) ru}
+\item GitHub: \href{https://github.com/trhgquan}{@trhgquan}
+\item Blog: \href{https://chumeochuixoong.blogspot.com}{chumeochuixoong.blogspot.com}
+\end{itemize}
 
-    % Technical Skills
-    \section{Technical Skills}
-        % Language section
-        \subsection{Coding}
-        \begin{itemize}
-            \item \textbf{Programming}: \texttt{C/C++, Pascal}.
-            \item \textbf{Scripting}: \texttt{PHP, JavaScript, Python, AutoIt}.
-            \item \textbf{Markup}: \texttt{HTML/CSS, Markdown}, \LaTeX.
-            \item \textbf{Web Frameworks}: \texttt{Laravel}\cite{laravel}, \texttt{Twitter Bootstrap}\cite{bootstrap}
-        \end{itemize}
+\section{Experience}
+\subsection{Personal}
+\begin{itemize}
+\item June 2018: Created \href{https://github.com/trhgquan/Fororum}{Fororum}.\\
+\textbf{Fororum} is an open-sourced Forum platform, created using PHP and Laravel Framework.
 
-        % VCS (Version Control System)
-        \subsection{Version Control System (VCS)}
-        \begin{itemize}
-            \item Using \texttt{Git} to deploy projects to \texttt{GitHub}.
-        \end{itemize}
+\item July 2018: English to Vietnamese Translator for \href{https://github.com/MathewSachin/Captura}{Captura}.\\
+\textbf{Captura} is an open-sourced software for capture screen, WebCam, audio, cursor, mouse clicks and keystrokes.
 
-        % Using Office tools
-        \subsection{Office tools}
-        \begin{itemize}
-            \item Using \texttt{Microsoft Word} - Advanced and \texttt{other Microsoft Office services} - Basic.
-            \item Using \texttt{Google services (Google Docs, Google Sheets, Google Presentation,..)} - Advanced.
-            \item Writing in \texttt{Markdown} - Advanced.
-            \item Writing in \LaTeX\ - Basic.
-        \end{itemize}
+\item October 2018 - now: Created and mantaining \href{https://github.com/trhgquan/CPP}{CPP (Competitive Programming Practice)}.\\
+\textbf{CPP} is my DSA\footnote{Data Structures and Algorithm.} learning path, with problems solved in some competitive programming platforms.
 
-        % Operation Systems
-        \subsection{Operating systems}
-        \begin{itemize}
-            \item \texttt{Windows}: Windows 10, Windows 7, Windows Server 2003 and Windows XP.
-            \item \texttt{Ubuntu}: Ubuntu 20.10, Ubuntu 20.04, Ubuntu 19.04 and Ubuntu 18.04.
-        \end{itemize}
+\item July 2019: Created \href{https://github.com/trhgquan/JBomb}{JBomb}.\\
+\textbf{JBomb} is an open-sourced simple minesweeper game, created using VanillaJS and HTML5.
+\end{itemize}
 
-        % Image Editing section
-        \subsection{Image Editing}
-        \begin{itemize}
-            \item Image editing with \texttt{Adobe Photoshop CS3} - Basic.
-        \end{itemize}
+\subsection{Others}
+\begin{itemize}
+\item April 2020 - now: contributing for \href{https://github.com/khongsomeo}{@KhongSoMeo}.\\
+\textbf{Code maintainer, reviewer} for private software projects.
+\end{itemize}
 
-    \section{Experience}
-            \begin{itemize}
-                \item \texttt{2015 - now}: working on some personal and open-sourced projects on GitHub:
-                \subitem \texttt{2018}: English to Vietnamese Translator for \texttt{Captura}\cite{Captura}.
-                \subitem \texttt{2018}: Created \texttt{Fororum}\cite{fororum}
-                \subitem \texttt{2018}: Created \texttt{JBomb}\cite{jbomb}
-                \subitem \texttt{2018 - now}: created and mantaining \texttt{Competitive Programming Practice}\cite{cpp}
-            \end{itemize}
+\section{Education}
+\begin{itemize}
+\item 2019 - now : Computer Science student at \href{https://en.hcmus.edu.vn}{VNUHCM - University of Science}.
+\item 2016 - 2019: Student at Nguyen Dinh Chieu High School, Ben Tre Province, Vietnam.
+\begin{itemize}
+\item Third prize in Ben Tre Province Olympiad for Informatics, 2019.
+\item Competitor in Microsoft Office Championship Southern Elimination Round, 2019.
+\item Consolation prize in Ben Tre Province Olympiad for Informatics, 2018.
+\end{itemize}
+\end{itemize}
 
-    \section{Education}
-        % Academic Timeline section
-        \subsection{Academic}
-            \begin{itemize}
-                \item {\texttt{2007 - 2019}}:
-                attended primary, secondary and high school in Ben Tre Province, Vietnam.
-                \item {\texttt{2019 - 2023}}: Computer Science student at \texttt{VNUHCM - University of Science}\footnote{\href{https://www.fit.hcmus.edu.vn}{Faculty of Information Technology, VNUHCM - University of Science}}, Ho Chi Minh City, Vietnam.
-            \end{itemize}
-
-        % Achievements section
-        \subsection{Achievements}
-            \begin{itemize}
-                \item \texttt{Ben Tre Province Competition in Computer Science for High School students\footnote{Vietnamese: Ky thi chon Hoc sinh gioi lop 12 mon Tin hoc tinh Ben Tre}, 2018}.\\
-                \textit{Consolation Prize, using Pascal}.
-
-                \item \texttt{Ben Tre Province Competition in Computer Science for High School students, 2019}.\\
-                \textit{III (third) Prize, using C/C++}.
-
-                \item \texttt{Microsoft Office Specialist World Championship Vietnam 2019 } - Southern Elimination Round.\\
-                \textit{Contestant, Word 2013 - 832 points}.
-              \end{itemize}
-
-    \begin{thebibliography}{5}
-        \bibitem{laravel}
-        \texttt{Taylor Otwell, Laravel Foundation}.
-        \textit{Laravel - The PHP Framework For Web Artisans}\\
-        \texttt{\url{https://laravel.com/}}\\
-        \texttt{\url{https://github.com/laravel/laravel}}
-
-        \bibitem{bootstrap}
-        \texttt{Mark Otto, Jacob Thornton, and Bootstrap contributors}.
-        \textit{Bootstrap - The most popular HTML, CSS, and JS library in the world.}\\
-        \texttt{\href{https://getbootstrap.com}{https://getbootstrap.com}}\\
-        \texttt{\href{https://github.com/twbs/bootstrap}{https://github.com/twbs/bootstrap}}
-
-        \bibitem{Captura}
-        \texttt{Mathew Sachin}.
-        \textit{Captura - Capture Screen, Audio, Cursor, Mouse Clicks and Keystrokes}\\
-        \texttt{\url{https://mathewsachin.github.io/Captura/}}\\
-        \texttt{\url{https://github.com/MathewSachin/Captura}}
-
-        \bibitem{fororum}
-        \texttt{Quan Tran Hoang, meadoge, Hwang Shi Wan}.
-        \textit{Fororum - a forum made from Laravel with love and keyboard.}\\
-        \texttt{\url{https://github.com/trhgquan/Fororum}}
-
-        \bibitem{jbomb}
-        \texttt{Quan Tran Hoang, meadoge}.
-        \textit{JBomb - a Minesweeper-like game created with VanillaJS (pure JavaScript) and HTML5 Canvas.}\\
-        \texttt{\url{https://github.com/trhgquan/JBomb}}
-
-        \bibitem{cpp}
-        \texttt{Quan Tran Hoang, meadoge, Hwang Shi Wan}.
-        \textit{Competitive Programming Practice.}\\
-        \texttt{\url{https://github.com/trhgquan/CPP}}
-    \end{thebibliography}
+\section{Technology}
+\begin{itemize}
+\item Coding:
+\begin{itemize}
+\item \textbf{Programming}: C/C++.
+\item \textbf{Scripting}: Python, JavaScript, PHP, AutoIt.
+\item \textbf{Markup}: \LaTeX, Markdown, HTML/CSS.
+\end{itemize}
+\end{itemize}
 \end{document}
