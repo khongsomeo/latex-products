@@ -1,0 +1,242 @@
+\documentclass{article}
+
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\usepackage[top=1in, left=.5in, right=.5in]{geometry}
+\usepackage[utf8]{vietnam}
+
+\graphicspath{{./do-an-1-result/}}
+
+\pagestyle{fancy}
+\lhead{Báo cáo đồ án 1: Các thuật toán tìm kiếm}
+\rhead{Trường Đại học Khoa học Tự nhiên - ĐHQG HCM}
+\lfoot{Trần Hoàng Quân - Nguyễn Đắc Thắng}
+
+\title{Báo cáo đồ án 1: Các thuật toán tìm kiếm}
+\author{Trần Hoàng Quân - Nguyễn Đắc Thắng}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\pagebreak
+
+\section{Thông tin nhóm}
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Họ \& tên sinh viên & MSSV \\
+\hline
+Trần Hoàng Quân & 19120338 \\
+Nguyễn Đắc Thắng & 19120364 \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Tìm kiếm trên bản đồ không có điểm thưởng}
+\subsection{Giới thiệu}
+Đối với các thuật toán tìm kiếm có thông tin, nhóm định nghĩa hàm heuristic $h(x)$ là khoảng cách từ điểm $x$ đến vị trí dừng EXIT theo khoảng cách Manhattan. Cụ thể hơn, giả sử ta có $x = (a, b)$ là tọa độ ô hiện tại và $(u, v)$ là tọa độ vị trí EXIT. Khi đó $h(x) = |a-u| + |b-v|$.
+\subsection{Kiểm thử và nhận xét}
+\subsubsection{Bản đồ 01}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{01-map.png}
+\caption{Bản đồ 01}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{01-dfs.png}
+\caption{Đường đi sử dụng thuật toán DFS}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{01-bfs.png}
+\caption{Đường đi sử dụng thuật toán BFS}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{01-greedy.png}
+\caption{Đường đi sử dụng thuật toán Greedy BFS}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{01-astar.png}
+\caption{Đường đi sử dụng thuật toán A-Star}
+\end{figure}
+
+
+Nhận xét: 
+\begin{itemize}
+\item DFS là thuật toán có đường đi dài nhất vì tiêu chí "duyệt sâu nhất có thể".
+\item BFS tìm được đường đi tương đối chấp nhận được.
+\item Greedy-BFS và AStar có đường đi tương tự nhau, nhưng nhờ tiêu chí tối ưu hóa chi phí mà đường đi của AStar có vẻ "gọn" hơn.
+\end{itemize}
+
+\subsubsection{Bản đồ 02}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{02-map.png}
+	\caption{Bản đồ 02}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{02-dfs.png}
+	\caption{Đường đi sử dụng thuật toán DFS}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{02-bfs.png}
+	\caption{Đường đi sử dụng thuật toán BFS}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{02-greedy.png}
+	\caption{Đường đi sử dụng thuật toán Greedy BFS}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{02-astar.png}
+	\caption{Đường đi sử dụng thuật toán A-Star}
+\end{figure}
+
+Nhận xét:
+\begin{itemize}
+\item Vẫn như trên, DFS cho ra đường đi "khủng khiếp" vì tiêu chí "duyệt sâu nhất có thể".
+\item BFS và A-Star cho ra đường đi tương đối giống nhau. Khác biệt duy nhất ở chỗ A-Star có xu hướng "bám tường" - đi quanh chướng ngại vật.
+\item Greedy-BFS cho ra đường đi phụ thụôc vào heuristic nhưng đường đi chưa thật sự tối ưu.
+\end{itemize}
+
+\subsubsection{Bản đồ 03}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{03-map.png}
+	\caption{Bản đồ 03}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{03-dfs.png}
+	\caption{Đường đi sử dụng thuật toán DFS}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{03-bfs.png}
+	\caption{Đường đi sử dụng thuật toán BFS}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{03-greedy.png}
+	\caption{Đường đi sử dụng thuật toán Greedy BFS}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{03-astar.png}
+	\caption{Đường đi sử dụng thuật toán A-Star}
+\end{figure}
+
+Nhận xét:
+\begin{itemize}
+\item DFS vẫn có đường đi phức tạp nhất.
+\item BFS và A-Star cho ra đường đi gần giống nhau.
+\item Greedy-BFS thể hiện rõ sự kém tối ưu: thuật toán tìm đường tương đối tối ưu trên không gian trống, nhưng trong trường hợp này tồn tại chướng ngại vật bao quanh không gian trống, dẫn đến việc phải tìm đường xa hơn để thoát chướng ngại vật.
+\end{itemize}
+
+\subsubsection{Bản đồ 04}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{04-map.png}
+	\caption{Bản đồ 04}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{04-dfs.png}
+	\caption{Đường đi sử dụng thuật toán DFS}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{04-bfs.png}
+	\caption{Đường đi sử dụng thuật toán BFS}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{04-greedy.png}
+	\caption{Đường đi sử dụng thuật toán Greedy BFS}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{04-astar.png}
+	\caption{Đường đi sử dụng thuật toán A-Star}
+\end{figure}
+
+Nhận xét:
+\begin{itemize}
+\item DFS vẫn là thuật toán có đường đi dài nhất, phức tạp nhất.
+\item BFS và Greedy-BFS có đường đi gần giống nhau. Khác biệt ở chỗ thứ tự duyệt của BFS quyết định nên đi sang phải trước; trong khi hàm heuristic làm cho Greedy-BFS quyết định đi sang trái trước. 
+\item A-Star dựa trên heuristic và tối ưu đường đi nên khác với các kết quả còn lại. Ta vẫn có thể dễ dàng nhận thấy A-Star có xu hướng "bám" theo các chướng ngại vật đến đích.
+\end{itemize}
+
+\subsubsection{Bản đồ 05}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{05-map.png}
+	\caption{Bản đồ 05}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{05-dfs.png}
+	\caption{Đường đi sử dụng thuật toán DFS}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{05-bfs.png}
+	\caption{Đường đi sử dụng thuật toán BFS}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{05-greedy.png}
+	\caption{Đường đi sử dụng thuật toán Greedy BFS}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{05-astar.png}
+	\caption{Đường đi sử dụng thuật toán A-Star}
+\end{figure}
+
+Nhận xét:
+\begin{itemize}
+\item DFS đã chọn đường đi đến đích dài nhất do tiêu chí "duyệt sâu nhất có thể", tuy nhiên lại bỏ qua đường đi ngắn nhất.
+\item Greedy-BFS tuân theo heuristic nhưng đường đi chưa thật sự tối ưu. Đây là một vấn đề thường xuất hiện ở những bản đồ có cổng ra gần với điểm xuất phát nhưng bị ngăn cách bởi chướng ngại vật. Greedy-BFS có xu hướng tuân theo heuristic một cách không tối ưu, dẫn đến việc "hấp tấp" tìm đường ra rồi tốn chi phí để tìm đường vòng "né" chướng ngại vật.
+\item BFS và A-Star có đường đi gần giống, A-Star có xu hướng đi bám vào chướng ngại vật đến đích.
+\end{itemize}
+
+\section{Tìm kiếm trên bản đồ có điểm thưởng}
+\subsection{Giới thiệu}
+
+\subsection{Kiểm thử \& nhận xét}
+
+\begin{thebibliography}{2}
+\bibitem{redblob}
+Amit Patel, \href{https://www.redblobgames.com/pathfinding/a-star/introduction.html}{Introduction to the A* Algorithm}
+\end{thebibliography}
+\end{document}
