@@ -1,13 +1,13 @@
-\documentclass{article}
+\documentclass[12pt]{article}
 
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{float}
 \usepackage{fancyhdr}
 \usepackage{graphicx}
-\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\usepackage[colorlinks=true,linkcolor=blue, citecolor=red]{hyperref}
 \usepackage{url}
-\usepackage[top=1in, left=.5in, right=.5in]{geometry}
+\usepackage[top=1in, left=.5in, right=.5in, bottom=.75in]{geometry}
 \usepackage[utf8]{vietnam}
 
 \graphicspath{{./do-an-1-result/}}
@@ -46,17 +46,17 @@ Nguyễn Đắc Thắng & 19120364 \\
 \end{table}
 
 \subsection{Thông tin chương trình}
-Chi tiết cách cài đặt và kiểm thử, mời xem file \texttt{readme.md}
+Chi tiết cách cài đặt và kiểm thử, mời xem file \texttt{Source/readme.md}
 \section{Tìm kiếm trên bản đồ không có điểm thưởng}
 \subsection{Giới thiệu}
 Đối với các thuật toán tìm kiếm có thông tin, nhóm định nghĩa hàm heuristic $h(x)$ là khoảng cách từ điểm $x$ đến vị trí dừng EXIT theo khoảng cách Manhattan. Cụ thể hơn, giả sử ta có $x = (a, b)$ là tọa độ ô hiện tại và $(u, v)$ là tọa độ vị trí EXIT. Khi đó $h(x) = |a-u| + |b-v|$.
 \\\\
 Các thuật toán được cài đặt ở các vị trí sau:
 \begin{itemize}
-\item DFS: \texttt{implementation/DFS.py}
-\item BFS: \texttt{implementation/BFS.py}
-\item Greedy-BFS: \texttt{implementation/greedy.py}
-\item A-Star: \texttt{implementation/astar.py}
+\item DFS: \texttt{Source/implementation/DFS.py}
+\item BFS: \texttt{Source/implementation/BFS.py}
+\item Greedy-BFS: \texttt{Source/implementation/greedy.py}
+\item A-Star: \texttt{Source/implementation/astar.py}
 \end{itemize}
 Quá trình cài đặt có tham khảo nguồn \cite{redblob}
 
@@ -267,7 +267,7 @@ Giải thích: Ta phải thêm một lượng $|min_w(\mathbb{B})|$ vào để n
 \\\\
 Tuy nhiên, ta phải tránh di chuyển về các hướng đã di chuyển. Nếu đi về các hướng đã di chuyển thì khả năng cao ta sẽ tạo thành một chu trình kín, dẫn đến lặp vô hạn. Ta ngăn chặn điều này bằng mảng đánh dấu, đánh dấu những điểm đã ghé thăm.
 \\\\
-Về bản chất, đây là thuật toán BFS kết hợp tối ưu hóa chi phí di chuyển bằng heuristic. Source code thuật toán nằm ở \texttt{implementation/bonus.py}
+Về bản chất, đây là thuật toán BFS kết hợp tối ưu hóa chi phí di chuyển bằng heuristic. Source code thuật toán nằm ở \texttt{Source/implementation/bonus.py}
 \subsection{Kiểm thử}
 \subsubsection{Bản đồ có 02 điểm thưởng (\texttt{sample/bonus-02.txt})}
 \begin{figure}[H]
