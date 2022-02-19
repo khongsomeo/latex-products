@@ -1,0 +1,86 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage[colorlinks=true,linkcolor=blue, citecolor=red]{hyperref}
+\usepackage{url}
+\usepackage[top=.75in, left=.5in, right=.5in, bottom=.75in]{geometry}
+\usepackage[utf8]{vietnam}
+
+% \graphicspath{PATH_TO_GRAPHIC_FOLDER}
+
+\pagestyle{fancy}
+\lhead{
+  Báo cáo môn học ABC - XYZ1234
+}
+\rhead{Trường Đại học Khoa học Tự nhiên - ĐHQG HCM}
+\lfoot{Left foot}
+\rfoot{Right foot}
+
+
+\begin{document}
+
+\begin{titlepage}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\centering % Center everything on the page
+
+%----------------------------------------------------------------------------------------
+%	HEADING SECTIONS
+%----------------------------------------------------------------------------------------
+
+\textsc{\LARGE Đại học Quốc gia TPHCM}\\[1.5cm] % Name of your university/college
+\textsc{\Large Trường Đại học Khoa học Tự nhiên}\\[0.5cm] % Major heading such as course name
+\textsc{\large Khoa Công nghệ Thông tin}\\[0.5cm] % Minor heading such as course title
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Báo cáo gì đó siêu cấp vip pro}\\[0.4cm]
+\HRule \\[1.5cm]
+
+\textsc{Môn học: ABC - XYZ1234}\\[0.5cm]
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Sinh viên thực hiện:}\\
+Trần Hoàng Quân \textsc{(19120338)} % Your name
+Nguyễn Văn A \textsc{(19120000)}
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{GVHD:} \\
+Dr. James \textsc{Smith} % Supervisor's Name
+\end{flushright}
+\end{minipage}\\[2cm]
+
+{\large \today}\\[2cm]
+
+\includegraphics{hcmus-logo.png}\\[1cm] 
+
+\vfill % Fill the rest of the page with whitespace
+\end{titlepage}
+	
+	
+\tableofcontents
+\pagebreak
+
+\section{First section}
+Lorem ipsum dolor sit amet
+
+\subsection{First subsection}
+\subsubsection{First sub-subsection}
+Hello world
+
+\pagebreak
+\bibliographystyle{plain}
+\bibliography{demo-report}
+
+\end{document}
