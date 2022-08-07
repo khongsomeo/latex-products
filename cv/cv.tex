@@ -1,10 +1,10 @@
 \documentclass[11pt,a4paper,roman,english]{moderncv}        % possible options include font size ('10pt', '11pt' and '12pt'), paper size ('a4paper', 'letterpaper', 'a5paper', 'legalpaper', 'executivepaper' and 'landscape') and font family ('sans' and 'roman')
-\moderncvstyle{classic}                             % style options are 'casual' (default), 'classic', 'oldstyle' and 'banking'
+\moderncvstyle{casual}                             % style options are 'casual' (default), 'classic', 'oldstyle' and 'banking'
 \moderncvcolor{blue}                               % color options 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
 %\nopagenumbers{}                                  % uncomment to suppress automatic page numbering for CVs longer than one page
 \usepackage[utf8]{vietnam}                       % if you are not using xelatex ou lualatex, replace by the encoding you are using
 \usepackage[utf8]{inputenc}
-\usepackage[scale=0.75,a4paper]{geometry}
+\usepackage[scale=.75,a4paper]{geometry}
 \usepackage{babel}
 
 %----------------------------------------------------------------------------------
@@ -17,81 +17,86 @@
 \mobile{(+84) 0374054517}                          % optional, remove/comment the line if not wanted
 %\phone{phone number}                           % optional, remove/comment the line if not wanted
 %\fax{fax number}                             % optional, remove/comment the line if not wanted
-\email{thquan@mail.ru}                               % optional, remove/comment the line if not wanted
+\email{quan@trhgquan.xyz}                               % optional, remove/comment the line if not wanted
 \homepage{trhgquan.github.io}                         % optional, remove/comment the line if not wanted
 \extrainfo{\href{https://www.linkedin.com/in/trhgquan/}{LinkedIn}}                 % optional, remove/comment the line if not wanted
 \photo[64pt][0.4pt]{avatar.jpg}                       % optional, uncomment the line if wanted; '64pt' is the height the picture must be resized to, 0.4pt is the thickness of the frame around it (put it to 0pt for no frame) and 'picture' is the name of the picture file
 %\quote{some quote}                                 % optional, remove/comment the line if not wanted
 %
 \begin{document}
-%-----       resume       ---------------------------------------------------------
-\makecvtitle
-\section{Education}
-%\cventry{2023 -- now}{MSc. in Computer Science}{VNUHCM - University of Science}{HCMC - Vietnam}{}{Cryptography / Natural Language Processing}  % arguments 3 to 6 can be left empty
-\cventry{2019 -- now}{BSc. in Computer Science}{VNUHCM - University of Science}{HCMC - Vietnam}{Knowledge Engineering}{Course GPA -- 7.90/10.00\\Major GPA -- 8.63/10.00}  % arguments 3 to 6 can be left empty
-
-%\section{Master Thesis}
-%\cvitem{title}{title}
-%\cvitem{supervisors}{supervisors}
-%\cvitem{description}{description}
-
-%\section{Experience}
-%%\subsection{Vocational}
-%%\cventry{year--year}{Job title}{Employer}{City}{}{General description no longer than 1--2 lines}
-%%\cventry{year--year}{Job title}{Employer}{City}{}{General description no longer than 1--2 lines}
-
-\section{Languages}
-\cvitemwithcomment{English}{B1 CEFR}{2016 - now}
-\cvitemwithcomment{Vietnamese}{Mother-tongue}{}
-%\cvitemwithcomment{Language 3}{Skill level}{Comment}
-
-\section{Technical}
-\cvitem{Coding}{C/C++, Perl, Python, PHP, JavaScript, Java, Julia}
-\cvitem{Scripting}{bash scripts, Makefile, AutoIt}
-\cvitem{Frameworks}{Laravel, Flask, Django}
-\cvitem{CI/CD}{GitHub Actions, Travis CI, Azure Pipelines}
-\cvitem{VCS}{git}
-\cvitem{Misc}{TensorFlow 2.0, Keras, scikit-learn, Markdown, \LaTeX, vanilla vim}
-
-\section{Research Interests}
-\cvitem{Cryptography}{Implement secure channels with some well-known algorithms: AES, RSA, ElGamal, Hill Cipher and ECC.}
-\cvitem{Natural Language Processing}{Studying some NLP problems and their application in Vietnamese: Vietnamese Sentiment Analysis, Vietnamese Ancient Text OCR.}
-\cvitem{Software Automation}{Creating Software Automation Tools with supported languages (e.g AutoIt, Perl, Bash)}
-%\cvitem{Hobby 3}{Description}
-
-\section{Projects}
-\cventry{Fall 2021}{\href{https://github.com/trhgquan/OCR_chu_Nom}{Chu Nom Optical Character Recognition (OCR)}}{School project}{}{}{Creating an Ancient Vietnamese Text (Chu Nom) Optical Character Recognition engine using CenterNet CNN and simple Digit Recognition; with TensorFlow v2 and Keras}
-
-\cventry{Fall 2021}{\href{https://github.com/trhgquan/image-sharing}{Secured Image Sharing Platform}}{School project}{}{}{Creating a secured image sharing platform; using AES (with CBC mode), RSA and file checksum (using SHA-256 hash)}
-
-\cventry{Spring 2022}{\href{https://github.com/trhgquan/fakenews-detection}{Fakenews Detection}}{School project}{}{}{Creating a simple web-based Fakenews Detection tool using multiple statistical ML models; data are from Kaggle Fakenews Dataset.}
-
-\section{Achievements}
-%\cvlistitem{Item 1}
-%\cvlistitem{Item 2}
-%\cvlistitem{Item 3}
-\cventry{Spring 2018}{Consolation}{Ben Tre Province Olympiad in Informatics}{Ben Tre - Vietnam}{}{5/20 pts}
-\cventry{Spring 2019}{$3^{rd}$}{Ben Tre Province Olympiad in Informatics}{Ben Tre - Vietnam}{}{10/20 pts}
-\cventry{Spring 2021}{Consolation}{The ACM - ICPC Vietnam Southern Provincial}{HCMC - Vietnam}{}{Ranked $61^{th}$, solved 6 problems}
-
-%\section{Projects}
-%\cvlistdoubleitem{Item 2}{Item 5}
-%\cvlistdoubleitem{Item 3}{Item 6}
-
-\section{References}
-\begin{cvcolumns}
-  \cvcolumn{Personal GitHub}{\href{https://github.com/trhgquan}{https://github.com/trhgquan}}
-%  \cvcolumn{Category 2}{Comment}
-%  \cvcolumn{Category 3}{Comment}
-\end{cvcolumns}
-\clearpage
-%%-----       letter       ---------------------------------------------------------
-%% recipient data
-%\recipient{Company Recruitment team}{Company's name\\Street address\\Zip Code City}
-%\date{Date}
-%\opening{Dear Sir or Madam,}
-%\closing{Yours faithfully,}
-%\enclosure{enclosures}          % use an optional argument to use a string other than "Enclosure", or redefine \enclname
-%\makelettertitle
-%\makeletterclosing
+	%-----       resume       ---------------------------------------------------------
+	\makecvtitle
+	\section{Education}
+	\cventry{2019 -- 2023}{BSc. in Computer Science}{VNUHCM - University of Science}{HCMC - Vietnam}{Knowledge Engineering}{Course GPA -- 8.03/10.00\\Major GPA -- 8.67/10.00}  % arguments 3 to 6 can be left empty
+	
+	%\cventry{2023 -- now}{MSc. in Computer Science, Natural Language Processing}{VNUHCM - University of Science}{HCMC - Vietnam}{}{}  % arguments 3 to 6 can be left empty
+	
+	%\section{Thesis}
+	%\subsection{BSc. Graduation Thesis}
+	%\cventry{2022 - 2023}{Address Correction based on Machine Learning}{VNUHCM - University of Science}{}{grade}{Supervisors: Chau Thanh Duc, PhD}
+	
+	%\subsection{MSc. Thesis}
+	%\cventry{2022 - 2023}{Address Correction using Transformer}{VNUHCM - University of Science}{}{grade}{Supervisors: Chau Thanh Duc, PhD}
+	
+	%\section{Experience}
+	%%\subsection{Vocational}
+	%%\cventry{year--year}{Job title}{Employer}{City}{}{General description no longer than 1--2 lines}
+	%%\cventry{year--year}{Job title}{Employer}{City}{}{General description no longer than 1--2 lines}
+	
+	\section{Languages}
+	\cvitemwithcomment{English}{B2.1 CEFR}{VNU-EPT - 255}
+	\cvitemwithcomment{Vietnamese}{First language}{}
+	%\cvitemwithcomment{Language 3}{Skill level}{Comment}
+	
+	\section{Technical}
+	\cvitem{Coding}{C/C++, Perl, Python, PHP, JavaScript, Java, Julia}
+	\cvitem{Scripting}{bash scripts, Makefile, AutoIt}
+	\cvitem{Frameworks}{Laravel, Flask, Django}
+	\cvitem{CI/CD}{GitHub Actions, Travis CI, Azure Pipelines}
+	\cvitem{VCS}{git}
+	\cvitem{Misc}{TensorFlow 2.0, Keras, scikit-learn, Markdown, \LaTeX, vanilla vim}
+	
+	\section{Research Interests}
+	\cvitem{Cryptography}{Implement secure channels with some well-known algorithms: AES, RSA, ElGamal, Hill Cipher and ECC.}
+	\cvitem{Natural Language Processing}{Studying some NLP problems and their application in Vietnamese: Vietnamese Sentiment Analysis, Vietnamese Ancient Text OCR.}
+	\cvitem{Software Automation}{Creating Software Automation Tools with supported languages (e.g AutoIt, Perl, Bash)}
+	%\cvitem{Hobby 3}{Description}
+	
+	\section{Projects}
+	\cventry{2021}{\href{https://github.com/trhgquan/OCR_chu_Nom}{Chu Nom Optical Character Recognition (OCR)}}{School project}{}{}{Creating an Ancient Vietnamese Text (Chu Nom) Optical Character Recognition engine using CenterNet CNN and simple Digit Recognition; with TensorFlow v2 and Keras}
+	
+	\cventry{2021}{\href{https://github.com/trhgquan/image-sharing}{Secured Image Sharing Platform}}{School project}{}{}{Creating a secured image sharing platform; using AES (with CBC mode), RSA and file checksum (using SHA-256 hash)}
+	
+	\cventry{2022}{\href{https://github.com/trhgquan/fakenews-detection}{Fakenews Detection}}{School project}{}{}{Creating a simple web-based Fakenews Detection tool using multiple statistical ML models; data are from Kaggle Fakenews Dataset.}
+	
+	\cventry{2022}{\href{https://github.com/trhgquan/sbert-sentence-similarity}{SBERT Sentence Similarity}}{School project}{}{}{Creating a simple web-based Sentence Similarity Calculation tool, using pre-trained SBERT from Huggingface.}
+	
+	\section{Achievements}
+	%\cvlistitem{Item 1}
+	%\cvlistitem{Item 2}
+	%\cvlistitem{Item 3}
+	\cventry{2018}{Consolation}{Ben Tre Province Olympiad in Informatics}{Ben Tre - Vietnam}{}{5/20 pts}
+	\cventry{2019}{$3^{rd}$}{Ben Tre Province Olympiad in Informatics}{Ben Tre - Vietnam}{}{10/20 pts}
+	\cventry{2021}{Consolation}{The ACM - ICPC Vietnam Southern Provincial}{HCMC - Vietnam}{}{Ranked $61^{th}$, solved 6 problems}
+	
+	%\section{Projects}
+	%\cvlistdoubleitem{Item 2}{Item 5}
+	%\cvlistdoubleitem{Item 3}{Item 6}
+	
+	%\section{References}
+	%\begin{cvcolumns}
+	%  \cvcolumn{Personal GitHub}{\href{https://github.com/trhgquan}{https://github.com/trhgquan}}
+	%  \cvcolumn{Category 2}{Comment}
+	%  \cvcolumn{Category 3}{Comment}
+	%\end{cvcolumns}
+	\clearpage
+	%%-----       letter       ---------------------------------------------------------
+	%% recipient data
+	%\recipient{Company Recruitment team}{Company's name\\Street address\\Zip Code City}
+	%\date{Date}
+	%\opening{Dear Sir or Madam,}
+	%\closing{Yours faithfully,}
+	%\enclosure{enclosures}          % use an optional argument to use a string other than "Enclosure", or redefine \enclname
+	%\makelettertitle
+	%\makeletterclosing
 \end{document}
