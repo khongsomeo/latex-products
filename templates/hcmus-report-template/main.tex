@@ -1,0 +1,96 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage[colorlinks=true,linkcolor=blue, citecolor=red]{hyperref}
+\usepackage{url}
+\usepackage[top=.75in, left=.75in, right=.75in, bottom=1in]{geometry}
+\usepackage[utf8]{vietnam}
+\setlength{\headheight}{29.43912pt}
+
+% \graphicspath{PATH_TO_GRAPHIC_FOLDER}
+
+% To use Times font family, uncomment this row
+% \usepackage{mathptmx}
+
+% Footer page number would be on the lower-right corner
+\pagestyle{fancy}
+\fancyfoot{}
+\fancyfoot[R]{Page \thepage}
+
+\lhead{
+Tên báo cáo
+}
+\rhead{
+Trường Đại học Khoa học Tự nhiên - ĐHQG HCM\\
+Tên môn học
+}
+\lfoot{\LaTeX\ by \href{https://github.com/trhgquan}{Quan, Tran Hoang}}
+
+\newcommand{\coursename}{Môn Học Gì Đấy}
+\newcommand{\reportname}{Tên Báo Cáo Gì Đấy}
+
+\begin{document}
+
+\begin{titlepage}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\centering
+
+\textsc{\LARGE đại học quốc gia tphcm}\\[1.5cm]
+\textsc{\Large trường đại học khoa học tự nhiên}\\[0.5cm]
+\textsc{\large khoa công nghệ thông tin}\\[0.5cm]
+\textsc{bộ môn công nghệ tri thức}\\[0.5cm]
+
+\HRule \\[0.4cm]
+{ 
+\huge{\bfseries{Báo cáo Bài tập gì gì đấy}}\\[0.5cm]
+\large{\bfseries{Đề tài: \reportname}}
+}\\[0.4cm]
+\HRule \\[0.5cm]
+
+\textbf{\large Môn học: \coursename}\\[0.5cm]
+
+\begin{minipage}[t]{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Sinh viên thực hiện:}\\
+Trần Sinh Viên (19120338)
+% Nguyễn Văn A \textsc{(19120000)}
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}[t]{0.4\textwidth}
+\begin{flushright} \large
+\emph{Giáo viên hướng dẫn:} \\
+% Dr. James \textsc{Smith}
+Thầy Nguyễn Văn Hướng Dẫn
+\end{flushright}
+\end{minipage}\\[2cm]
+
+{\large \today}\\[2cm]
+
+\includegraphics[scale=.3]{img/hcmus-logo.png}\\[1cm] 
+
+\vfill
+\end{titlepage}
+	
+	
+\tableofcontents
+\pagebreak
+
+\section{First section}
+Lorem ipsum dolor sit amet\cite{greenwade93}
+
+\subsection{First subsection}
+\subsubsection{First sub-subsection}
+Hello world
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{section}{Tài liệu}
+\bibliographystyle{plain}
+\bibliography{sample}
+
+\end{document}
