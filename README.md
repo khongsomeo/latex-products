@@ -1,18 +1,16 @@
-# latex-products
+# LaTeX templates for further use
 
-[Installation](#Installation) | [Usage](#Usage) | [Credit](#Credit)
+$\LaTeX$ templates and archived templates, by @khongsomeo since 2019.
 
-LaTeX products, for further projects.
-
-## Installation
-Execute a `git-clone`:
-
-`git clone https://github.com/khongsomeo/latex-products.git`.
-
-## Usage
-These are just TeX source code. PDF version will be updated at working folders.
+## Further notes
+- These templates would work (best) in TeX Studio or Overleaf.
+- Some templates used BibTeX or BibLaTeX for bibliography rendering, depends on some fuzzy heuristics which we didn't remember how and why we pick it (lol). This means if your compilation results in BibTex/BibLaTeX error, try changing it to other Bib engines before considering it an error.
 
 ## Credit
-This project is being maintained by **@khongsomeo/dt101**.
+Kudos to
+- [@trhgquan](https://github.com/trhgquan)
+- [@meadoge](https://github.com/meadoge)
+- [@hwangswan](https://github.com/hwangswan)
 
-
+## LICENSE
+These works are under [The GNU GPL v3.0](LICENSE)
