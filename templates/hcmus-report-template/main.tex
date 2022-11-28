@@ -14,7 +14,7 @@
 % \graphicspath{PATH_TO_GRAPHIC_FOLDER}
 
 % To use Times font family, uncomment this row
-% \usepackage{mathptmx}
+\usepackage{mathptmx}
 
 % Footer page number would be on the lower-right corner
 \pagestyle{fancy}
@@ -57,7 +57,7 @@ Tên môn học
 \begin{flushleft} \large
 \emph{Sinh viên thực hiện:}\\
 Trần Sinh Viên (19120338)
-% Nguyễn Văn A \textsc{(19120000)}
+% Nguyễn Văn A \textsc{(19120000)} \\
 \end{flushleft}
 \end{minipage}
 ~
@@ -87,7 +87,10 @@ Lorem ipsum dolor sit amet\cite{greenwade93}
 \subsubsection{First sub-subsection}
 Hello world
 
-\cleardoublepage
+% Uncomment this line if you want the Bibliography page sits separately in another page. 
+% \cleardoublepage
+
+% DO NOT TOUCH
 \phantomsection
 \addcontentsline{toc}{section}{Tài liệu}
 \bibliographystyle{plain}
