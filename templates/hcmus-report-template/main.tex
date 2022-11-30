@@ -9,12 +9,47 @@
 \usepackage{url}
 \usepackage[top=.75in, left=.75in, right=.75in, bottom=1in]{geometry}
 \usepackage[utf8]{vietnam}
+
+% For algorithm
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% For code
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+% Header length
+
 \setlength{\headheight}{29.43912pt}
 
 % \graphicspath{PATH_TO_GRAPHIC_FOLDER}
 
 % To use Times font family, uncomment this row
-\usepackage{mathptmx}
+% \usepackage{mathptmx}
 
 % Footer page number would be on the lower-right corner
 \pagestyle{fancy}
@@ -56,8 +91,8 @@ Tên môn học
 \begin{minipage}[t]{0.4\textwidth}
 \begin{flushleft} \large
 \emph{Sinh viên thực hiện:}\\
-Trần Sinh Viên (19120338)
-% Nguyễn Văn A \textsc{(19120000)} \\
+Trần Hoàng Tử (19120338)
+% Nguyễn Văn A \textsc{(19120000)}
 \end{flushleft}
 \end{minipage}
 ~
@@ -65,7 +100,7 @@ Trần Sinh Viên (19120338)
 \begin{flushright} \large
 \emph{Giáo viên hướng dẫn:} \\
 % Dr. James \textsc{Smith}
-Thầy Nguyễn Văn Hướng Dẫn
+GS. TS. Nguyễn Văn Hướng Dẫn
 \end{flushright}
 \end{minipage}\\[2cm]
 
@@ -80,17 +115,109 @@ Thầy Nguyễn Văn Hướng Dẫn
 \tableofcontents
 \pagebreak
 
-\section{First section}
-Lorem ipsum dolor sit amet\cite{greenwade93}
+\section{Section}
+Ngày xửa ngày xưa, ở vương quốc VNUHCM - US, có một chàng hoàng tử ngồi cắm đầu viết doc\cite{greenwade93}\footnote{Đây là footnote, chú thích lại những gì cần chú ý. \textbf{Citation để ví dụ cho vui}}.\\
+Mặc định muốn xuống dòng chỉ cần dùng $\backslash\backslash$  (2 lần dấu xẹt huyền). 
+
+Nếu muốn xuống dòng nhanh bằng enter 2 lần mà không thụt đầu dòng, thì thêm \textit{$\backslash$noindent} vào trước.
+
+\noindent Đây là ví dụ, xuống dòng và dùng noindent.
 
 \subsection{First subsection}
 \subsubsection{First sub-subsection}
-Hello world
+Subsection để ví dụ thôi. Thêm vài ví dụ:
+\begin{itemize}
+    \item Dùng itemize
+    \item Vẫn là itemize
+\end{itemize}
+Sau đó xài enumerate:
+\begin{enumerate}
+    \item Dùng enumerate
+    \item Vẫn là enumerate
+\end{enumerate}
 
-% Uncomment this line if you want the Bibliography page sits separately in another page. 
-% \cleardoublepage
+\section{Hình ảnh}
+Hình ảnh được thể hiện như hình~\ref{fig:my_label}, lưu ý flag \texttt{[H]} để disable floating (hình được hiển thị đúng vị trí, không trôi lên đầu trang).
+\begin{figure}%[H]
+    \centering
+    \includegraphics[scale=.4]{img/hcmus-logo.png}
+    \caption{Hình ví dụ (logo HCMUS - updated 30/11/2022)}
+    \label{fig:my_label}
+\end{figure}
 
-% DO NOT TOUCH
+\section{Bảng biểu}
+Bảng biểu được thể hiện như bảng~\ref{tab:my_label}, lưu ý flag \texttt{[H]} để disable floating (bảng được hiển thị đúng vị trí, không trôi lên đầu trang).
+\begin{table}%[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Tên con vật} & \textbf{Số chân} \\ \hline
+Gà & 2 \\ \hline
+Chó & 4 \\ \hline
+Trần Hoàng Tử & 2 \\ \hline
+\end{tabular}
+\caption{Số chân của một số con vật}
+\label{tab:my_label}
+\end{table}
+Để không phải mất thời gian tuổi trẻ ngồi chỉnh table, xài \href{https://www.tablesgenerator.com}{https://www.tablesgenerator.com}.
+
+\section{Công thức toán}
+Công thức toán gõ chung 1 dòng thì dùng 2 lần dấu dollar: $f(x) = x^2 + 2x + 1$. Với công thức nằm riêng 1 dòng thì gõ 2 cặp dấu dollar:
+$$
+ReLU(x) = \max(0, x)
+$$
+Siêu việt hơn, gõ hệ phương trình thì nên dùng tag \texttt{equation}
+\begin{equation*}
+\begin{aligned}
+a_1x_1 + a_2x_2 + .. + a_nx_n &= u \\
+b_1x_1 + b_2x_2 + .. + b_nx_n &= v \\
+c_1x_1 + c_2x_2 + .. + c_nx_n &= w \\
+\end{aligned}
+\end{equation*}
+Tham khảo cách gõ equation ở Overleaf nhé!
+
+\section{Thuật toán}
+Dùng gói \texttt{algorithm} và \texttt{algpseudocode} để gõ đoạn thuật toán~\ref{alg:label}\footnote{Tất nhiên đây là dùng katana mổ ruồi!}
+
+\begin{algorithm}
+\caption{Thuật toán đếm xem nhiều gà hay nhiều chó hơn}
+\label{alg:label}
+\begin{algorithmic}
+\Function {GaChoSoNaoLonHon}{\textit{ga}, \textit{cho}}
+\State $soGa \gets 0$
+\State $soCho \gets 0$
+\For {$i \in [0, |soGa| - 1]$}
+\State $soGa \gets soGa + 1$
+\EndFor
+\For {$i \in [0, |soCho| - 1]$}
+\State $soCho \gets soCho + 1$
+\EndFor
+
+\If {$soGa > soCho$}
+\State\Return $soGa$
+\EndIf
+\State\Return $soCho$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\section{Code}
+Dùng gói \texttt{listings} để gõ code, ví dụ cho Python:
+
+\begin{lstlisting}[language=Python]
+print("Hello world!")
+\end{lstlisting}
+
+\noindent Cho C++:
+\begin{lstlisting}[language=C++]
+#include<iostream>
+
+int main() {
+    std::cout << "Hello, world!\n";
+    return 0;
+}
+\end{lstlisting}
+\cleardoublepage
 \phantomsection
 \addcontentsline{toc}{section}{Tài liệu}
 \bibliographystyle{plain}

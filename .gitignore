@@ -1,3 +1,6 @@
+## Additional files to be ignored
+*.zip
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
