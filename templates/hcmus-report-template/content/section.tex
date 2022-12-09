@@ -1,0 +1,34 @@
+\section{Section}
+
+\subsection{Một số lưu ý}
+Template này yêu cầu cài đặt một số gói (package) nâng cao:
+\begin{itemize}
+\item Để gõ thuật toán: \texttt{algorithm} và \texttt{algpseudocode}
+\item Để nhúng (chèn) code: \texttt{listings}
+\end{itemize}
+Các gói này được cài đặt thông qua lệnh
+\begin{lstlisting}[language=sh]
+sudo apt-get install texlive-full
+\end{lstlisting}
+Tuy nhiên kích thước gói đâu đó vào khoảng 5GB (!). Vì vậy tốt nhất nên xài Overleaf.
+
+\subsection{Ví dụ}
+Ngày xửa ngày xưa, ở vương quốc VNUHCM - US, có một chàng hoàng tử ngồi cắm đầu viết doc\cite{greenwade93}\footnote{Đây là footnote, chú thích lại những gì cần chú ý. \textbf{Citation để ví dụ cho vui}}.\\
+Mặc định muốn xuống dòng chỉ cần dùng $\backslash\backslash$  (2 lần dấu xẹt huyền). 
+
+Nếu muốn xuống dòng nhanh bằng enter 2 lần mà không thụt đầu dòng, thì thêm \textit{$\backslash$noindent} vào trước.
+
+\noindent Đây là ví dụ, xuống dòng và dùng noindent.
+
+\subsection{First subsection}
+\subsubsection{First sub-subsection}
+Subsection để ví dụ thôi. Thêm vài ví dụ:
+\begin{itemize}
+    \item Dùng itemize
+    \item Vẫn là itemize
+\end{itemize}
+Sau đó xài enumerate:
+\begin{enumerate}
+    \item Dùng enumerate
+    \item Vẫn là enumerate
+\end{enumerate}
