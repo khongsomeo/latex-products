@@ -14,11 +14,12 @@ Tuy nhiên kích thước gói đâu đó vào khoảng 5GB (!). Vì vậy tốt
 
 \subsection{Ví dụ}
 Ngày xửa ngày xưa, ở vương quốc VNUHCM - US, có một chàng hoàng tử ngồi cắm đầu viết doc\cite{greenwade93}\footnote{Đây là footnote, chú thích lại những gì cần chú ý. \textbf{Citation để ví dụ cho vui}}.\\
-Mặc định muốn xuống dòng chỉ cần dùng $\backslash\backslash$  (2 lần dấu xẹt huyền). 
+Mặc định muốn xuống dòng chỉ cần dùng $\backslash\backslash$  (2 lần dấu xẹt huyền).\\
+Nếu bạn muốn thụt đầu dòng khi bắt đầu paragraph mới, vào \texttt{main.tex} và disble dòng
+\begin{lstlisting}[language=tex]
+\setlength{\parindent}{0pt}
+\end{lstlisting}
 
-Nếu muốn xuống dòng nhanh bằng enter 2 lần mà không thụt đầu dòng, thì thêm \textit{$\backslash$noindent} vào trước.
-
-\noindent Đây là ví dụ, xuống dòng và dùng noindent.
 
 \subsection{First subsection}
 \subsubsection{First sub-subsection}
@@ -32,3 +33,7 @@ Sau đó xài enumerate:
     \item Dùng enumerate
     \item Vẫn là enumerate
 \end{enumerate}
+Nhỏ hơn subsubsection thì xài \texttt{paragraph}:
+
+\paragraph{Đây là ví dụ cho paragraph}
+Lưu ý là paragraph không nằm trong Mục lục.

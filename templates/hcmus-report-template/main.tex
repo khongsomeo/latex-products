@@ -43,13 +43,19 @@
 \lstset{style=mystyle}
 
 % Header length
-
 \setlength{\headheight}{29.43912pt}
+
+% Disable indentation on new paragraphs
+\setlength{\parindent}{0pt}
 
 % \graphicspath{PATH_TO_GRAPHIC_FOLDER}
 
 % To use Times font family, uncomment this row
 % \usepackage{mathptmx}
+
+\newcommand{\coursename}{Môn Học Gì Đấy}
+\newcommand{\reportname}{Tên Báo Cáo Gì Đấy}
+\newcommand{\reporttitle}{Báo cáo Bài Tập Gì Đấy}
 
 % Footer page number would be on the lower-right corner
 \pagestyle{fancy}
@@ -61,13 +67,9 @@
 }
 \rhead{
 Trường Đại học Khoa học Tự nhiên - ĐHQG HCM\\
-Tên môn học
+\coursename
 }
 \lfoot{\LaTeX\ by \href{https://github.com/trhgquan}{Quan, Tran Hoang}}
-
-\newcommand{\coursename}{Môn Học Gì Đấy}
-\newcommand{\reportname}{Tên Báo Cáo Gì Đấy}
-\newcommand{\reporttitle}{Báo cáo Bài Tập Gì Đấy}
 
 \begin{document}
 \input{content/title.tex}
