@@ -14,7 +14,7 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 
-% For code
+% ============ CODE ============
 \usepackage{listings}
 \usepackage{xcolor}
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -22,6 +22,7 @@
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
+% Styling for the code.
 \lstdefinestyle{mystyle}{
     backgroundcolor=\color{backcolour},   
     commentstyle=\color{codegreen},
@@ -42,20 +43,27 @@
 }
 \lstset{style=mystyle}
 
-% Header length
-\setlength{\headheight}{29.43912pt}
-
 % Disable indentation on new paragraphs
 \setlength{\parindent}{0pt}
 
+% Optional: graphic path
 % \graphicspath{PATH_TO_GRAPHIC_FOLDER}
 
 % To use Times font family, uncomment this row
 % \usepackage{mathptmx}
 
+% To use roman section / subsection, uncomment these rows
+% \renewcommand{\thesection}{\Roman{section}}
+% \renewcommand{\thesubsection}{\thesection.\Roman{subsection}}
+
+% Define course name, report name and report title.
 \newcommand{\coursename}{Môn Học Gì Đấy}
 \newcommand{\reportname}{Tên Báo Cáo Gì Đấy}
 \newcommand{\reporttitle}{Báo cáo Bài Tập Gì Đấy}
+
+% ============ HEADER AND FOOTER ============
+% Header length
+\setlength{\headheight}{29.43912pt}
 
 % Footer page number would be on the lower-right corner
 \pagestyle{fancy}
@@ -71,6 +79,7 @@ Trường Đại học Khoa học Tự nhiên - ĐHQG HCM\\
 }
 \lfoot{\LaTeX\ by \href{https://github.com/trhgquan}{Quan, Tran Hoang}}
 
+% ============ DOCUMENT ============
 \begin{document}
 \input{content/title.tex}
 	
