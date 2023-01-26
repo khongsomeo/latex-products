@@ -1,0 +1,31 @@
+\documentclass{article}[]
+
+\usepackage[top=.75in, left=.75in, right=.75in, bottom=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+\newcommand{\pagetitle}{Coursera Financial Aids template}
+\newcommand{\pageauthor}{\href{https://github.com/trhgquan}{Quan, Tran Hoang}}
+\newcommand{\lastupdate}{Last updated: \today}
+
+%\fancyhead{}github.com
+\setlength{\headheight}{29.43912pt}
+\pagestyle{fancy}
+\fancyfoot{}
+\fancyfoot[R]{Page \thepage}
+\lhead{\pagetitle}
+\rhead{\lastupdate}
+\lfoot{\pageauthor}
+
+\begin{document}
+%\maketitle
+\pagebreak
+
+\tableofcontents
+
+\pagebreak
+
+\input{answers/first.tex}
+\input{answers/second.tex}
+\input{answers/third.tex}
+\end{document}
