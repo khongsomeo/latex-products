@@ -1,6 +1,6 @@
-\documentclass{article}[]
+\documentclass[14pt]{book}
 
-\usepackage[top=.75in, left=.75in, right=.75in, bottom=1in]{geometry}
+\usepackage[top=.75in, left=1in, right=1in, bottom=1in]{geometry}
 \usepackage{fancyhdr}
 \usepackage{hyperref}
 
@@ -8,7 +8,6 @@
 \newcommand{\pageauthor}{\href{https://github.com/trhgquan}{Quan, Tran Hoang}}
 \newcommand{\lastupdate}{Last updated: \today}
 
-%\fancyhead{}github.com
 \setlength{\headheight}{29.43912pt}
 \pagestyle{fancy}
 \fancyfoot{}
@@ -17,14 +16,18 @@
 \rhead{\lastupdate}
 \lfoot{\pageauthor}
 
+\title{\pagetitle}
+\author{\pageauthor}
+
 \begin{document}
-%\maketitle
+\maketitle
 \pagebreak
 
 \tableofcontents
 
 \pagebreak
 
+\input{answers/options.tex}
 \input{answers/first.tex}
 \input{answers/second.tex}
 \input{answers/third.tex}
