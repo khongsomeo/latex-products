@@ -61,6 +61,11 @@
 \newcommand{\reportname}{Tên Báo Cáo Gì Đấy}
 \newcommand{\reporttitle}{Báo cáo Bài Tập Gì Đấy}
 
+\newcommand{\studentname}{Quan, Tran Hoang (19120338)\\meadoge(19120000)\\Hwang S. Wan (19120000)}
+\newcommand{\teachername}{GS. TS. Nguyễn Văn Hướng Dẫn}
+
+\newcommand{\leftfooter}{\LaTeX\ by \href{https://github.com/trhgquan}{Quan, Tran Hoang}}
+
 % ============ HEADER AND FOOTER ============
 % Header length
 \setlength{\headheight}{29.43912pt}
@@ -68,16 +73,14 @@
 % Footer page number would be on the lower-right corner
 \pagestyle{fancy}
 \fancyfoot{}
-\fancyfoot[R]{Page \thepage}
+\fancyfoot[R]{Trang \thepage}
 
-\lhead{
-\reporttitle
-}
+\lhead{\reporttitle}
 \rhead{
 Trường Đại học Khoa học Tự nhiên - ĐHQG HCM\\
 \coursename
 }
-\lfoot{\LaTeX\ by \href{https://github.com/trhgquan}{Quan, Tran Hoang}}
+\lfoot{\leftfooter}
 
 % ============ DOCUMENT ============
 \begin{document}
@@ -86,12 +89,13 @@ Trường Đại học Khoa học Tự nhiên - ĐHQG HCM\\
 \tableofcontents
 \pagebreak
 
-\input{content/section.tex}
-\input{content/hinhanh.tex}
-\input{content/congthuctoan.tex}
-\input{content/thuattoan.tex}
-\input{content/code.tex}
-\input{content/ngonngu.tex}
+\input{content/section}
+\input{content/hinhanh}
+\input{content/congthuctoan}
+\input{content/thuattoan}
+\input{content/code}
+\input{content/ngonngu}
+\input{content/cite}
 
 % References
 \input{ref/ref.tex}
